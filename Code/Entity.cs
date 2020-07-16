@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
-    class Level
+    class Entity
     {
     }
 }
