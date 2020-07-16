@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
-    class Inventory<T>
+    class Inventory
     {
-        private List<T> Items { get; set; }
+        private List<Item> Items { get; set; }
         public int ItemLimit { get; set; }
         
-        public void AddItem(T item)
+        public void AddItem(Item item)
         {
             Items.Add(item);
         }
         
-        public T GetItem(int index)
+        public Item GetItem(int index)
         {
             return Items.ElementAt(index);
         }
 
-        public List<T> GetAllItems()
+        public List<Item> GetAllItems()
         {
             return Items;
         }

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsAndDungeons.Code
+namespace DungeonsAndDungeons
 {
-	class Item
+	public class Item
 	{
 		public Dictionary<string, object> Attributes { get; set; }
-
 	}
 }
