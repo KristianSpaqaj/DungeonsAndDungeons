@@ -8,5 +8,9 @@ namespace DungeonsAndDungeons
 {
     class Entity
     {
+        public Dictionary<string, object> Attributes { get; set; }
+
+       // public abstract Command GetTurnCommand();
+
     }
 }

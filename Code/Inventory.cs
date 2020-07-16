@@ -8,5 +8,6 @@ namespace DungeonsAndDungeons
 {
     class Inventory
     {
+
     }
 }
