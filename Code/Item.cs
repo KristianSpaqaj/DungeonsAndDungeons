@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Code
 {
-    class Map
-    {
-    
-    }
+	class Item
+	{
+		public Dictionary<string, object> Attributes { get; set; }
+
+	}
 }
