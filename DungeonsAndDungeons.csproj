@@ -43,11 +43,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Adventure.cs" />
+    <Compile Include="Code\Camera.cs" />
+    <Compile Include="Code\DirectBitmap.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
+    <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\TurnProcessor.cs" />
     <Compile Include="Code\Weapon.cs" />
@@ -60,6 +63,7 @@
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
