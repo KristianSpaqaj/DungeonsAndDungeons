@@ -47,6 +47,7 @@
     <Compile Include="Code\Command.cs" />
     <Compile Include="Code\DirectBitmap.cs" />
     <Compile Include="Code\Entity.cs" />
+    <Compile Include="Code\EntityManager.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\Item.cs" />
     <Compile Include="Code\Level.cs" />

@@ -6,9 +6,15 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
-    class Entity
+    public class Entity
     {
+        public int Id { get; }
         public Dictionary<string, object> Attributes { get; set; }
+
+        public Entity()
+        {
+            //generate ID
+        }
 
        // public abstract Command GetTurnCommand();
 
