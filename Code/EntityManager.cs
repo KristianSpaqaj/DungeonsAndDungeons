@@ -8,7 +8,7 @@ namespace DungeonsAndDungeons.Code
 {
     public static class EntityManager //burde måske være singleton 
     {
-        public static List<Entity> Entities { get; }
+        public static List<Entity> Entities { get; set; }
 
         public static Entity GetEntityById(int id)
         {

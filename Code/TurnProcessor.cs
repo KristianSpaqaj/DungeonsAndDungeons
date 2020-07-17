@@ -8,7 +8,8 @@ namespace DungeonsAndDungeons
 {
     class TurnProcessor
     {
-        private Entity CurrentEntity { get; set; }
+        public Entity CurrentEntity { get; set; }
+        
 
         public void RunCurrentTurn(Level currentLevel)
         {
