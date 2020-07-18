@@ -45,6 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Adventure.cs" />
+    <Compile Include="Code\Behaviour.cs" />
     <Compile Include="Code\Camera.cs" />
     <Compile Include="Code\Command.cs" />
     <Compile Include="Code\DirectBitmap.cs" />

@@ -10,13 +10,17 @@ namespace DungeonsAndDungeons
     {
         public int Id { get; }
         public Dictionary<string, object> Attributes { get; set; }
+        public Behaviour Behaviour {get;set;}
 
         public Entity()
         {
             //generate ID
         }
 
-       // public abstract Command GetTurnCommand();
+        public Command GetTurnCommand(Level level)
+        {
+            return Behaviour.Run(Id, level);
+        }
 
     }
 }
