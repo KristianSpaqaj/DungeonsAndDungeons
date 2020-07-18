@@ -1,14 +1,15 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace DungeonsAndDungeons
 {
     public class Renderer
     {
-        private readonly int ScreenWidth;
-        private readonly int ScreenHeight;
+        public readonly int ScreenWidth;
+        public readonly int ScreenHeight;
         private readonly int MapWidth;
         private readonly int MapHeight;
         private const int TexWidth = 64;
@@ -18,44 +19,27 @@ namespace DungeonsAndDungeons
         private double rotSpeed = 0.5;
         private double moveSpeed = 0.5;
 
-        private DirectBitmap _image;
-
-        private Graphics _buffer;
+        private Color[] _buffer;
 
         public double posX = 20.5, posY = 8.5;  //x and y start position
         double dirX = -1, dirY = 0;
         double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
 
-        private readonly List<Bitmap> _textures;
-        private Font _textFont = new Font(FontFamily.GenericSansSerif, 25);
+        private readonly List<Texture2D> _textures;
+        //private Font _textFont = new Font(FontFamily.GenericSansSerif, 25);
         private Color wallColor;
         private Color floorColor;
         private Color ceilingColor;
+        private List<Color[]> _colors;
 
-        public Renderer()
+        public Renderer(int h, int w, List<Texture2D> textures)
         {
-            ScreenWidth = 640;
-            ScreenHeight = 480;
+            ScreenWidth = w;
+            ScreenHeight = h;
 
-            _textures = new List<Bitmap>();
+            _textures = textures;
 
-            string path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..\Raycaster"));
-
-            if (!Directory.Exists($@"{path}\Textures"))
-            {
-                throw new DirectoryNotFoundException($@"{path}\Textures");
-            }
-
-            string[] filenames = Directory.GetFiles($@"{path}\Textures");
-
-            foreach (string file in filenames)
-            {
-                _textures.Add(new Bitmap(file));
-            }
-
-
-            _image = new DirectBitmap(ScreenWidth, ScreenHeight);
-            _buffer = Graphics.FromImage(_image.Bitmap);
+            _buffer = new Color[ScreenWidth * ScreenHeight];
 
             _worldMap = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
@@ -86,11 +70,26 @@ namespace DungeonsAndDungeons
 
             MapWidth = _worldMap.GetLength(1);
             MapHeight = _worldMap.GetLength(0);
+
+            _colors = new List<Color[]>(textures.Count);
+
+            GenerateColorsFromTexture(textures);
         }
 
-        public Bitmap Render()
+        private void GenerateColorsFromTexture(List<Texture2D> textures)
         {
-            _buffer.Clear(Color.White);
+            Color[] colors = new Color[TexWidth*TexHeight];
+
+            for(int i = 0; i < textures.Count; i++)
+            {
+                textures[i].GetData<Color>(colors);
+                _colors.Add(colors);
+                colors = new Color[TexWidth * TexHeight];
+            }
+        }
+
+        public Color[] Render()
+        {
 
             for (int y = 0; y < ScreenHeight; y++)
             {
@@ -134,15 +133,14 @@ namespace DungeonsAndDungeons
                     // choose texture and draw the pixel
                     int floorTexture = 3;
                     int ceilingTexture = 6;
-                    
-                    floorColor = _textures[floorTexture].GetPixel(tx, ty);
-                    _image.SetPixel(x, y, floorColor);
-                    
-                    ceilingColor = _textures[ceilingTexture].GetPixel(tx, ty);
-                    _image.SetPixel(x, (ScreenHeight - y - 1), ceilingColor);
+
+                    floorColor = GetPixel(_colors[floorTexture], tx, ty);
+                    _buffer[x + (y*ScreenWidth)] = floorColor;
+
+                    ceilingColor = GetPixel(_colors[ceilingTexture], tx, ty);
+                    _buffer[x + ((ScreenHeight - y -1) * ScreenWidth)] = ceilingColor;
                 }
             }
-            
 
             for (int x = 0; x < ScreenWidth; x++)
             {
@@ -268,23 +266,21 @@ namespace DungeonsAndDungeons
                     int texY = (int)texPos & (TexHeight - 1);
                     texPos += step;
 
-                    wallColor = _textures[texNum].GetPixel(texX, texY);
+                    wallColor = GetPixel(_colors[texNum], texX, texY);
 
                     if (side == 1)
                     {
-                        wallColor = ChangeBrightness(wallColor, 0.6);
+                        //wallColor = ChangeBrightness(wallColor, 0.6);
                     }
 
                     //_buffer.DrawString(perpWallDist.ToString(), _textFont, new SolidBrush(wallColor.White), 50, 50, 
                     //    new StringFormat(StringFormatFlags.NoClip));
 
-                    _image.SetPixel(x, y,wallColor);
+                    _buffer[(x + (y * ScreenWidth))] = wallColor;
                 }
             }
 
-            //_buffer.DrawString($"{GetDirectionQuarter(dirX, dirY)}", _textFont, new SolidBrush(Color.White) , new Point(50,100));
-
-            return _image.Bitmap;
+            return _buffer;
         }
 
         private double GetDirectionQuarter(double dX, double dY)
@@ -293,12 +289,12 @@ namespace DungeonsAndDungeons
             return Math.Round(angle / 90) * 90;
         }
 
-        public Color ChangeBrightness(Color color, double f)
-        {
-            return Color.FromArgb((int)(color.R * f), (int)(color.G * f), (int)(color.B * f));
-        }
+        //public Color ChangeBrightness(Color color, double f)
+        //{
+        //    return Color.FromArgb((int)(color.R * f), (int)(color.G * f), (int)(color.B * f));
+        //}
 
-        public void MoveForward()
+        public void MoveForward(GameTime time)
         {
             double angle = GetDirectionQuarter(dirX, dirY);
 
@@ -347,6 +343,11 @@ namespace DungeonsAndDungeons
 
             planeX = planeY;
             planeY = -oldPlaneX;
+        }
+
+        private Color GetPixel(Color[] texture, int x, int y)
+        {
+            return texture[x+(y*TexWidth)];
         }
 
     }

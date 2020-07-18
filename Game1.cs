@@ -1,7 +1,12 @@
 ﻿using DungeonsAndDungeons.Code;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
 {
@@ -12,11 +17,23 @@ namespace DungeonsAndDungeons
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Renderer renderer;
+        Texture2D screen;
+        List<Texture2D> textures;
+
+        private const int ScreenWidth = 1920;
+        private const int ScreenHeight = 1080;
+
+        private int seconds;
         
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            textures = new List<Texture2D>();
+            graphics.PreferredBackBufferWidth = ScreenWidth;
+            graphics.PreferredBackBufferHeight = ScreenHeight;
+            seconds = 1;
         }
 
         /// <summary>
@@ -27,7 +44,14 @@ namespace DungeonsAndDungeons
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            for (int i = 1; i < 9; i++)
+            {
+                textures.Add(Content.Load<Texture2D>(i.ToString()));
+            }
+
+            renderer = new Renderer(640, 240, textures);
+
+            screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
             base.Initialize();
         }
@@ -63,6 +87,15 @@ namespace DungeonsAndDungeons
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.W))
+            {
+                if (gameTime.TotalGameTime.Seconds > seconds + 1)
+                {
+                    renderer.MoveForward(gameTime);
+                    seconds = gameTime.TotalGameTime.Seconds;
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -72,11 +105,19 @@ namespace DungeonsAndDungeons
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
-            // TODO: Add your drawing code here
+            Color[] colors = renderer.Render();
+
+            screen.SetData<Color>(colors);
+            
+            spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             base.Draw(gameTime);
+
+            spriteBatch.End();
         }
+
     }
+
 }
