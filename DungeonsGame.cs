@@ -15,7 +15,7 @@ namespace DungeonsAndDungeons
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class DungeonsGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -60,7 +60,7 @@ namespace DungeonsAndDungeons
 
         Camera camera;
 
-        public Game1()
+        public DungeonsGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -72,12 +72,6 @@ namespace DungeonsAndDungeons
             camera = new Camera(new Vector2(20.5f, 8.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             for (int i = 1; i < 9; i++)
@@ -92,63 +86,45 @@ namespace DungeonsAndDungeons
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             song = Content.Load<SoundEffect>("ambient");
-            MediaPlayer.Volume = 100;
-            // TODO: use this.Content to load your game content here
+            MediaPlayer.Volume = 50;
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
+       protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
+            if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
                 camera.MoveForward(gameTime);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
             {
                 camera.Rotate(90);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.D) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
+            if (Keyboard.GetState().IsKeyDown(Keys.D) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
                 camera.Rotate(-90);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
 
-            //song.Play();
+            song.Play();
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
