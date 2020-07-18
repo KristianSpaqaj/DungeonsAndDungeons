@@ -58,6 +58,7 @@
     <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\TurnProcessor.cs" />
+    <Compile Include="Code\Vector2Extensions.cs" />
     <Compile Include="Code\Weapon.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />

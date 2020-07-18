@@ -30,6 +30,8 @@ namespace DungeonsAndDungeons
 
         SoundEffect song;
 
+        Camera camera;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -38,6 +40,7 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             seconds = 1;
+            camera = new Camera(new Vector2(20.5f, 8.5f), new Vector2(-1, 0), new Vector2(0,0.66f));
         }
 
         /// <summary>
@@ -94,21 +97,21 @@ namespace DungeonsAndDungeons
 
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
-                renderer.MoveForward(gameTime);
+                camera.MoveForward(gameTime);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
             {
-                renderer.RotateLeft();
+                camera.Rotate(90);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
             if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.D) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
-                renderer.RotateRight();
+                camera.Rotate(-90);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
 
-            song.Play();
+            //song.Play();
 
             base.Update(gameTime);
         }
@@ -121,7 +124,7 @@ namespace DungeonsAndDungeons
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
-            Color[] colors = renderer.Render();
+            Color[] colors = renderer.Render(camera);
 
             screen.SetData<Color>(colors);
 

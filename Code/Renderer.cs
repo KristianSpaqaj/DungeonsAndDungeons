@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Raycaster;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,17 +16,10 @@ namespace DungeonsAndDungeons
         private const int TexHeight = 64;
 
         private int[,] _worldMap;
-        private double rotSpeed = 0.5;
-        private double moveSpeed = 0.5;
 
         private Color[] _buffer;
 
-        Vector2 position = new Vector2(20.5f, 8.5f);
-        Vector2 direction = new Vector2(-1, 0);
-        Vector2 cameraPlane = new Vector2(0, 0.66f);
-
         private readonly List<Texture2D> _textures;
-        //private Font _textFont = new Font(FontFamily.GenericSansSerif, 25);
         private Color wallColor;
         private Color floorColor;
         private Color ceilingColor;
@@ -77,28 +69,16 @@ namespace DungeonsAndDungeons
             GenerateColorsFromTexture(textures);
         }
 
-        private void GenerateColorsFromTexture(List<Texture2D> textures)
-        {
-            Color[] colors = new Color[TexWidth * TexHeight];
-
-            for (int i = 0; i < textures.Count; i++)
-            {
-                textures[i].GetData<Color>(colors);
-                _colors.Add(colors);
-                colors = new Color[TexWidth * TexHeight];
-            }
-        }
-
-        public Color[] Render()
+        public Color[] Render(Camera camera)
         {
 
             for (int y = 0; y < ScreenHeight; y++)
             {
                 // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-                float rayDirX0 = direction.X - cameraPlane.X;
-                float rayDirY0 = direction.Y - cameraPlane.Y;
-                float rayDirX1 = direction.X + cameraPlane.X;
-                float rayDirY1 = direction.Y + cameraPlane.Y;
+                float rayDirX0 = camera.Direction.X - camera.Plane.X;
+                float rayDirY0 = camera.Direction.Y - camera.Plane.Y;
+                float rayDirX1 = camera.Direction.X + camera.Plane.X;
+                float rayDirY1 = camera.Direction.Y + camera.Plane.Y;
 
                 // Current y position compared to the center of the screen (the horizon)
                 int p = y - ScreenHeight / 2;
@@ -115,8 +95,8 @@ namespace DungeonsAndDungeons
                 float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / ScreenWidth;
                 float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / ScreenWidth;
 
-                float floorX = (position.X + rowDistance * rayDirX0);
-                float floorY = (position.Y + rowDistance * rayDirY0);
+                float floorX = (camera.Position.X + rowDistance * rayDirX0);
+                float floorY = (camera.Position.Y + rowDistance * rayDirY0);
 
                 for (int x = 0; x < ScreenWidth; ++x)
                 {
@@ -146,12 +126,12 @@ namespace DungeonsAndDungeons
             for (int x = 0; x < ScreenWidth; x++)
             {
                 double cameraX = 2 * (x) / (double)ScreenWidth - 1;
-                double rayDirX = direction.X + cameraPlane.X * cameraX;
-                double rayDirY = direction.Y + cameraPlane.Y * cameraX;
+                double rayDirX = camera.Direction.X + camera.Plane.X * cameraX;
+                double rayDirY = camera.Direction.Y + camera.Plane.Y * cameraX;
 
                 // which map tile the ray is currently in
-                int mapX = (int)position.X;
-                int mapY = (int)position.Y;
+                int mapX = (int)camera.Position.X;
+                int mapY = (int)camera.Position.Y;
 
                 double sideDistX; // length to next x side
                 double sideDistY; // length to next y side
@@ -173,23 +153,23 @@ namespace DungeonsAndDungeons
                 if (rayDirX < 0)
                 {
                     stepX = -1;
-                    sideDistX = (position.X - mapX) * deltaDistX;
+                    sideDistX = (camera.Position.X - mapX) * deltaDistX;
                 }
                 else
                 {
                     stepX = 1;
-                    sideDistX = (mapX + 1.0 - position.X) * deltaDistX;
+                    sideDistX = (mapX + 1.0 - camera.Position.X) * deltaDistX;
                 }
 
                 if (rayDirY < 0)
                 {
                     stepY = -1;
-                    sideDistY = (position.Y - mapY) * deltaDistY;
+                    sideDistY = (camera.Position.Y - mapY) * deltaDistY;
                 }
                 else
                 {
                     stepY = 1;
-                    sideDistY = (mapY + 1.0 - position.Y) * deltaDistY;
+                    sideDistY = (mapY + 1.0 - camera.Position.Y) * deltaDistY;
                 }
 
                 while (hit == 0)
@@ -217,11 +197,11 @@ namespace DungeonsAndDungeons
                 //caluclate distance to wall
                 if (side == 0)
                 {
-                    perpWallDist = (mapX - position.X + (1 - stepX) / 2) / rayDirX;
+                    perpWallDist = (mapX - camera.Position.X + (1 - stepX) / 2) / rayDirX;
                 }
                 else
                 {
-                    perpWallDist = (mapY - position.Y + (1 - stepY) / 2) / rayDirY;
+                    perpWallDist = (mapY - camera.Position.Y + (1 - stepY) / 2) / rayDirY;
                 }
 
                 //calculate height of wall strip
@@ -240,11 +220,11 @@ namespace DungeonsAndDungeons
 
                 if (side == 0)
                 {
-                    wallX = position.Y + perpWallDist * rayDirY;
+                    wallX = camera.Position.Y + perpWallDist * rayDirY;
                 }
                 else
                 {
-                    wallX = position.X + perpWallDist * rayDirX;
+                    wallX = camera.Position.X + perpWallDist * rayDirX;
                 }
 
                 wallX -= Math.Floor(wallX);
@@ -284,53 +264,24 @@ namespace DungeonsAndDungeons
             return _buffer;
         }
 
-        private double GetDirectionQuarter(double dX, double dY)
+        private void GenerateColorsFromTexture(List<Texture2D> textures)
         {
-            double angle = Math.Atan2(dY, dX) * 180 / Math.PI;
-            return Math.Round(angle / 90) * 90;
+            Color[] colors = new Color[TexWidth * TexHeight];
+
+            for (int i = 0; i < textures.Count; i++)
+            {
+                textures[i].GetData<Color>(colors);
+                _colors.Add(colors);
+                colors = new Color[TexWidth * TexHeight];
+            }
         }
 
+  
         public Color ChangeBrightness(Color color, float f)
         {
             Color changed = Color.Multiply(color, f);
             changed.A = 255;
             return changed;
-        }
-
-        public void MoveForward(GameTime time)
-        {
-            double angle = GetDirectionQuarter(direction.X, direction.Y);
-
-            switch (angle)
-            {
-                case 180:
-                    position.X -= 1;
-                    break;
-
-                case 0:
-                    position.X += 1;
-                    break;
-
-                case 90:
-                    position.Y += 1;
-                    break;
-
-                case -90:
-                    position.Y -= 1;
-                    break;
-            }
-        }
-
-        public void RotateLeft()
-        {
-            direction = new Vector2(-direction.Y, direction.X);
-            cameraPlane = new Vector2(-cameraPlane.Y, cameraPlane.X);
-        }
-
-        public void RotateRight()
-        {
-            direction = new Vector2(direction.Y, -direction.X);
-            cameraPlane = new Vector2(cameraPlane.Y, -cameraPlane.X);
         }
 
         private Color GetPixel(Color[] texture, int x, int y)
