@@ -15,8 +15,6 @@ namespace DungeonsAndDungeons
         private const int TexWidth = 64;
         private const int TexHeight = 64;
 
-        private int[,] _worldMap;
-
         private Color[] _buffer;
 
         private readonly List<Texture2D> _textures;
@@ -34,42 +32,12 @@ namespace DungeonsAndDungeons
 
             _buffer = new Color[ScreenWidth * ScreenHeight];
 
-            _worldMap = new int[,] {
-                { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                { 4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                { 4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                { 4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                { 4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-                { 4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-                { 4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-                { 4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-                { 4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-                { 4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-                { 4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-                { 6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                { 8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-                { 6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                { 4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                { 4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-                { 4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                { 4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-            };
-
-            MapWidth = _worldMap.GetLength(1);
-            MapHeight = _worldMap.GetLength(0);
-
             _colors = new List<Color[]>(textures.Count);
 
             GenerateColorsFromTexture(textures);
         }
 
-        public Color[] Render(Camera camera)
+        public Color[] Render(Camera camera, Level level)
         {
 
             for (int y = 0; y < ScreenHeight; y++)
@@ -188,7 +156,7 @@ namespace DungeonsAndDungeons
                         side = 1;
                     }
 
-                    if (_worldMap[mapX, mapY] > 0)
+                    if (level.Map[mapX, mapY] > 0)
                     {
                         hit = 1;
                     }
@@ -214,7 +182,7 @@ namespace DungeonsAndDungeons
                 int drawEnd = lineHeight / 2 + ScreenHeight / 2;
                 drawEnd = Math.Min(drawEnd, ScreenHeight - 1);
 
-                int texNum = _worldMap[mapX, mapY] - 1;
+                int texNum = level.Map[mapX, mapY] - 1;
 
                 double wallX;
 

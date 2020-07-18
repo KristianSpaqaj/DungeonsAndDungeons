@@ -6,14 +6,23 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
-    class Map
+    public class Map
     {
-        public List<int> Tiles { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public int[,] Tiles { get; set; }
+        public int Height { get; }
+        public int Width { get; }
+
+        public Map(int[,] tiles)
+        {
+            Tiles = tiles;
+            Width = tiles.GetLength(1);
+            Height = tiles.GetLength(0);
+        }
 
         // Tilføj Textures
 
         //Tilføj GetTexture
+
+        public int this[int i, int j] => Tiles[i,j];
     }
 }
