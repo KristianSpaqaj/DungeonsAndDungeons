@@ -49,6 +49,12 @@
 /processorParam:TextureFormat=Color
 /build:eagle.png;3.png
 
+#begin gamemainloop.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:gamemainloop.mp3;ambient.mp3
+
 #begin greystone.png
 /importer:TextureImporter
 /processor:TextureProcessor

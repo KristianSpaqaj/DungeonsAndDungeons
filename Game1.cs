@@ -1,8 +1,10 @@
 ﻿using DungeonsAndDungeons.Code;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
@@ -25,7 +27,9 @@ namespace DungeonsAndDungeons
         private const int ScreenHeight = 1080;
 
         private int seconds;
-        
+
+        SoundEffect song;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -64,7 +68,8 @@ namespace DungeonsAndDungeons
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            song = Content.Load<SoundEffect>("ambient");
+            MediaPlayer.Volume = 100;
             // TODO: use this.Content to load your game content here
         }
 
@@ -87,14 +92,23 @@ namespace DungeonsAndDungeons
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.W))
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
-                if (gameTime.TotalGameTime.Seconds > seconds + 1)
-                {
-                    renderer.MoveForward(gameTime);
-                    seconds = gameTime.TotalGameTime.Seconds;
-                }
+                renderer.MoveForward(gameTime);
+                seconds = gameTime.TotalGameTime.Seconds;
             }
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
+            {
+                renderer.RotateLeft();
+                seconds = gameTime.TotalGameTime.Seconds;
+            }
+            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.D) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
+            {
+                renderer.RotateRight();
+                seconds = gameTime.TotalGameTime.Seconds;
+            }
+
+            song.Play();
 
             base.Update(gameTime);
         }
@@ -110,7 +124,7 @@ namespace DungeonsAndDungeons
             Color[] colors = renderer.Render();
 
             screen.SetData<Color>(colors);
-            
+
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             base.Draw(gameTime);
