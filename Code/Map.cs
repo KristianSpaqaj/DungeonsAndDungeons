@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Code;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,11 @@ namespace DungeonsAndDungeons
             Textures = new List<Color[]>();
 
             VerifyTextureSizeConsistency(textures);
-            GenerateColorsFromTexture(textures);
+        
+            foreach(Texture2D texture in textures)
+            {
+                Textures.Add(TextureUtilities.GenerateColorsFromTexture(texture));
+            }
         }
 
         public Color[] GetTileTexture(int x, int y)
@@ -41,20 +46,6 @@ namespace DungeonsAndDungeons
             {
                 throw new ArgumentException("Textures must all be same height and width");
             } 
-        }
-
-        private void GenerateColorsFromTexture(List<Texture2D> textures)
-        {
-            int textureSize = textures[0].Width * textures[0].Height;
-
-            Color[] colors = new Color[textureSize];
-
-            for (int i = 0; i < textures.Count; i++)
-            {
-                textures[i].GetData<Color>(colors);
-                Textures.Add(colors);
-                colors = new Color[textureSize];
-            }
         }
 
         public int this[int i, int j] => Tiles[i,j];
