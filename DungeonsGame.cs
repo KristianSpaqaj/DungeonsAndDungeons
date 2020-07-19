@@ -55,7 +55,7 @@ namespace DungeonsAndDungeons
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
 
-        private int seconds;
+        private double seconds;
 
         private Level level;
 
@@ -74,7 +74,7 @@ namespace DungeonsAndDungeons
             textures = new List<Texture2D>();
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
-            seconds = 1;
+            seconds = 0;
         }
 
         protected override void Initialize()
@@ -89,7 +89,7 @@ namespace DungeonsAndDungeons
 
             sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 17.5f, 8.5f) };
             
-            renderer = new Renderer(640, 240);
+            renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
             
@@ -115,33 +115,39 @@ namespace DungeonsAndDungeons
 
          protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
+            if(gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
             {
-                camera.Move(gameTime, true);
-                seconds = gameTime.TotalGameTime.Seconds;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.S) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
-            {
-                camera.Move(gameTime, false);
-                seconds = gameTime.TotalGameTime.Seconds;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
-            {
-                camera.Rotate(90);
-                seconds = gameTime.TotalGameTime.Seconds;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.D) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
-            {
-                camera.Rotate(-90);
-                seconds = gameTime.TotalGameTime.Seconds;
+                ProcessInput(gameTime);
+                seconds = gameTime.TotalGameTime.TotalSeconds;
             }
 
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
 
             base.Update(gameTime);
+        }
+
+        public void ProcessInput(GameTime gameTime)
+        {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            {
+                camera.Move(gameTime, true);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            {
+                camera.Move(gameTime, false);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                camera.Rotate(90);
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            {
+                camera.Rotate(-90);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
