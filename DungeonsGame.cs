@@ -57,6 +57,8 @@ namespace DungeonsAndDungeons
 
         private Level level;
 
+        private List<Sprite> sprites;
+
         SoundEffect song;
 
         Camera camera;
@@ -78,6 +80,8 @@ namespace DungeonsAndDungeons
                 textures.Add(Content.Load<Texture2D>(i.ToString()));
             }
 
+            sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("pumpkin"), 19.5f, 8.5f) };
+            
             renderer = new Renderer(640, 240);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
@@ -123,7 +127,9 @@ namespace DungeonsAndDungeons
                 seconds = gameTime.TotalGameTime.Seconds;
             }
 
-            song.Play();
+            
+
+            //song.Play();
 
             base.Update(gameTime);
         }
@@ -132,7 +138,7 @@ namespace DungeonsAndDungeons
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
-            Color[] colors = renderer.Render(camera, level);
+            Color[] colors = renderer.Render(camera, level, sprites);
 
             screen.SetData<Color>(colors);
 

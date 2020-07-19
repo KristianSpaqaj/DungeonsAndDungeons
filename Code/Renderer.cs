@@ -21,17 +21,24 @@ namespace DungeonsAndDungeons
         private Color floorColor;
         private Color ceilingColor;
 
+        //Sprite variables
+        double[] zBuffer;
+        int[] spriteOrder;
+        double[] spriteDistance;
+
         public Renderer(int h, int w)
         {
             ScreenWidth = w;
             ScreenHeight = h;
 
             _buffer = new Color[ScreenWidth * ScreenHeight];
+            zBuffer = new double[ScreenWidth];
+            spriteOrder = new int[1];
+            spriteDistance = new double[1];
         }
 
-        public Color[] Render(Camera camera, Level level)
+        public Color[] Render(Camera camera, Level level, List<Sprite> sprites)
         {
-
             for (int y = 0; y < ScreenHeight; y++)
             {
                 // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
@@ -207,24 +214,86 @@ namespace DungeonsAndDungeons
                     int texY = (int)texPos & (TexHeight - 1);
                     texPos += step;
 
-                    wallColor = GetPixel(level.Map.GetTileTexture(mapX,mapY), texX, texY);
+                    wallColor = GetPixel(level.Map.GetTileTexture(mapX, mapY), texX, texY);
 
                     if (side == 1)
                     {
                         wallColor = ChangeBrightness(wallColor, 0.7f);
                     }
 
-                    //_buffer.DrawString(perpWallDist.ToString(), _textFont, new SolidBrush(wallColor.White), 50, 50, 
-                    //    new StringFormat(StringFormatFlags.NoClip));
-
                     _buffer[(x + (y * ScreenWidth))] = wallColor;
                 }
+
+                zBuffer[x] = perpWallDist; //perpendicular distance is used
+
             }
+
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                spriteOrder[i] = i;
+                spriteDistance[i] = ((camera.Position.X - sprites[i].PosX) * (camera.Position.X - sprites[i].PosX) +
+                                     (camera.Position.Y - sprites[i].PosY) * (camera.Position.Y - sprites[i].PosY)); //sqrt not taken, unneeded
+            }
+
+            sortSprites(spriteOrder, spriteDistance, sprites.Count);
+
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                //translate sprite position to relative to camera
+                double spriteX = sprites[spriteOrder[i]].PosX - camera.Position.X;
+                double spriteY = sprites[spriteOrder[i]].PosY - camera.Position.Y;
+
+                double invDet = 1.0 / (camera.Plane.X * camera.Direction.Y - camera.Direction.X * camera.Plane.Y); //required for correct matrix multiplication
+
+                double transformX = invDet * (camera.Direction.Y * spriteX - camera.Direction.X * spriteY);
+                double transformY = invDet * (-camera.Plane.Y * spriteX + camera.Plane.X * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+
+                int spriteScreenX = (int)(ScreenWidth / 2 * (1 + transformX / transformY));
+
+                //calculate height of the sprite on screen
+                int spriteHeight = (int)Math.Abs(int.MaxValue); //using 'transformY' instead of the real distance prevents fisheye
+                                                                                 //calculate lowest and highest pixel to fill in current stripe
+                int drawStartY = -spriteHeight / 2 + ScreenHeight / 2;
+                if (drawStartY < 0) drawStartY = 0;
+                int drawEndY = spriteHeight / 2 + ScreenHeight / 2;
+                if (drawEndY >= ScreenHeight) drawEndY = ScreenHeight - 1;
+
+                //calculate width of the sprite
+                int spriteWidth = Math.Abs(int.MaxValue);
+                int drawStartX = -spriteWidth / 2 + spriteScreenX;
+                if (drawStartX < 0) drawStartX = 0;
+                int drawEndX = spriteWidth / 2 + spriteScreenX;
+                if (drawEndX >= ScreenWidth) drawEndX = ScreenWidth - 1;
+
+                for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+                {
+                    int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TexWidth / spriteWidth) / 256;
+                    //the conditions in the if are:
+                    //1) it's in front of camera plane so you don't see things behind you
+                    //2) it's on the screen (left)
+                    //3) it's on the screen (right)
+                    //4) ZBuffer, with perpendicular distance
+                    if (transformY > 0 && stripe > 0 && stripe < ScreenWidth && transformY < zBuffer[stripe])
+                    {
+                        for (int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+                        {
+                            int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+                            int texY = ((d * TexHeight) / spriteHeight) / 256;
+                            Color color = GetPixel(sprites[spriteOrder[i]].Texture, texX,texY); //get current color from the texture
+                            if (true)
+                            {
+                                _buffer[y + stripe] = color; //paint pixel if it isn't black, black is the invisible color
+                            }
+                        }
+                    }
+                }
+            }
+
 
             return _buffer;
         }
 
-  
+
         public Color ChangeBrightness(Color color, float f)
         {
             Color changed = Color.Multiply(color, f);
@@ -237,6 +306,9 @@ namespace DungeonsAndDungeons
             return texture[x + (y * TexWidth)];
         }
 
-    }
+        private void sortSprites(int[] spriteOrder, double[] spriteDistance, int count)
+        {
 
+        }
+    }
 }
