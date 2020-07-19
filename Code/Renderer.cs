@@ -248,18 +248,18 @@ namespace DungeonsAndDungeons
                 double transformX = invDet * (camera.Direction.Y * spriteX - camera.Direction.X * spriteY);
                 double transformY = invDet * (-camera.Plane.Y * spriteX + camera.Plane.X * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
 
-                int spriteScreenX = (int)(ScreenWidth / 2 * (1 + transformX / transformY));
+                int spriteScreenX = (int)((ScreenWidth / 2) * (1 + transformX / transformY));
 
                 //calculate height of the sprite on screen
-                int spriteHeight = (int)Math.Abs(int.MaxValue); //using 'transformY' instead of the real distance prevents fisheye
-                                                                                 //calculate lowest and highest pixel to fill in current stripe
+                int spriteHeight = (int)Math.Abs(Math.Floor(ScreenHeight / transformY)); //using 'transformY' instead of the real distance prevents fisheye
+                                                                                         //calculate lowest and highest pixel to fill in current stripe
                 int drawStartY = -spriteHeight / 2 + ScreenHeight / 2;
                 if (drawStartY < 0) drawStartY = 0;
                 int drawEndY = spriteHeight / 2 + ScreenHeight / 2;
                 if (drawEndY >= ScreenHeight) drawEndY = ScreenHeight - 1;
 
                 //calculate width of the sprite
-                int spriteWidth = Math.Abs(int.MaxValue);
+                int spriteWidth = (int)Math.Abs(Math.Floor(ScreenWidth / transformY));
                 int drawStartX = -spriteWidth / 2 + spriteScreenX;
                 if (drawStartX < 0) drawStartX = 0;
                 int drawEndX = spriteWidth / 2 + spriteScreenX;
@@ -279,11 +279,8 @@ namespace DungeonsAndDungeons
                         {
                             int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                             int texY = ((d * TexHeight) / spriteHeight) / 256;
-                            Color color = GetPixel(sprites[spriteOrder[i]].Texture, texX,texY); //get current color from the texture
-                            if (true)
-                            {
-                                _buffer[y + stripe] = color; //paint pixel if it isn't black, black is the invisible color
-                            }
+                            Color color = GetPixel(sprites[0].Texture, texX, texY); //get current color from the texture
+                            _buffer[y*ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
                         }
                     }
                 }
