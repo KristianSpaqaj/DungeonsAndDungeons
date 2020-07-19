@@ -5,8 +5,10 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
 using Color = Microsoft.Xna.Framework.Color;
 
@@ -61,6 +63,8 @@ namespace DungeonsAndDungeons
 
         SoundEffect song;
 
+        Dictionary<string, string> Configuration { get; set; }
+
         Camera camera;
 
         public DungeonsGame()
@@ -75,12 +79,15 @@ namespace DungeonsAndDungeons
 
         protected override void Initialize()
         {
+            var text = File.ReadAllText("../../../../Code/Config.json");
+            Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+
             for (int i = 1; i < 9; i++)
             {
                 textures.Add(Content.Load<Texture2D>(i.ToString()));
             }
 
-            sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("pumpkin"), 19.5f, 8.5f) };
+            sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 17.5f, 8.5f) };
             
             renderer = new Renderer(640, 240);
 
@@ -88,7 +95,7 @@ namespace DungeonsAndDungeons
             
             level = new Level(new Map(tiles,textures), null, null);
             
-            camera = new Camera(new Vector2(20.5f, 8.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
+            camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
             base.Initialize();
         }
@@ -98,7 +105,7 @@ namespace DungeonsAndDungeons
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             song = Content.Load<SoundEffect>("ambient");
-            MediaPlayer.Volume = 50;
+            MediaPlayer.Volume = float.Parse(Configuration["musicVolume"]);
         }
 
        protected override void UnloadContent()
@@ -113,7 +120,12 @@ namespace DungeonsAndDungeons
 
             if (Keyboard.GetState().IsKeyDown(Keys.W) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
             {
-                camera.MoveForward(gameTime);
+                camera.Move(gameTime, true);
+                seconds = gameTime.TotalGameTime.Seconds;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.S) && gameTime.TotalGameTime.Seconds > seconds + 0.25)
+            {
+                camera.Move(gameTime, false);
                 seconds = gameTime.TotalGameTime.Seconds;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.A) && gameTime.TotalGameTime.Seconds > seconds)
@@ -127,9 +139,7 @@ namespace DungeonsAndDungeons
                 seconds = gameTime.TotalGameTime.Seconds;
             }
 
-            
-
-            //song.Play();
+            song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
 
             base.Update(gameTime);
         }

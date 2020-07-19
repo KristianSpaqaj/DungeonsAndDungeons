@@ -17,26 +17,28 @@ namespace DungeonsAndDungeons
             Plane = plane;
         }
 
-        public void MoveForward(GameTime time)
+        public void Move(GameTime time, bool forward=true)
         {
             double angle = GetDirectionQuadrant();
+
+            int direction = forward ? 1 : -1;
 
             switch (angle)
             {
                 case 180:
-                    Position = new Vector2(Position.X - 1, Position.Y);
+                    Position = new Vector2(Position.X - direction, Position.Y);
                     break;
 
                 case 0:
-                    Position = new Vector2(Position.X + 1, Position.Y);
+                    Position = new Vector2(Position.X + direction, Position.Y);
                     break;
 
                 case 90:
-                    Position = new Vector2(Position.X, Position.Y + 1);
+                    Position = new Vector2(Position.X, Position.Y + direction);
                     break;
 
                 case -90:
-                    Position = new Vector2(Position.X, Position.Y - 1);
+                    Position = new Vector2(Position.X, Position.Y - direction);
                     break;
             }
         }

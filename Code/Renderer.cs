@@ -259,7 +259,7 @@ namespace DungeonsAndDungeons
                 if (drawEndY >= ScreenHeight) drawEndY = ScreenHeight - 1;
 
                 //calculate width of the sprite
-                int spriteWidth = (int)Math.Abs(Math.Floor(ScreenWidth / transformY));
+                int spriteWidth = (int)Math.Abs(Math.Floor(ScreenWidth / transformY))/2;
                 int drawStartX = -spriteWidth / 2 + spriteScreenX;
                 if (drawStartX < 0) drawStartX = 0;
                 int drawEndX = spriteWidth / 2 + spriteScreenX;
@@ -280,7 +280,10 @@ namespace DungeonsAndDungeons
                             int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                             int texY = ((d * TexHeight) / spriteHeight) / 256;
                             Color color = GetPixel(sprites[0].Texture, texX, texY); //get current color from the texture
-                            _buffer[y*ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
+                            if(color != Color.White)
+                            {
+                                _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
+                            }   
                         }
                     }
                 }
