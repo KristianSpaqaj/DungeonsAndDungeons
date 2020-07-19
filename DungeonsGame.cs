@@ -69,8 +69,6 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             seconds = 1;
-            level = new Level(new Map(tiles), null,null);
-            camera = new Camera(new Vector2(20.5f, 8.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
         }
 
         protected override void Initialize()
@@ -80,9 +78,13 @@ namespace DungeonsAndDungeons
                 textures.Add(Content.Load<Texture2D>(i.ToString()));
             }
 
-            renderer = new Renderer(640, 240, textures);
+            renderer = new Renderer(640, 240);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
+            
+            level = new Level(new Map(tiles,textures), null, null);
+            
+            camera = new Camera(new Vector2(20.5f, 8.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
             base.Initialize();
         }

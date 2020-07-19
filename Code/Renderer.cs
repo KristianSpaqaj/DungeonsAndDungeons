@@ -17,24 +17,16 @@ namespace DungeonsAndDungeons
 
         private Color[] _buffer;
 
-        private readonly List<Texture2D> _textures;
         private Color wallColor;
         private Color floorColor;
         private Color ceilingColor;
-        private List<Color[]> _colors;
 
-        public Renderer(int h, int w, List<Texture2D> textures)
+        public Renderer(int h, int w)
         {
             ScreenWidth = w;
             ScreenHeight = h;
 
-            _textures = textures;
-
             _buffer = new Color[ScreenWidth * ScreenHeight];
-
-            _colors = new List<Color[]>(textures.Count);
-
-            GenerateColorsFromTexture(textures);
         }
 
         public Color[] Render(Camera camera, Level level)
@@ -83,10 +75,10 @@ namespace DungeonsAndDungeons
                     int floorTexture = 3;
                     int ceilingTexture = 6;
 
-                    floorColor = GetPixel(_colors[floorTexture], tx, ty);
+                    floorColor = GetPixel(level.Map.Textures[floorTexture], tx, ty);
                     _buffer[x + (y * ScreenWidth)] = floorColor;
 
-                    ceilingColor = GetPixel(_colors[ceilingTexture], tx, ty);
+                    ceilingColor = GetPixel(level.Map.Textures[ceilingTexture], tx, ty);
                     _buffer[x + ((ScreenHeight - y - 1) * ScreenWidth)] = ceilingColor;
                 }
             }
@@ -215,7 +207,7 @@ namespace DungeonsAndDungeons
                     int texY = (int)texPos & (TexHeight - 1);
                     texPos += step;
 
-                    wallColor = GetPixel(_colors[texNum], texX, texY);
+                    wallColor = GetPixel(level.Map.GetTileTexture(mapX,mapY), texX, texY);
 
                     if (side == 1)
                     {
@@ -230,18 +222,6 @@ namespace DungeonsAndDungeons
             }
 
             return _buffer;
-        }
-
-        private void GenerateColorsFromTexture(List<Texture2D> textures)
-        {
-            Color[] colors = new Color[TexWidth * TexHeight];
-
-            for (int i = 0; i < textures.Count; i++)
-            {
-                textures[i].GetData<Color>(colors);
-                _colors.Add(colors);
-                colors = new Color[TexWidth * TexHeight];
-            }
         }
 
   
