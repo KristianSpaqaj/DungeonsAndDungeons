@@ -28,7 +28,7 @@ namespace DungeonsAndDungeons
         
             foreach(Texture2D texture in textures)
             {
-                Textures.Add(TextureUtilities.GenerateColorsFromTexture(texture));
+                Textures.Add(texture.GenerateColorArray());
             }
         }
 

@@ -15,7 +15,7 @@ namespace DungeonsAndDungeons
 
         public Sprite(Texture2D texture)
         {
-            Texture = TextureUtilities.GenerateColorsFromTexture(texture);
+            Texture = texture.GenerateColorArray();
         }
     }
 }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons.Code
 {
-    public static class TextureUtilities
+    public static class Texture2DExtension
     {
-        public static Color[] GenerateColorsFromTexture(Texture2D texture)
+        public static Color[] GenerateColorArray(this Texture2D texture)
         {
             Color[] colors = new Color[texture.Width * texture.Height];
             texture.GetData<Color>(colors);
