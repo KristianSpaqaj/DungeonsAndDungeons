@@ -63,6 +63,8 @@ namespace DungeonsAndDungeons
 
         SoundEffect song;
 
+        private InputMapper InputMapper;
+
         private SpriteFont defaultFont;
 
         Dictionary<string, string> Configuration { get; set; }
@@ -90,6 +92,8 @@ namespace DungeonsAndDungeons
             {
                 textures.Add(Content.Load<Texture2D>(i.ToString()));
             }
+
+            InputMapper = new InputMapper();
 
             sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 17.5f, 8.5f) };
             
@@ -134,24 +138,27 @@ namespace DungeonsAndDungeons
 
         public void ProcessInput(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+            Keys[] pressed = Keyboard.GetState().GetPressedKeys();
+            InputState.Actions = InputMapper.Translate(pressed);
+
+            if (InputState.HasAction("Escape")){
                 Exit();
+            }
 
-            inputString = string.Join(" , ", Keyboard.GetState().GetPressedKeys());
-
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            if (InputState.HasAction("W"))
             {
                 camera.Move(gameTime, true);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (InputState.HasAction("S"))
             {
                 camera.Move(gameTime, false);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (InputState.HasAction("A"))
             {
                 camera.Rotate(90);
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (InputState.HasAction("D"))
             {
                 camera.Rotate(-90);
             }
@@ -167,7 +174,7 @@ namespace DungeonsAndDungeons
 
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
-            spriteBatch.DrawString(defaultFont, inputString, new Vector2(100, 100), Color.HotPink);
+            spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.HotPink);
 
             base.Draw(gameTime);
 

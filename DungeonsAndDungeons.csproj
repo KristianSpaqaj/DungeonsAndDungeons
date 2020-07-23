@@ -50,6 +50,7 @@
     <Compile Include="Code\Command.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\EntityManager.cs" />
+    <Compile Include="Code\InputState.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\Item.cs" />
     <Compile Include="Code\Level.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Code\Vector2Extensions.cs" />
     <Compile Include="Code\Weapon.cs" />
     <Compile Include="DungeonsGame.cs" />
+    <Compile Include="Code\InputMapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
