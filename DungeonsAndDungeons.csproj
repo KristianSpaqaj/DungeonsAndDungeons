@@ -45,6 +45,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Adventure.cs" />
+    <Compile Include="Code\Attributes\Component.cs" />
+    <Compile Include="Code\Attributes\Position.cs" />
     <Compile Include="Code\Behaviour.cs" />
     <Compile Include="Code\Camera.cs" />
     <Compile Include="Code\Command.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
+    <Compile Include="Code\PlayerBehaviour.cs" />
     <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\Texture2DExtension.cs" />

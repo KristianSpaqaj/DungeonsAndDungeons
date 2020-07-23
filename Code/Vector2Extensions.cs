@@ -26,7 +26,7 @@ namespace DungeonsAndDungeons.Code
         public static float GetQuadrant(this Vector2 vector)
         {
             double angle = Math.Atan2(vector.Y, vector.X) * 180 / Math.PI;
-            return 0;            //return Math.Round(angle / 90) * 90;
+            return (float)Math.Round(angle / 90) * 90;
         }
     }
 }

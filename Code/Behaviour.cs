@@ -1,10 +1,9 @@
-﻿namespace DungeonsAndDungeons
+﻿using Microsoft.Xna.Framework;
+
+namespace DungeonsAndDungeons
 {
-    public class Behaviour
+    public abstract class Behaviour
     {
-        public virtual Command Run(int callerId, Level level)
-        {
-            return new Command();
-        }
+        public abstract void Run(ref Entity caller, ref Level level, GameTime gameTime);
     }
 }

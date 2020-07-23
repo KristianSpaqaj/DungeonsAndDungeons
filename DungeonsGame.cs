@@ -120,6 +120,15 @@ namespace DungeonsAndDungeons
         protected override void Update(GameTime gameTime)
         {
 
+            Keys[] pressed = Keyboard.GetState().GetPressedKeys();
+            InputState.Actions = InputMapper.Translate(pressed);
+
+            if (InputState.HasAction("Escape"))
+            {
+                Exit();
+            }
+
+
             if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
             {
                 ProcessInput(gameTime);
@@ -134,30 +143,6 @@ namespace DungeonsAndDungeons
         public void ProcessInput(GameTime gameTime)
         {
 
-            Keys[] pressed = Keyboard.GetState().GetPressedKeys();
-            InputState.Actions = InputMapper.Translate(pressed);
-
-            if (InputState.HasAction("Escape"))
-            {
-                Exit();
-            }
-
-            if (InputState.HasAction("W"))
-            {
-                camera.Move(gameTime, true);
-            }
-            if (InputState.HasAction("S"))
-            {
-                camera.Move(gameTime, false);
-            }
-            if (InputState.HasAction("A"))
-            {
-                camera.Rotate(90);
-            }
-            if (InputState.HasAction("D"))
-            {
-                camera.Rotate(-90);
-            }
         }
 
         protected override void Draw(GameTime gameTime)
