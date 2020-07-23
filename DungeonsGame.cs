@@ -1,15 +1,12 @@
-﻿using DungeonsAndDungeons.Code;
+﻿using System.Collections.Generic;
+using System.IO;
+using DungeonsAndDungeons.Code;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Runtime.InteropServices;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -69,8 +66,6 @@ namespace DungeonsAndDungeons
 
         Dictionary<string, string> Configuration { get; set; }
 
-        string inputString = "";
-
         Camera camera;
 
         public DungeonsGame()
@@ -96,13 +91,13 @@ namespace DungeonsAndDungeons
             InputMapper = new InputMapper();
 
             sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 17.5f, 8.5f) };
-            
+
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
-            
-            level = new Level(new Map(tiles,textures), null, null);
-            
+
+            level = new Level(new Map(tiles, textures), null, null);
+
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
             base.Initialize();
@@ -117,15 +112,15 @@ namespace DungeonsAndDungeons
             defaultFont = Content.Load<SpriteFont>("DefaultFont");
         }
 
-       protected override void UnloadContent()
+        protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-         protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
 
-            if(gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
+            if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
             {
                 ProcessInput(gameTime);
                 seconds = gameTime.TotalGameTime.TotalSeconds;
@@ -142,7 +137,8 @@ namespace DungeonsAndDungeons
             Keys[] pressed = Keyboard.GetState().GetPressedKeys();
             InputState.Actions = InputMapper.Translate(pressed);
 
-            if (InputState.HasAction("Escape")){
+            if (InputState.HasAction("Escape"))
+            {
                 Exit();
             }
 

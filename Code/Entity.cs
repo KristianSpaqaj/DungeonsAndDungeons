@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
@@ -10,7 +6,7 @@ namespace DungeonsAndDungeons
     {
         public int Id { get; }
         public Dictionary<string, object> Attributes { get; set; }
-        public Behaviour Behaviour {get;set;}
+        public Behaviour Behaviour { get; set; }
 
         public Entity()
         {

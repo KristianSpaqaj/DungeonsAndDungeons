@@ -1,6 +1,6 @@
-﻿using DungeonsAndDungeons.Code;
+﻿using System;
+using DungeonsAndDungeons.Code;
 using Microsoft.Xna.Framework;
-using System;
 
 namespace DungeonsAndDungeons
 {
@@ -17,7 +17,7 @@ namespace DungeonsAndDungeons
             Plane = plane;
         }
 
-        public void Move(GameTime time, bool forward=true)
+        public void Move(GameTime time, bool forward = true)
         {
             double angle = GetDirectionQuadrant();
 

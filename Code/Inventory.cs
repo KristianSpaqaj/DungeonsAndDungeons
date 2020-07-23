@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
@@ -10,12 +7,12 @@ namespace DungeonsAndDungeons
     {
         private List<Item> Items { get; set; }
         public int ItemLimit { get; set; }
-        
+
         public void AddItem(Item item)
         {
             Items.Add(item);
         }
-        
+
         public Item GetItem(int index)
         {
             return Items.ElementAt(index);

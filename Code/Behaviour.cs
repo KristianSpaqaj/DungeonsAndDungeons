@@ -1,7 +1,4 @@
-﻿using DungeonsAndDungeons.Code;
-using System;
-
-namespace DungeonsAndDungeons
+﻿namespace DungeonsAndDungeons
 {
     public class Behaviour
     {

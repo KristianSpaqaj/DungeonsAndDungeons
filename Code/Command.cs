@@ -1,6 +1,6 @@
 ﻿namespace DungeonsAndDungeons
 {
-	public class Command
-	{
-	}
+    public class Command
+    {
+    }
 }
