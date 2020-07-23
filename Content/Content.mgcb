@@ -49,6 +49,13 @@
 /processorParam:TextureFormat=Color
 /build:colorstone.png;2.png
 
+#begin DefaultFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:DefaultFont.spritefont
+
 #begin demon.png
 /importer:TextureImporter
 /processor:TextureProcessor

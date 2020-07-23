@@ -63,7 +63,11 @@ namespace DungeonsAndDungeons
 
         SoundEffect song;
 
+        private SpriteFont defaultFont;
+
         Dictionary<string, string> Configuration { get; set; }
+
+        string inputString = "";
 
         Camera camera;
 
@@ -106,6 +110,7 @@ namespace DungeonsAndDungeons
             spriteBatch = new SpriteBatch(GraphicsDevice);
             song = Content.Load<SoundEffect>("ambient");
             MediaPlayer.Volume = float.Parse(Configuration["musicVolume"]);
+            defaultFont = Content.Load<SpriteFont>("DefaultFont");
         }
 
        protected override void UnloadContent()
@@ -131,6 +136,8 @@ namespace DungeonsAndDungeons
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            inputString = string.Join(" , ", Keyboard.GetState().GetPressedKeys());
 
             if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
@@ -159,6 +166,8 @@ namespace DungeonsAndDungeons
             screen.SetData<Color>(colors);
 
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
+
+            spriteBatch.DrawString(defaultFont, inputString, new Vector2(100, 100), Color.HotPink);
 
             base.Draw(gameTime);
 
