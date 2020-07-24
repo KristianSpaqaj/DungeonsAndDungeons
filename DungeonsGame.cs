@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using DungeonsAndDungeons.Attributes;
 using DungeonsAndDungeons.Code;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -21,6 +22,7 @@ namespace DungeonsAndDungeons
         Renderer renderer;
         Texture2D screen;
         List<Texture2D> textures;
+        private List<Entity> _entities;
 
         int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
@@ -96,7 +98,14 @@ namespace DungeonsAndDungeons
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            level = new Level(new Map(tiles, textures), null, null);
+            Entity player = new Entity(new List<Attributes.Attribute>() {
+                new Position(17.5f, 4.5f),
+                new Direction(-1,0)
+            }, new PlayerBehaviour());
+
+            _entities = new List<Entity>() { player };
+
+            level = new Level(new Map(tiles, textures), null, _entities, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
@@ -129,13 +138,21 @@ namespace DungeonsAndDungeons
             }
 
 
-            if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
+            foreach (Entity entity in level.Entities)
             {
-                ProcessInput(gameTime);
-                seconds = gameTime.TotalGameTime.TotalSeconds;
+
+                if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
+                {
+                    entity.Behaviour.Run(entity, level, gameTime);
+                    seconds = gameTime.TotalGameTime.TotalSeconds;
+                }
             }
 
-            song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
+            camera.Position = level.Player.GetAttribute<Position>().ToVector2();
+
+            camera.SetDirection(level.Player.GetAttribute<Direction>().ToVector2());
+
+            song.Play(MediaPlayer.Volume, 0.0f, 0.0f); 
 
             base.Update(gameTime);
         }
@@ -156,6 +173,11 @@ namespace DungeonsAndDungeons
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.HotPink);
+
+            spriteBatch.DrawString(defaultFont, level.Player.GetAttribute<Direction>().ToString(), new Vector2(100, 200), Color.HotPink);
+
+            //int angleDelta = (int)Math.Atan2(Camera.Y - direction.Y, direction.X - newRot.X);
+
 
             base.Draw(gameTime);
 
