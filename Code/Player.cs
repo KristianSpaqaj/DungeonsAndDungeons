@@ -42,10 +42,9 @@ namespace DungeonsAndDungeons
 
             int direction = forward ? 1 : -1;
 
-            //TODO fix bug where player occasionally refuses to move along a certain axis
-
             switch (angle)
             {
+                case -180: // this angle is occasionally erroneously calculated 
                 case 180:
                     Position = new Vector2(Position.X - direction, Position.Y);
                     break;
