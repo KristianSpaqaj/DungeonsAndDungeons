@@ -6,15 +6,20 @@ namespace DungeonsAndDungeons
 {
     public class Sprite
     {
-        public Color[] Texture { get; set; }
+        public Color[] Pixels { get; set; }
+        private Texture2D Texture;
         public float PosX { get; set; }
         public float PosY { get; set; }
 
         public Sprite(Texture2D texture, float posX, float posY)
         {
-            Texture = texture.GenerateColorArray();
+            Pixels = texture.GenerateColorArray();
+            Texture = texture;
             PosX = posX;
             PosY = posY;
         }
+
+        public static implicit operator Texture2D(Sprite s) => s.Texture;
+        public static implicit operator Color[](Sprite s) => s.Pixels;
     }
 }

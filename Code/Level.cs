@@ -14,7 +14,6 @@ namespace DungeonsAndDungeons
             Map = map;
             Item = item;
             Entities = entities;
-            Player = entities[0]; // player is assumed to be first entity
         }
 
         public Level(Map map, List<Item> item, List<Entity> entities, Entity player) : this(map,item,entities)
