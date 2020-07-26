@@ -13,9 +13,10 @@ namespace DungeonsAndDungeons
             //generate ID
         }
 
-        public bool HasAttribute(string attribute)
+        public Command GetTurnCommand(Level level)
         {
-            return Attributes.ContainsKey(attribute);
+            return Behaviour.Run(Id, level);
         }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Code
 {
     public static class InputState
     {
