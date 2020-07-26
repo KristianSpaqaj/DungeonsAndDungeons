@@ -90,7 +90,11 @@ namespace DungeonsAndDungeons
 
             InputMapper = new InputMapper();
 
-            Entity demon = new Entity(new Vector2(17.5f, 8.5f), new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 0, 0) });
+            Entity demon = new Monster(new Vector2(17.5f, 8.5f),
+                                       new Vector2(-1, 0),
+                                       new Inventory(),
+                                       100,
+                                       new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) });
 
             renderer = new Renderer(640, 480);
 

@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons
         public Color[] Pixels { get; set; }
         private Texture2D Texture;
 
-        public Sprite(Texture2D texture, float posX, float posY)
+        public Sprite(Texture2D texture)
         {
             Pixels = texture.GenerateColorArray();
             Texture = texture;
