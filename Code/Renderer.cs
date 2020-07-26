@@ -17,10 +17,11 @@ namespace DungeonsAndDungeons
         private Color floorColor;
         private Color ceilingColor;
 
+
         //Sprite variables
         double[] zBuffer;
-        int[] spriteOrder;
-        double[] spriteDistance;
+        List<int> spriteOrder;
+        List<double> spriteDistance;
 
         public Renderer(int h, int w)
         {
@@ -29,8 +30,8 @@ namespace DungeonsAndDungeons
 
             _buffer = new Color[ScreenWidth * ScreenHeight];
             zBuffer = new double[ScreenWidth];
-            spriteOrder = new int[1];
-            spriteDistance = new double[1];
+            spriteOrder = new List<int>();
+            spriteDistance = new List<double>();
         }
 
         public Color[] Render(Camera camera, Level level)
@@ -226,9 +227,9 @@ namespace DungeonsAndDungeons
 
             for (int i = 0; i < level.Entities.Count; i++)
             {
-                spriteOrder[i] = i;
-                spriteDistance[i] = ((camera.Position.X - level.Entities[i].Position.X) * (camera.Position.X - level.Entities[i].Position.X) +
-                                     (camera.Position.Y - level.Entities[i].Position.Y) * (camera.Position.Y - level.Entities[i].Position.Y)); //sqrt not taken, unneeded
+                spriteOrder.Add(i);
+                spriteDistance.Add(((camera.Position.X - level.Entities[i].Position.X) * (camera.Position.X - level.Entities[i].Position.X) +
+                                     (camera.Position.Y - level.Entities[i].Position.Y) * (camera.Position.Y - level.Entities[i].Position.Y))); //sqrt not taken, unneeded
             }
 
             sortSprites(spriteOrder, spriteDistance, level.Entities.Count);
@@ -302,7 +303,7 @@ namespace DungeonsAndDungeons
             return texture[x + (y * TexWidth)];
         }
 
-        private void sortSprites(int[] spriteOrder, double[] spriteDistance, int count)
+        private void sortSprites(List<int> spriteOrder, List<double> spriteDistance, int count)
         {
 
         }

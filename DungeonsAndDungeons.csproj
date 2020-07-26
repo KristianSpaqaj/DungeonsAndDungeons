@@ -59,6 +59,7 @@
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
     <Compile Include="Code\Monster.cs" />
+    <Compile Include="Code\Player.cs" />
     <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\Texture2DExtension.cs" />

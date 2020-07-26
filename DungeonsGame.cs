@@ -62,6 +62,8 @@ namespace DungeonsAndDungeons
 
         private InputMapper InputMapper;
 
+        private GameContext GameContext { get; set; }
+
         private SpriteFont defaultFont;
 
         Dictionary<string, string> Configuration { get; set; }
@@ -76,6 +78,7 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             seconds = 0;
+            GameContext = new GameContext(new GameTime());
         }
 
         protected override void Initialize()
@@ -90,6 +93,8 @@ namespace DungeonsAndDungeons
 
             InputMapper = new InputMapper();
 
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), null, 100, new List<Sprite>() { });
+
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(-1, 0),
                                        new Inventory(),
@@ -100,7 +105,7 @@ namespace DungeonsAndDungeons
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            level = new Level(new Map(tiles, textures), null, new List<Entity>() { demon });
+            level = new Level(new Map(tiles, textures), null, new List<Entity>() { demon }, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
@@ -123,11 +128,23 @@ namespace DungeonsAndDungeons
 
         protected override void Update(GameTime gameTime)
         {
+            GameContext.GameTime = gameTime;
 
             if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
             {
+
                 ProcessInput(gameTime);
+                level.Player.Update(level, GameContext);
+                camera.Position = level.Player.Position;
+
+
+                foreach (Entity entity in level.Entities)
+                {
+                    entity.Update(level, GameContext);
+                }
+             
                 seconds = gameTime.TotalGameTime.TotalSeconds;
+            
             }
 
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
@@ -144,23 +161,6 @@ namespace DungeonsAndDungeons
             if (InputState.HasAction("Escape"))
             {
                 Exit();
-            }
-
-            if (InputState.HasAction("W"))
-            {
-                camera.Move(gameTime, true);
-            }
-            if (InputState.HasAction("S"))
-            {
-                camera.Move(gameTime, false);
-            }
-            if (InputState.HasAction("A"))
-            {
-                camera.Rotate(90);
-            }
-            if (InputState.HasAction("D"))
-            {
-                camera.Rotate(-90);
             }
         }
 
