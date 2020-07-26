@@ -33,7 +33,7 @@ namespace DungeonsAndDungeons
             spriteDistance = new double[1];
         }
 
-        public Color[] Render(Camera camera, Level level, List<Sprite> sprites)
+        public Color[] Render(Camera camera, Level level)
         {
             for (int y = 0; y < ScreenHeight; y++)
             {
@@ -224,20 +224,20 @@ namespace DungeonsAndDungeons
 
             }
 
-            for (int i = 0; i < sprites.Count; i++)
+            for (int i = 0; i < level.Entities.Count; i++)
             {
                 spriteOrder[i] = i;
-                spriteDistance[i] = ((camera.Position.X - sprites[i].PosX) * (camera.Position.X - sprites[i].PosX) +
-                                     (camera.Position.Y - sprites[i].PosY) * (camera.Position.Y - sprites[i].PosY)); //sqrt not taken, unneeded
+                spriteDistance[i] = ((camera.Position.X - level.Entities[i].Position.X) * (camera.Position.X - level.Entities[i].Position.X) +
+                                     (camera.Position.Y - level.Entities[i].Position.Y) * (camera.Position.Y - level.Entities[i].Position.Y)); //sqrt not taken, unneeded
             }
 
-            sortSprites(spriteOrder, spriteDistance, sprites.Count);
+            sortSprites(spriteOrder, spriteDistance, level.Entities.Count);
 
-            for (int i = 0; i < sprites.Count; i++)
+            for (int i = 0; i < level.Entities.Count; i++)
             {
                 //translate sprite position to relative to camera
-                double spriteX = sprites[spriteOrder[i]].PosX - camera.Position.X;
-                double spriteY = sprites[spriteOrder[i]].PosY - camera.Position.Y;
+                double spriteX = level.Entities[spriteOrder[i]].Position.X - camera.Position.X;
+                double spriteY = level.Entities[spriteOrder[i]].Position.Y - camera.Position.Y;
 
                 double invDet = 1.0 / (camera.Plane.X * camera.Direction.Y - camera.Direction.X * camera.Plane.Y); //required for correct matrix multiplication
 
@@ -275,7 +275,7 @@ namespace DungeonsAndDungeons
                         {
                             int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                             int texY = ((d * TexHeight) / spriteHeight) / 256;
-                            Color color = GetPixel(sprites[0], texX, texY); //get current color from the texture
+                            Color color = GetPixel(level.Entities[0].Sprite, texX, texY); //get current color from the texture
                             if (color != Color.White)
                             {
                                 _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color

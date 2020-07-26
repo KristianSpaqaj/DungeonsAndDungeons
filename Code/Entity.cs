@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 
 namespace DungeonsAndDungeons
 {
     public class Entity
     {
         public int Id { get; }
-        public Dictionary<string, object> Attributes { get; set; }
-        public Behaviour Behaviour { get; set; }
+        public List<Sprite> Animation { get; set;  }
+        private int AnimationIndex { get; set; }
+        public Sprite Sprite { get => Animation[AnimationIndex]; }
 
-        public Entity()
+        public Vector2 Position { get; set; }
+
+        public Entity(Vector2 position, List<Sprite> animation)
         {
+            AnimationIndex = 0;
+            Animation = animation;
+            Position = position;
             //generate ID
-        }
-
-        public Command GetTurnCommand(Level level)
-        {
-            return Behaviour.Run(Id, level);
         }
 
     }

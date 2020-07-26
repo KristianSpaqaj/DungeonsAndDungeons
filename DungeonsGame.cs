@@ -90,13 +90,13 @@ namespace DungeonsAndDungeons
 
             InputMapper = new InputMapper();
 
-            sprites = new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 17.5f, 8.5f) };
+            Entity demon = new Entity(new Vector2(17.5f, 8.5f), new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon"), 0, 0) });
 
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            level = new Level(new Map(tiles, textures), null, null);
+            level = new Level(new Map(tiles, textures), null, new List<Entity>() { demon });
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
@@ -164,7 +164,7 @@ namespace DungeonsAndDungeons
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
-            Color[] colors = renderer.Render(camera, level, sprites);
+            Color[] colors = renderer.Render(camera, level);
 
             screen.SetData<Color>(colors);
 

@@ -8,15 +8,11 @@ namespace DungeonsAndDungeons
     {
         public Color[] Pixels { get; set; }
         private Texture2D Texture;
-        public float PosX { get; set; }
-        public float PosY { get; set; }
 
         public Sprite(Texture2D texture, float posX, float posY)
         {
             Pixels = texture.GenerateColorArray();
             Texture = texture;
-            PosX = posX;
-            PosY = posY;
         }
 
         public static implicit operator Texture2D(Sprite s) => s.Texture;
