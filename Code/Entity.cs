@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons
         public int Id { get; }
         public List<Sprite> Stances { get; set;  }
         private int StanceIndex { get; set; }
-        public Sprite Sprite { get => Stances[StanceIndex]; }
+        public Sprite Sprite { get => Stances[(int)State]; }
         public Vector2 Position { get; set; }
         public Vector2 Direction { get; set; }
         public Inventory Inventory { get; set; }

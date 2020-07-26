@@ -2,8 +2,8 @@
 {
     public enum EntityState
     {
-        IDLE,
-        ATTACKING,
-        FLEEING
+        IDLE = 0,
+        ATTACKING = 1,
+        FLEEING = 2
     }
 }
