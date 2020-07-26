@@ -50,6 +50,8 @@
     <Compile Include="Code\Command.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\EntityManager.cs" />
+    <Compile Include="Code\EntityState.cs" />
+    <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\InputState.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\Item.cs" />

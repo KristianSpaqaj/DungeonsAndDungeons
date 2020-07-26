@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DungeonsAndDungeons
 {
-    class Inventory
+    public class Inventory
     {
         private List<Item> Items { get; set; }
         public int ItemLimit { get; set; }
