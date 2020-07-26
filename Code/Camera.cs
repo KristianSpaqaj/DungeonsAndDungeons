@@ -6,8 +6,12 @@ namespace DungeonsAndDungeons
 {
     public class Camera
     {
+        private Vector2 direction;
+
         public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
+        public Vector2 Direction { get => direction; set => direction = value; }
+
+   
         public Vector2 Plane { get; set; }
 
         public Camera(Vector2 position, Vector2 direction, Vector2 plane)
@@ -43,13 +47,20 @@ namespace DungeonsAndDungeons
             }
         }
 
+        public void SetDirection(Vector2 newDir)
+        {
+            double angle = Direction.GetAngleDegrees(newDir);
+
+            Rotate((int)angle);
+        }
+
         public void Rotate(int degrees)
         {
             Direction = Direction.RotateDegree(degrees);
             Plane = Plane.RotateDegree(degrees);
         }
 
-        private double GetDirectionQuadrant()
+        public double GetDirectionQuadrant()
         {
             double angle = Math.Atan2(Direction.Y, Direction.X) * 180 / Math.PI;
             return Math.Round(angle / 90) * 90;

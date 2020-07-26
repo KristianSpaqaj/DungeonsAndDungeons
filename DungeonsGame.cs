@@ -136,7 +136,7 @@ namespace DungeonsAndDungeons
                 ProcessInput(gameTime);
                 level.Player.Update(level, GameContext);
                 camera.Position = level.Player.Position;
-
+                camera.Rotate(level.Player.Rotation);
 
                 foreach (Entity entity in level.Entities)
                 {
@@ -174,7 +174,15 @@ namespace DungeonsAndDungeons
 
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
-            spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.HotPink);
+            spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
+            spriteBatch.DrawString(defaultFont, $"PLAYER QUADRANT {level.Player.GetDirectionQuadrant()}", new Vector2(100, 450), Color.LimeGreen);
+            spriteBatch.DrawString(defaultFont, $"CAMERA QUADRANT {camera.GetDirectionQuadrant()}", new Vector2(100, 500), Color.LimeGreen);
+
+            //spriteBatch.DrawString(defaultFont, $"PLAYER X {level.Player.Position.X}", new Vector2(100, 450), Color.LimeGreen);
+            //spriteBatch.DrawString(defaultFont, $"PLAYER Y {level.Player.Position.Y}", new Vector2(100, 500), Color.LimeGreen);
+            //spriteBatch.DrawString(defaultFont, $"CAMERA X {camera.Position.X}", new Vector2(100, 550), Color.LimeGreen);
+            //spriteBatch.DrawString(defaultFont, $"CAMERA Y {camera.Position.Y}", new Vector2(100, 600), Color.LimeGreen);
+
 
             base.Draw(gameTime);
 

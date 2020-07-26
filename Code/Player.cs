@@ -7,12 +7,15 @@ namespace DungeonsAndDungeons
 {
     public class Player : Entity
     {
+        public int Rotation { get; set; } // used for camera. TODO get rid of this
         public Player(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
+            Rotation = 0;
         }
 
         public override void Update(Level level, GameContext ctx)
         {
+            Rotation = 0;
             if (InputState.HasAction("W"))
             {
                 Move(ctx.GameTime);
@@ -23,11 +26,13 @@ namespace DungeonsAndDungeons
             }
             if (InputState.HasAction("A"))
             {
-                Direction.RotateDegree(90);
+                Direction = Direction.RotateDegree(90);
+                Rotation = 90;
             }
             if (InputState.HasAction("D"))
             {
-                Direction.RotateDegree(-90);
+                Direction = Direction.RotateDegree(-90);
+                Rotation = -90;
             }
         }
 
@@ -36,6 +41,8 @@ namespace DungeonsAndDungeons
             double angle = GetDirectionQuadrant();
 
             int direction = forward ? 1 : -1;
+
+            //TODO fix bug where player occasionally refuses to move along a certain axis
 
             switch (angle)
             {
@@ -57,7 +64,7 @@ namespace DungeonsAndDungeons
             }
         }
 
-        private double GetDirectionQuadrant()
+        public double GetDirectionQuadrant()
         {
             double angle = Math.Atan2(Direction.Y, Direction.X) * 180 / Math.PI;
             return Math.Round(angle / 90) * 90;

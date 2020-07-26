@@ -28,5 +28,10 @@ namespace DungeonsAndDungeons
             double angle = Math.Atan2(vector.Y, vector.X) * 180 / Math.PI;
             return 0;            //return Math.Round(angle / 90) * 90;
         }
+
+        public static double GetAngleDegrees(this Vector2 v1, Vector2 v2)
+        {
+            return (int)((180 / Math.PI) * Math.Acos(Vector2.Dot(v1, v2)));
+        }
     }
 }
