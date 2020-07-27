@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            return new MoveForwardCommand(this, level, ctx);
+            return new MoveCommand(this, level, ctx,true);
         }
 
     }

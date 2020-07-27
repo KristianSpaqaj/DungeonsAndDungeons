@@ -48,7 +48,7 @@
     <Compile Include="Code\Camera.cs" />
     <Compile Include="Code\Commands\Command.cs" />
     <Compile Include="Code\Commands\EmptyCommand.cs" />
-    <Compile Include="Code\Commands\MoveForwardCommand.cs" />
+    <Compile Include="Code\Commands\MoveCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\EntityManager.cs" />

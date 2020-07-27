@@ -46,7 +46,7 @@ namespace DungeonsAndDungeons
 
             if (InputState.HasAction("W"))
             {
-                cmd = new MoveForwardCommand(this, level, ctx);
+                cmd = new MoveCommand(this, level, ctx, true);
             }
 
             if (InputState.HasAction("A"))
@@ -54,6 +54,15 @@ namespace DungeonsAndDungeons
                 cmd = new RotateCommand(this, level, ctx, false);
             }
 
+            if (InputState.HasAction("D"))
+            {
+                cmd = new RotateCommand(this, level, ctx, true);
+            }
+
+            if (InputState.HasAction("S"))
+            {
+                cmd = new MoveCommand(this, level, ctx, false);
+            }
 
             return cmd;
             //if (InputState.HasAction("S"))

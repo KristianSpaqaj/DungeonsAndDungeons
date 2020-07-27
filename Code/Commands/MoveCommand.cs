@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons.Commands
 {
-    class MoveForwardCommand : Command
+    class MoveCommand : Command
     {
-        public MoveForwardCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx)
+        private bool MoveForward { get; set; }
+        public MoveCommand(Entity entity, Level level, GameContext ctx, bool moveForward ) : base(entity, level, ctx)
         {
+            MoveForward = moveForward;
         }
 
         public override void Execute()
@@ -22,7 +24,7 @@ namespace DungeonsAndDungeons.Commands
         {
             double angle = GetDirectionQuadrant();
 
-            int direction = 1;
+            int direction = (MoveForward ? 1 : -1);
 
             switch (angle)
             {
