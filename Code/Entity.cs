@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Commands;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 
@@ -27,7 +28,7 @@ namespace DungeonsAndDungeons
             State = state;
         }
 
-        abstract public void Update(Level level, GameContext ctx);
+        abstract public Command GetAction(Level level, GameContext ctx);
 
     }
 }

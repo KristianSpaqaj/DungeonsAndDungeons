@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Commands;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
@@ -10,9 +11,10 @@ namespace DungeonsAndDungeons
         {
         }
 
-        public override void Update(Level level, GameContext ctx)
+        public override Command GetAction(Level level, GameContext ctx)
         {
-
+            return new EmptyCommand();
         }
+
     }
 }

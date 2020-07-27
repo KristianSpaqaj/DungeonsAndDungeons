@@ -1,17 +1,38 @@
-﻿using System;
+﻿using DungeonsAndDungeons.Commands;
+using System;
 
 namespace DungeonsAndDungeons
 {
-    class TurnProcessor
+    public class TurnProcessor
     {
-        public Entity CurrentEntity { get; set; }
-
-        public void RunCurrentTurn(Level currentLevel)
+        private enum States { WAIT_FOR_INPUT, OTHERTURN }
+        private States State { get; set; }
+        private Command TurnCommand { get; set; }
+        public TurnProcessor()
         {
-            //Get entities with Attribute Behaviour(Behaviour object)
-            //CurrentEntity.GetTurnCommand()
-            //Command.execute(currentLevel)
-            throw new NotImplementedException();
+            State = States.WAIT_FOR_INPUT;
         }
+
+        public void RunCurrentTurn(Level currentLevel, GameContext ctx)
+        {
+            if(State == States.WAIT_FOR_INPUT)
+            {
+                TurnCommand = currentLevel.Player.GetAction(currentLevel, ctx);
+                if(TurnCommand != null)
+                {
+                    TurnCommand.Execute();
+                    State = States.OTHERTURN;
+                }
+            }else if(State == States.OTHERTURN)
+            {
+                foreach(Entity entity in currentLevel.Entities)
+                {
+                    TurnCommand = entity.GetAction(currentLevel,ctx);
+                    TurnCommand.Execute();
+                    State = States.WAIT_FOR_INPUT;
+                }
+            }
+        }
+
     }
 }

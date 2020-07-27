@@ -45,9 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Code\Adventure.cs" />
-    <Compile Include="Code\Behaviour.cs" />
     <Compile Include="Code\Camera.cs" />
-    <Compile Include="Code\Command.cs" />
+    <Compile Include="Code\Commands\Command.cs" />
+    <Compile Include="Code\Commands\EmptyCommand.cs" />
+    <Compile Include="Code\Commands\MoveForwardCommand.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\EntityManager.cs" />
     <Compile Include="Code\EntityState.cs" />

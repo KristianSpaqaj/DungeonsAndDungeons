@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using DungeonsAndDungeons.Code;
+using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -57,6 +58,9 @@ namespace DungeonsAndDungeons
         private Level level;
 
         private List<Sprite> sprites;
+        TurnProcessor TurnProcessor { get; set; }
+
+        private List<Command> Commands { get; set; }
 
         SoundEffect song;
 
@@ -79,6 +83,8 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferHeight = ScreenHeight;
             seconds = 0;
             GameContext = new GameContext(new GameTime());
+            Commands = new List<Command>();
+            TurnProcessor = new TurnProcessor();
         }
 
         protected override void Initialize()
@@ -131,21 +137,10 @@ namespace DungeonsAndDungeons
             GameContext.GameTime = gameTime;
             ProcessInput(gameTime);
 
-            if (gameTime.TotalGameTime.TotalSeconds - seconds > 0.5)
-            {
+            TurnProcessor.RunCurrentTurn(level, GameContext);
 
-                level.Player.Update(level, GameContext);
-                camera.Position = level.Player.Position;
-                camera.Rotate(level.Player.Rotation);
-
-                foreach (Entity entity in level.Entities)
-                {
-                    entity.Update(level, GameContext);
-                }
-             
-                seconds = gameTime.TotalGameTime.TotalSeconds;
-            
-            }
+            camera.Position = level.Player.Position;
+            camera.Rotate(level.Player.Rotation);
 
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
 
@@ -175,8 +170,8 @@ namespace DungeonsAndDungeons
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
-            spriteBatch.DrawString(defaultFont, $"PLAYER QUADRANT {level.Player.GetDirectionQuadrant()}", new Vector2(100, 450), Color.LimeGreen);
-            spriteBatch.DrawString(defaultFont, $"CAMERA QUADRANT {camera.GetDirectionQuadrant()}", new Vector2(100, 500), Color.LimeGreen);
+            //spriteBatch.DrawString(defaultFont, $"PLAYER QUADRANT {level.Player.GetDirectionQuadrant()}", new Vector2(100, 450), Color.LimeGreen);
+            //spriteBatch.DrawString(defaultFont, $"CAMERA QUADRANT {camera.GetDirectionQuadrant()}", new Vector2(100, 500), Color.LimeGreen);
 
             //spriteBatch.DrawString(defaultFont, $"PLAYER X {level.Player.Position.X}", new Vector2(100, 450), Color.LimeGreen);
             //spriteBatch.DrawString(defaultFont, $"PLAYER Y {level.Player.Position.Y}", new Vector2(100, 500), Color.LimeGreen);
