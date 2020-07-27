@@ -6,9 +6,22 @@ namespace DungeonsAndDungeons
 {
     internal class InputMapper
     {
-        internal List<string> Translate(Keys[] keys)
+        internal List<string> Translate(Keys[] keys, Dictionary<string, string> bindings)
         {
-            return keys.Select((k) => k.ToString()).ToList();
+            List<string> res = new List<string>();
+            foreach (Keys k in keys)
+            {
+                if (bindings.ContainsKey(k.ToString()))
+                {
+                    res.Add(bindings[k.ToString()]);
+                }
+                else
+                {
+                    res.Add("UNDEFINED");
+                }
+            }
+
+            return res;
         }
     }
 }

@@ -14,66 +14,32 @@ namespace DungeonsAndDungeons
             Rotation = 0;
         }
 
-        //public override void Update(Level level, GameContext ctx)
-        //{
-        //    Rotation = 0;
-        //    if (InputState.HasAction("W"))
-        //    {
-        //        Move(ctx.GameTime);
-        //    }
-        //    if (InputState.HasAction("S"))
-        //    {
-        //        Move(ctx.GameTime, false);
-        //    }
-        //    if (InputState.HasAction("A"))
-        //    {
-        //        Direction = Direction.RotateDegree(90);
-        //        Rotation = 90;
-        //    }
-        //    if (InputState.HasAction("D"))
-        //    {
-        //        Direction = Direction.RotateDegree(-90);
-        //        Rotation = -90;
-        //    }
-        //}
-
-
-
         public override Command GetAction(Level level, GameContext ctx)
         {
             Rotation = 0;
             Command cmd = null;
 
-            if (InputState.HasAction("W"))
+            if (InputState.HasAction("MOVE_FORWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, true);
             }
 
-            if (InputState.HasAction("A"))
+            if (InputState.HasAction("ROTATE_LEFT"))
             {
                 cmd = new RotateCommand(this, level, ctx, false);
             }
 
-            if (InputState.HasAction("D"))
+            if (InputState.HasAction("ROTATE_RIGHT"))
             {
                 cmd = new RotateCommand(this, level, ctx, true);
             }
 
-            if (InputState.HasAction("S"))
+            if (InputState.HasAction("MOVE_BACKWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, false);
             }
 
             return cmd;
-            //if (InputState.HasAction("S"))
-            //{
-            //}
-            //if (InputState.HasAction("A"))
-            //{
-            //}
-            //if (InputState.HasAction("D"))
-            //{
-            //}
         }
 
     }

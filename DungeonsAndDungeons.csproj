@@ -136,6 +136,7 @@
     </None>
     <None Include="app.manifest" />
     <None Include="Code\Config.json" />
+    <None Include="Code\Keybindings.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

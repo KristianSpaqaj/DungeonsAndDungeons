@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -60,6 +61,8 @@ namespace DungeonsAndDungeons
         private List<Sprite> sprites;
         TurnProcessor TurnProcessor { get; set; }
 
+        Dictionary<string, string> KeyBinding { get; set; }
+
         private List<Command> Commands { get; set; }
 
         SoundEffect song;
@@ -91,6 +94,10 @@ namespace DungeonsAndDungeons
         {
             var text = File.ReadAllText("../../../../Code/Config.json");
             Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+
+
+            var text2 = File.ReadAllText("../../../../Code/Keybindings.json");
+            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string,string>>(text2);
 
             for (int i = 1; i < 9; i++)
             {
@@ -151,7 +158,7 @@ namespace DungeonsAndDungeons
         {
 
             Keys[] pressed = Keyboard.GetState().GetPressedKeys();
-            InputState.Actions = InputMapper.Translate(pressed);
+            InputState.Actions = InputMapper.Translate(pressed, KeyBinding);
 
             if (InputState.HasAction("Escape"))
             {
