@@ -179,6 +179,10 @@ namespace DungeonsAndDungeons
             //spriteBatch.DrawString(defaultFont, $"CAMERA Y {camera.Position.Y}", new Vector2(100, 600), Color.LimeGreen);
 
 
+            spriteBatch.DrawString(defaultFont, $"MONSTER X {level.Entities[0].Position.X}", new Vector2(100, 450), Color.LimeGreen);
+            spriteBatch.DrawString(defaultFont, $"MONSTER Y {level.Entities[0].Position.Y}", new Vector2(100, 500), Color.LimeGreen);
+
+
             base.Draw(gameTime);
 
             spriteBatch.End();
