@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
@@ -13,7 +14,7 @@ namespace DungeonsAndDungeons
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            return new EmptyCommand();
+            return new MoveForwardCommand(this, level, ctx);
         }
 
     }

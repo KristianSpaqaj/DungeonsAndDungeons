@@ -99,10 +99,10 @@ namespace DungeonsAndDungeons
 
             InputMapper = new InputMapper();
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), null, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), null, 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
-                                       new Vector2(-1, 0),
+                                       new Vector2(0, -1),
                                        new Inventory(),
                                        100,
                                        new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) });
@@ -140,7 +140,7 @@ namespace DungeonsAndDungeons
             TurnProcessor.RunCurrentTurn(level, GameContext);
 
             camera.Position = level.Player.Position;
-            camera.Rotate(level.Player.Rotation);
+            camera.SetDirection(level.Player.Direction);
 
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
 
