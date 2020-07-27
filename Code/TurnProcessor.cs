@@ -32,6 +32,9 @@ namespace DungeonsAndDungeons
                         State = States.OTHERTURN;
                         TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                     }
+                }
+                else
+                {
                     foreach (Entity entity in currentLevel.Entities)
                     {
                         {
@@ -41,7 +44,6 @@ namespace DungeonsAndDungeons
                             TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                         }
                     }
-
                 }
             }
 
