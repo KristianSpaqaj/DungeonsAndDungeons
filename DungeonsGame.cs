@@ -122,9 +122,11 @@ namespace DungeonsAndDungeons
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            song = Content.Load<SoundEffect>("ambient");
+            song = Content.Load<SoundEffect>(Configuration["ambientsong"]);
             MediaPlayer.Volume = float.Parse(Configuration["musicVolume"]);
             defaultFont = Content.Load<SpriteFont>("DefaultFont");
+            song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
+
         }
 
         protected override void UnloadContent()
@@ -141,8 +143,6 @@ namespace DungeonsAndDungeons
 
             camera.Position = level.Player.Position;
             camera.SetDirection(level.Player.Direction);
-
-            song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
 
             base.Update(gameTime);
         }
@@ -179,10 +179,13 @@ namespace DungeonsAndDungeons
             //spriteBatch.DrawString(defaultFont, $"CAMERA Y {camera.Position.Y}", new Vector2(100, 600), Color.LimeGreen);
 
 
-            spriteBatch.DrawString(defaultFont, $"MONSTER X {level.Entities[0].Position.X}", new Vector2(100, 450), Color.LimeGreen);
-            spriteBatch.DrawString(defaultFont, $"MONSTER Y {level.Entities[0].Position.Y}", new Vector2(100, 500), Color.LimeGreen);
+            Vector2 nextPos = Vector2.Normalize(level.Entities[0].Position) * Vector2.Normalize(level.Entities[0].Direction);
 
 
+            spriteBatch.DrawString(defaultFont, $"MONSTER X {nextPos.X}", new Vector2(100, 450), Color.Black);
+            spriteBatch.DrawString(defaultFont, $"MONSTER Y {nextPos.Y}", new Vector2(100, 500), Color.LimeGreen);
+
+                
             base.Draw(gameTime);
 
             spriteBatch.End();

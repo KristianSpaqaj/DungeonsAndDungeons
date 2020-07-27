@@ -49,6 +49,12 @@
 /processorParam:TextureFormat=Color
 /build:colorstone.png;2.png
 
+#begin damdamdehdeh.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:damdamdehdeh.mp3
+
 #begin DefaultFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
