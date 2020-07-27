@@ -14,7 +14,15 @@ namespace DungeonsAndDungeons
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            return new MoveCommand(this, level, ctx,true);
+            int nextY = (int)Math.Ceiling(Position.Y + 1);
+
+            if(level.Map[(int)Position.X, nextY] != 0)
+            {
+                Direction = Direction.RotateDegree(180);
+            }
+             
+
+            return new MoveCommand(this, level, ctx, true);
         }
 
     }
