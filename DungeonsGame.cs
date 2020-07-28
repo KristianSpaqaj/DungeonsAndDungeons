@@ -97,8 +97,8 @@ namespace DungeonsAndDungeons
             string text = File.ReadAllText("../../../../Code/Config.json");
             Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
 
-            var text2 = File.ReadAllText("../../../../Code/Keybindings.json");
-            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string,string>>(text2);
+            string bindingsText = File.ReadAllText("../../../../Code/Keybindings.json");
+            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string,string>>(bindingsText);
 
             for (int i = 1; i < 9; i++)
             {
