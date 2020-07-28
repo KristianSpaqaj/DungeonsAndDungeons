@@ -24,28 +24,46 @@ namespace DungeonsAndDungeons
             {
                 if (State == States.WAIT_FOR_INPUT)
                 {
-                    TurnCommand = currentLevel.Player.GetAction(currentLevel, ctx); // player should perhaps have a set amount of comands they can build per turn
-                    if (TurnCommand != null) // TODO find better way of doing this
+                    if (RunPlayerTurn(currentLevel, ctx)) // Split into checking and running methods
                     {
-                        TurnCommand.Execute();
                         State = States.OTHERTURN;
                         TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                     }
                 }
                 else
                 {
-                    foreach (Entity entity in currentLevel.Entities)
-                    {
-                        {
-                            TurnCommand = entity.GetAction(currentLevel, ctx);
-                            TurnCommand.Execute();
-                            State = States.WAIT_FOR_INPUT;
-                            TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
-                        }
-                    }
+                    RunEntitiesTurn(currentLevel, ctx);
+                    State = States.WAIT_FOR_INPUT;
+                    TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
 
+        }
+
+        private bool RunPlayerTurn(Level level, GameContext ctx)
+        {
+            TurnCommand = level.Player.GetAction(level, ctx); // player should perhaps have a set amount of comands they can build per turn
+            if (TurnCommand == null) // TODO find better way of doing this
+            {
+                return false;
+            }
+            else
+            {
+                TurnCommand.Execute();
+                return true;
+            }
+        }
+
+        private void RunEntitiesTurn(Level level, GameContext ctx)
+        {
+            foreach (Entity entity in level.Entities)
+            {
+                {
+                    TurnCommand = entity.GetAction(level, ctx);
+                    TurnCommand.Execute();
+                  
+                }
+            }
         }
     }
 }
