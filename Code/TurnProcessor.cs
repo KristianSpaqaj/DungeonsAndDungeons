@@ -4,7 +4,7 @@ namespace DungeonsAndDungeons
 {
     public class TurnProcessor
     {
-        private enum States { WAIT_FOR_INPUT, OTHERTURN }
+        private enum States { PLAYER_TURN, OTHERTURN }
         private States State { get; set; }
         private Command TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
@@ -13,7 +13,7 @@ namespace DungeonsAndDungeons
 
         public TurnProcessor()
         {
-            State = States.WAIT_FOR_INPUT;
+            State = States.PLAYER_TURN;
             TimeOutPeriod = 0.5;
             TimeSinceLastTurn = 0;
         }
@@ -22,7 +22,7 @@ namespace DungeonsAndDungeons
         {
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
-                if (State == States.WAIT_FOR_INPUT)
+                if (State == States.PLAYER_TURN)
                 {
                     if (RunPlayerTurn(currentLevel, ctx)) // Split into checking and running methods
                     {
@@ -33,7 +33,7 @@ namespace DungeonsAndDungeons
                 else
                 {
                     RunEntitiesTurn(currentLevel, ctx);
-                    State = States.WAIT_FOR_INPUT;
+                    State = States.PLAYER_TURN;
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
@@ -61,7 +61,6 @@ namespace DungeonsAndDungeons
                 {
                     TurnCommand = entity.GetAction(level, ctx);
                     TurnCommand.Execute();
-                  
                 }
             }
         }
