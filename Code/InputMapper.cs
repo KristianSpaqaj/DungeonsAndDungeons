@@ -1,27 +1,22 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
+using DungeonsAndDungeons.Extensions;
 
 namespace DungeonsAndDungeons
 {
-    internal class InputMapper
+    public class InputMapper
     {
-        internal List<string> Translate(Keys[] keys, Dictionary<string, string> bindings)
-        {
-            List<string> res = new List<string>();
-            foreach (Keys k in keys)
-            {
-                if (bindings.ContainsKey(k.ToString()))
-                {
-                    res.Add(bindings[k.ToString()]);
-                }
-                else
-                {
-                    res.Add("UNDEFINED");
-                }
-            }
+        Dictionary<string, string> Bindings { get; set; }
 
-            return res;
+        public InputMapper(Dictionary<string,string> bindings)
+        {
+            Bindings = bindings;
+        }
+
+        public List<string> Translate(Keys[] keys)
+        {
+            return keys.Select((k) => Bindings.GetOrDefault(k.ToString(), "UNDEFINED")).ToList(); //TODO should maybe throw exception instead
         }
     }
 }

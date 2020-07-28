@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -95,7 +96,6 @@ namespace DungeonsAndDungeons
             string text = File.ReadAllText("../../../../Code/Config.json");
             Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
 
-
             var text2 = File.ReadAllText("../../../../Code/Keybindings.json");
             KeyBinding = JsonConvert.DeserializeObject<Dictionary<string,string>>(text2);
 
@@ -104,7 +104,7 @@ namespace DungeonsAndDungeons
                 textures.Add(Content.Load<Texture2D>(i.ToString()));
             }
 
-            InputMapper = new InputMapper();
+            InputMapper = new InputMapper(KeyBinding);
 
             Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), null, 100, new List<Sprite>() { });
 
@@ -158,7 +158,7 @@ namespace DungeonsAndDungeons
         {
 
             Keys[] pressed = Keyboard.GetState().GetPressedKeys();
-            InputState.Actions = InputMapper.Translate(pressed, KeyBinding);
+            InputState.Actions = InputMapper.Translate(pressed);
 
             if (InputState.HasAction("Escape"))
             {
