@@ -18,22 +18,22 @@ namespace DungeonsAndDungeons
             Rotation = 0;
             Command cmd = null;
 
-            if (InputState.HasAction("W"))
+            if (InputState.HasAction("MOVE_FORWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, true);
             }
 
-            if (InputState.HasAction("A"))
+            if (InputState.HasAction("ROTATE_LEFT"))
             {
                 cmd = new RotateCommand(this, level, ctx, false);
             }
 
-            if (InputState.HasAction("D"))
+            if (InputState.HasAction("ROTATE_RIGHT"))
             {
                 cmd = new RotateCommand(this, level, ctx, true);
             }
 
-            if (InputState.HasAction("S"))
+            if (InputState.HasAction("MOVE_BACKWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, false);
             }
