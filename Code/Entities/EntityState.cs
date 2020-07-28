@@ -1,4 +1,4 @@
-﻿namespace DungeonsAndDungeons
+﻿namespace DungeonsAndDungeons.Entities
 {
     public enum EntityState
     {

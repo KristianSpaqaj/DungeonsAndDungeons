@@ -3,7 +3,7 @@ using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Entities
 {
     public class Player : Entity
     {

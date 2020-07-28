@@ -50,8 +50,8 @@
     <Compile Include="Code\Commands\EmptyCommand.cs" />
     <Compile Include="Code\Commands\MoveCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
-    <Compile Include="Code\Entity.cs" />
-    <Compile Include="Code\EntityState.cs" />
+    <Compile Include="Code\Entities\Entity.cs" />
+    <Compile Include="Code\Entities\EntityState.cs" />
     <Compile Include="Code\Extensions\DictionaryExtension.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\InputState.cs" />
@@ -60,8 +60,8 @@
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
-    <Compile Include="Code\Monster.cs" />
-    <Compile Include="Code\Player.cs" />
+    <Compile Include="Code\Entities\Monster.cs" />
+    <Compile Include="Code\Entities\Player.cs" />
     <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\Extensions\Texture2DExtension.cs" />

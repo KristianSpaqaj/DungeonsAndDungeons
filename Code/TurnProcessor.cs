@@ -35,8 +35,9 @@ namespace DungeonsAndDungeons
                     State = States.PLAYER_TURN;
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
-            
 
+
+            }
         }
 
         private bool RunPlayerTurn(Level level, GameContext ctx)
