@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Extensions
 {
     public static class Vector2Extensions
     {

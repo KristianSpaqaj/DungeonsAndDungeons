@@ -1,4 +1,6 @@
-﻿namespace DungeonsAndDungeons.Commands
+﻿using DungeonsAndDungeons.Extensions;
+
+namespace DungeonsAndDungeons.Commands
 {
     public class RotateCommand : Command
     {

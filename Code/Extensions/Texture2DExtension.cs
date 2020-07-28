@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace DungeonsAndDungeons.Code
+namespace DungeonsAndDungeons.Extensions
 {
     public static class Texture2DExtension
     {

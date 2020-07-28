@@ -51,7 +51,6 @@
     <Compile Include="Code\Commands\MoveCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
     <Compile Include="Code\Entity.cs" />
-    <Compile Include="Code\EntityManager.cs" />
     <Compile Include="Code\EntityState.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\InputState.cs" />
@@ -64,9 +63,9 @@
     <Compile Include="Code\Player.cs" />
     <Compile Include="Code\Renderer.cs" />
     <Compile Include="Code\Sprite.cs" />
-    <Compile Include="Code\Texture2DExtension.cs" />
+    <Compile Include="Code\Extensions\Texture2DExtension.cs" />
     <Compile Include="Code\TurnProcessor.cs" />
-    <Compile Include="Code\Vector2Extensions.cs" />
+    <Compile Include="Code\Extensions\Vector2Extensions.cs" />
     <Compile Include="Code\Weapon.cs" />
     <Compile Include="DungeonsGame.cs" />
     <Compile Include="Code\InputMapper.cs" />

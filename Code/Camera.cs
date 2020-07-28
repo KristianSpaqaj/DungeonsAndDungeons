@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Extensions;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace DungeonsAndDungeons
