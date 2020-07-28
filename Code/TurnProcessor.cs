@@ -4,12 +4,11 @@ namespace DungeonsAndDungeons
 {
     public class TurnProcessor
     {
-        private enum States { PLAYER_TURN, OTHERTURN }
+        private enum States { PLAYER_TURN, OTHER_TURN }
         private States State { get; set; }
         private Command TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
-
 
         public TurnProcessor()
         {
@@ -26,7 +25,7 @@ namespace DungeonsAndDungeons
                 {
                     if (RunPlayerTurn(currentLevel, ctx)) // Split into checking and running methods
                     {
-                        State = States.OTHERTURN;
+                        State = States.OTHER_TURN;
                         TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                     }
                 }
@@ -36,7 +35,7 @@ namespace DungeonsAndDungeons
                     State = States.PLAYER_TURN;
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
-            }
+            
 
         }
 
