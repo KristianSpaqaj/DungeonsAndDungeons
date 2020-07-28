@@ -7,10 +7,10 @@ namespace DungeonsAndDungeons
         public Dictionary<string, object> Attributes { get; set; }
         public Sprite Sprite { get; set; }
 
-        public Item(Dictionary<string, object> attributes, Sprite sprite)
+        public Item(Sprite sprite, Dictionary<string, object> attributes = default)
         {
-            Attributes = attributes;
             Sprite = sprite;
+            Attributes = attributes;
         }
     }
 }

@@ -27,6 +27,7 @@ namespace DungeonsAndDungeons.Entities
             State = state;
         }
 
+        virtual protected void Update(Level level, GameContext ctx) { } // should perhaps be abstract
         abstract public Command GetAction(Level level, GameContext ctx);
 
     }

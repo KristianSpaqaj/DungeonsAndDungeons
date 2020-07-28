@@ -7,12 +7,10 @@ namespace DungeonsAndDungeons
         public double Damage { get; set; }
         public int Range { get; set; }
 
-        public Weapon(Dictionary<string, object> attributes, Sprite sprite, double damage, int range) : base(attributes, sprite)
+        public Weapon(Sprite sprite, double damage, int range, Dictionary<string, object> attributes = default) : base(sprite, attributes)
         {
             Damage = damage;
             Range = range;
         }
-
-
     }
 }
