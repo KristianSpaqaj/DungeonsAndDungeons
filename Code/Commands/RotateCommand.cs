@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace DungeonsAndDungeons.Commands
+﻿namespace DungeonsAndDungeons.Commands
 {
-    class RotateCommand : Command
+    public class RotateCommand : Command
     {
 
         public bool TurnRight { get; set; } = false;
@@ -14,7 +12,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-                Creator.Direction = Creator.Direction.RotateDegree(90 * (TurnRight ? -1 : 1));
+            Creator.Direction = Creator.Direction.RotateDegree(90 * (TurnRight ? -1 : 1));
 
         }
     }

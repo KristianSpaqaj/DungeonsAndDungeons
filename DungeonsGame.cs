@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using DungeonsAndDungeons.Code;
+﻿using DungeonsAndDungeons.Code;
 using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -8,6 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -17,13 +17,12 @@ namespace DungeonsAndDungeons
     /// </summary>
     public class DungeonsGame : Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        Renderer renderer;
-        Texture2D screen;
-        List<Texture2D> textures;
-
-        int[,] tiles = new int[,] {
+        private readonly GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Renderer renderer;
+        private Texture2D screen;
+        private readonly List<Texture2D> textures;
+        private readonly int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
                 { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
                 { 4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
@@ -53,16 +52,17 @@ namespace DungeonsAndDungeons
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
 
-        private double seconds;
+        private readonly double seconds;
 
         private Level level;
 
-        private List<Sprite> sprites;
-        TurnProcessor TurnProcessor { get; set; }
+        private readonly List<Sprite> sprites;
+
+        private TurnProcessor TurnProcessor { get; set; }
 
         private List<Command> Commands { get; set; }
 
-        SoundEffect song;
+        private SoundEffect song;
 
         private InputMapper InputMapper;
 
@@ -70,9 +70,9 @@ namespace DungeonsAndDungeons
 
         private SpriteFont defaultFont;
 
-        Dictionary<string, string> Configuration { get; set; }
+        private Dictionary<string, string> Configuration { get; set; }
 
-        Camera camera;
+        private Camera camera;
 
         public DungeonsGame()
         {
@@ -89,7 +89,7 @@ namespace DungeonsAndDungeons
 
         protected override void Initialize()
         {
-            var text = File.ReadAllText("../../../../Code/Config.json");
+            string text = File.ReadAllText("../../../../Code/Config.json");
             Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
 
             for (int i = 1; i < 9; i++)
@@ -170,7 +170,7 @@ namespace DungeonsAndDungeons
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
-           
+
             base.Draw(gameTime);
 
             spriteBatch.End();

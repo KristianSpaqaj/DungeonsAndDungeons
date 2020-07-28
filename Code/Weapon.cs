@@ -2,7 +2,7 @@
 
 namespace DungeonsAndDungeons
 {
-    class Weapon
+    public class Weapon
     {
         public double Damage { get; set; }
         public int Range { get; set; }

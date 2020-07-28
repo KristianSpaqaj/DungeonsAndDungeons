@@ -1,6 +1,6 @@
 ﻿namespace DungeonsAndDungeons
 {
-    class Adventure
+    public class Adventure
     {
         private LevelGenerator Generator { get; set; }
         private int NumberOfLevels { get; set; }

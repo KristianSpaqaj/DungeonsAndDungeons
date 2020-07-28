@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
 
 namespace DungeonsAndDungeons
 {
@@ -11,7 +11,7 @@ namespace DungeonsAndDungeons
         private const int TexWidth = 64;
         private const int TexHeight = 64;
 
-        private Color[] _buffer;
+        private readonly Color[] _buffer;
 
         private Color wallColor;
         private Color floorColor;
@@ -19,9 +19,9 @@ namespace DungeonsAndDungeons
 
 
         //Sprite variables
-        double[] zBuffer;
-        List<int> spriteOrder;
-        List<double> spriteDistance;
+        private readonly double[] zBuffer;
+        private readonly List<int> spriteOrder;
+        private readonly List<double> spriteDistance;
 
         public Renderer(int h, int w)
         {

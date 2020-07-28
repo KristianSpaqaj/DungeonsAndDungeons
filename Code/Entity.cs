@@ -1,14 +1,13 @@
 ﻿using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
 
 namespace DungeonsAndDungeons
 {
     abstract public class Entity
     {
         public int Id { get; }
-        public List<Sprite> Stances { get; set;  }
+        public List<Sprite> Stances { get; set; }
         private int StanceIndex { get; set; }
         public Sprite Sprite { get => Stances[StanceIndex]; }
         public Vector2 Position { get; set; }

@@ -16,7 +16,7 @@ namespace DungeonsAndDungeons
             Entities = entities;
         }
 
-        public Level(Map map, List<Item> item, List<Entity> entities, Player player) : this(map,item,entities)
+        public Level(Map map, List<Item> item, List<Entity> entities, Player player) : this(map, item, entities)
         {
             Player = player;
         }

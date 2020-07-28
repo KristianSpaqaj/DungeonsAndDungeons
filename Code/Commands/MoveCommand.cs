@@ -1,16 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons.Commands
 {
-    class MoveCommand : Command
+    public class MoveCommand : Command
     {
         private bool MoveForward { get; set; }
-        public MoveCommand(Entity entity, Level level, GameContext ctx, bool moveForward ) : base(entity, level, ctx)
+        public MoveCommand(Entity entity, Level level, GameContext ctx, bool moveForward) : base(entity, level, ctx)
         {
             MoveForward = moveForward;
         }

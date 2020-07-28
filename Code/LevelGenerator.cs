@@ -2,7 +2,7 @@
 
 namespace DungeonsAndDungeons
 {
-    class LevelGenerator
+    public class LevelGenerator
     {
         public Level Generate(string seed)
         {

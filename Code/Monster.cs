@@ -1,6 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
@@ -16,11 +15,11 @@ namespace DungeonsAndDungeons
         {
             Vector2 nextPos = Vector2.Normalize(Position) * Vector2.Normalize(Direction);
 
-            if(level.Map[(int)nextPos.X,(int)nextPos.Y] != 0)
+            if (level.Map[(int)nextPos.X, (int)nextPos.Y] != 0)
             {
                 Direction = Direction.RotateDegree(180);
             }
-             
+
 
             return new MoveCommand(this, level, ctx, true);
         }

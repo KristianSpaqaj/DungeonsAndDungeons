@@ -7,7 +7,7 @@ namespace DungeonsAndDungeons
     public class Sprite
     {
         public Color[] Pixels { get; set; }
-        private Texture2D Texture;
+        private readonly Texture2D Texture;
 
         public Sprite(Texture2D texture)
         {
