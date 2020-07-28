@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.IO;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
