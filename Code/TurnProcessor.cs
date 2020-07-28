@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Entities;
 
 namespace DungeonsAndDungeons
 {

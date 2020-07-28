@@ -1,4 +1,5 @@
-﻿using DungeonsAndDungeons.Extensions;
+﻿using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Extensions;
 
 namespace DungeonsAndDungeons.Commands
 {

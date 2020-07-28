@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Code;
 using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;

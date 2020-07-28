@@ -1,4 +1,6 @@
-﻿namespace DungeonsAndDungeons.Commands
+﻿using DungeonsAndDungeons.Entities;
+
+namespace DungeonsAndDungeons.Commands
 {
     public abstract class Command
     {

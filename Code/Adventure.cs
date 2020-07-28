@@ -1,4 +1,6 @@
-﻿namespace DungeonsAndDungeons
+﻿using DungeonsAndDungeons.Entities;
+
+namespace DungeonsAndDungeons
 {
     public class Adventure
     {

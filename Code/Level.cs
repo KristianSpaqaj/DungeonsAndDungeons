@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DungeonsAndDungeons.Entities;
+using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
