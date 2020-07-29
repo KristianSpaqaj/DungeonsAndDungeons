@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
@@ -7,7 +8,7 @@ namespace DungeonsAndDungeons
         public double Damage { get; set; }
         public int Range { get; set; }
 
-        public Weapon(Sprite sprite, double damage, int range, Dictionary<string, object> attributes = default) : base(sprite, attributes)
+        public Weapon(Sprite sprite, Vector2 position, double damage, int range, Dictionary<string, object> attributes = default) : base(sprite, position, attributes)
         {
             Damage = damage;
             Range = range;
