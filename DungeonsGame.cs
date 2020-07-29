@@ -134,7 +134,6 @@ namespace DungeonsAndDungeons
             MediaPlayer.Volume = float.Parse(Configuration["musicVolume"]);
             defaultFont = Content.Load<SpriteFont>("DefaultFont");
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
-
         }
 
         protected override void UnloadContent()

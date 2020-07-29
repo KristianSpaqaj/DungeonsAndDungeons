@@ -36,6 +36,18 @@ namespace DungeonsAndDungeons
 
         public Color[] Render(Camera camera, Level level)
         {
+            RenderFloorAndCeiling(camera, level);
+
+            RenderWalls(camera, level);
+
+            RenderSprites(camera, level);
+
+
+            return _buffer;
+        }
+
+        private void RenderFloorAndCeiling(Camera camera, Level level)
+        {
             for (int y = 0; y < ScreenHeight; y++)
             {
                 // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
@@ -86,7 +98,10 @@ namespace DungeonsAndDungeons
                     _buffer[x + ((ScreenHeight - y - 1) * ScreenWidth)] = ceilingColor;
                 }
             }
+        }
 
+        private void RenderWalls(Camera camera, Level level)
+        {
             for (int x = 0; x < ScreenWidth; x++)
             {
                 double cameraX = 2 * (x) / (double)ScreenWidth - 1;
@@ -224,7 +239,12 @@ namespace DungeonsAndDungeons
                 zBuffer[x] = perpWallDist; //perpendicular distance is used
 
             }
+        }
 
+
+
+        private void RenderSprites(Camera camera, Level level)
+        {
             for (int i = 0; i < level.Entities.Count; i++)
             {
                 spriteOrder.Add(i);
@@ -285,10 +305,8 @@ namespace DungeonsAndDungeons
                     }
                 }
             }
-
-
-            return _buffer;
         }
+
 
 
         public Color ChangeBrightness(Color color, float f)
