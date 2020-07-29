@@ -5,7 +5,7 @@ namespace DungeonsAndDungeons
 {
     public class Map<T> : ICollection
     {
-        public T[,] Tiles { get; }
+        public T[,] Tiles { get; set; }
         public int Height => Tiles.GetLength(0);
         public int Width => Tiles.GetLength(1);
         public T EmptyTile { get; }
