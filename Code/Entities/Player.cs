@@ -7,15 +7,12 @@ namespace DungeonsAndDungeons.Entities
 {
     public class Player : Entity
     {
-        public int Rotation { get; set; } // used for camera. TODO get rid of this
         public Player(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
-            Rotation = 0;
         }
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            Rotation = 0;
             Command cmd = null;
 
 

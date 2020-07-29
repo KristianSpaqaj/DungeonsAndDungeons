@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DungeonsAndDungeons
@@ -6,43 +8,79 @@ namespace DungeonsAndDungeons
     /// <summary>
     /// Represents a collection of Items
     /// </summary>
-    public class Inventory
+    public class Inventory : IList
     {
-
-        public List<Item> Items { get; set; }
-        public int ItemLimit { get; set; }
+        private List<Item> Items { get; }
 
         public Inventory()
         {
             Items = new List<Item>();
-            ItemLimit = int.MaxValue;
         }
-
-        public Inventory(List<Item> items, int itemLimit = int.MaxValue)
+        
+        public Inventory(params Item[] items)
         {
-            Items = items;
-            ItemLimit = itemLimit;
+            Items = items.ToList();
         }
 
-        public void AddItem(Item item)
+        public object this[int index] { get => Items[index]; set => Items[index] = (Item)value; }
+
+        public bool IsReadOnly => false;
+
+        public bool IsFixedSize => true;
+
+        public int Count => Items.Count;
+
+        public object SyncRoot => null;
+
+        public bool IsSynchronized => false;
+
+        public int Add(object value)
         {
-            Items.Add(item);
+            Items.Add((Item)value);
+            return Count;
         }
 
-        public Item GetItem(int index)
+        public void Clear()
         {
-            return Items.ElementAt(index);
+            Items.Clear();
         }
 
-        public List<Item> GetAllItems()
+        public bool Contains(object value)
         {
-            return Items;
+            return Items.Contains((Item)value); 
         }
 
-        public void DropItem(int index)
+        public void CopyTo(Array array, int index)
+        {
+            for (int i = index; i < array.Length; i++)
+            {
+                array.SetValue(Items[i],i);
+            }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return Items.GetEnumerator();
+        }
+
+        public int IndexOf(object value)
+        {
+            return Items.IndexOf((Item)value);
+        }
+
+        public void Insert(int index, object value)
+        {
+            Items.Insert(index, (Item)value);
+        }
+
+        public void Remove(object value)
+        {
+            Items.Remove((Item)value);
+        }
+
+        public void RemoveAt(int index)
         {
             Items.RemoveAt(index);
         }
-
     }
 }

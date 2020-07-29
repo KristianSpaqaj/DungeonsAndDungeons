@@ -13,7 +13,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-            Creator.Inventory.AddItem(Item);
+            Creator.Inventory.Add(Item);
             Level.Items.Remove(Item);
         }
     }
