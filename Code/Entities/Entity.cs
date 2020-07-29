@@ -11,8 +11,8 @@ namespace DungeonsAndDungeons.Entities
         public List<Sprite> Stances { get; }
         protected int StanceIndex { get; set; }
         public Sprite Sprite { get => Stances[StanceIndex]; }
-        public Vector2 Position { get; }
-        public Vector2 Direction { get; }
+        public Vector2 Position { get; set; }
+        public Vector2 Direction { get; set; }
         public Inventory Inventory { get; }
         public double Health { get; set; }
         public EntityState State { get; }
