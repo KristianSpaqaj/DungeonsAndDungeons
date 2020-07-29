@@ -20,7 +20,7 @@ namespace DungeonsAndDungeons.Entities
             int nextX = (int)(Position.X + Direction.X);
             int nextY = (int)(Position.Y + Direction.Y);
 
-            if (!level.Map.IsValid(nextX,nextY))
+            if (!level.Map.IsValid(nextX, nextY))
             {
                 Random rand = new Random();
                 Direction = Direction.RotateDegree(180);
