@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonsAndDungeons
 {
@@ -20,6 +21,12 @@ namespace DungeonsAndDungeons
         public Level(Map map, List<Item> items, List<Entity> entities, Player player) : this(map, items, entities)
         {
             Player = player;
+        }
+
+
+        public List<Item> ItemsAt(int x,int y)
+        {
+            return Items.Where((i) => (int)i.Position.X == x && (int)i.Position.Y == y).ToList();
         }
     }
 }

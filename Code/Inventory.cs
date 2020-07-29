@@ -8,8 +8,21 @@ namespace DungeonsAndDungeons
     /// </summary>
     public class Inventory
     {
-        private List<Item> Items { get; set; }
+
+        public List<Item> Items { get; set; }
         public int ItemLimit { get; set; }
+
+        public Inventory()
+        {
+            Items = new List<Item>();
+            ItemLimit = int.MaxValue;
+        }
+
+        public Inventory(List<Item> items, int itemLimit=int.MaxValue)
+        {
+            Items = items;
+            itemLimit = itemLimit;
+        }
 
         public void AddItem(Item item)
         {

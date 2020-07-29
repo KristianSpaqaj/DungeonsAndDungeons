@@ -18,6 +18,15 @@ namespace DungeonsAndDungeons.Entities
             Rotation = 0;
             Command cmd = null;
 
+            var items = level.ItemsAt((int)Position.X, (int)Position.Y);
+
+            foreach (Item item in items)
+            {
+                level.Items.Remove(item);
+                Inventory.AddItem(item);
+            }
+
+
             if (InputState.HasAction("MOVE_FORWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, true);

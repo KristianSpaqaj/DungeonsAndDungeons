@@ -91,7 +91,7 @@ namespace DungeonsAndDungeons
 
             InputMapper = new InputMapper(KeyBinding);
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), null, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory(), 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, -1),
