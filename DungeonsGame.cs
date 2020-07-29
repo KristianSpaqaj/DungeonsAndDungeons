@@ -59,8 +59,6 @@ namespace DungeonsAndDungeons
 
         private Level level;
 
-        private readonly List<Sprite> sprites;
-
         private TurnProcessor TurnProcessor { get; set; }
 
         Dictionary<string, string> KeyBinding { get; set; }

@@ -7,17 +7,17 @@ namespace DungeonsAndDungeons
     {
         public Player Player { get; set; }
         public Map Map { get; set; }
-        public List<Item> Item { get; set; }
+        public List<Item> Items { get; set; }
         public List<Entity> Entities { get; set; }
 
-        public Level(Map map, List<Item> item, List<Entity> entities)
+        public Level(Map map, List<Item> items, List<Entity> entities)
         {
             Map = map;
-            Item = item;
+            Items = items;
             Entities = entities;
         }
 
-        public Level(Map map, List<Item> item, List<Entity> entities, Player player) : this(map, item, entities)
+        public Level(Map map, List<Item> items, List<Entity> entities, Player player) : this(map, items, entities)
         {
             Player = player;
         }

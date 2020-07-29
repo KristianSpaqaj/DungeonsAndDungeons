@@ -42,6 +42,7 @@ namespace DungeonsAndDungeons
             RenderWalls(camera, level);
 
             RenderSprites<Entity>(camera, level.Entities);
+            RenderSprites<Item>(camera, level.Items);
 
 
             return _buffer;
