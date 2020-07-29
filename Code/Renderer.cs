@@ -17,7 +17,6 @@ namespace DungeonsAndDungeons
         private Color floorColor;
         private Color ceilingColor;
 
-
         //Sprite variables
         private readonly double[] zBuffer;
         private readonly List<int> spriteOrder;
@@ -41,7 +40,6 @@ namespace DungeonsAndDungeons
             RenderWalls(camera, level);
 
             RenderSprites(camera, level);
-
 
             return _buffer;
         }
@@ -248,8 +246,8 @@ namespace DungeonsAndDungeons
             for (int i = 0; i < level.Entities.Count; i++)
             {
                 spriteOrder.Add(i);
-                spriteDistance.Add(((camera.Position.X - level.Entities[i].Position.X) * (camera.Position.X - level.Entities[i].Position.X) +
-                                     (camera.Position.Y - level.Entities[i].Position.Y) * (camera.Position.Y - level.Entities[i].Position.Y))); //sqrt not taken, unneeded
+                spriteDistance.Add(Math.Pow(camera.Position.X - level.Entities[i].Position.X, 2) +
+                                   Math.Pow(camera.Position.Y - level.Entities[i].Position.Y, 2));
             }
 
             sortSprites(spriteOrder, spriteDistance, level.Entities.Count);
@@ -257,6 +255,7 @@ namespace DungeonsAndDungeons
             for (int i = 0; i < level.Entities.Count; i++)
             {
                 //translate sprite position to relative to camera
+
                 double spriteX = level.Entities[spriteOrder[i]].Position.X - camera.Position.X;
                 double spriteY = level.Entities[spriteOrder[i]].Position.Y - camera.Position.Y;
 
@@ -306,8 +305,6 @@ namespace DungeonsAndDungeons
                 }
             }
         }
-
-
 
         public Color ChangeBrightness(Color color, float f)
         {

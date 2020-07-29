@@ -13,7 +13,7 @@ namespace DungeonsAndDungeons
         public int[,] Tiles { get; set; }
         public int Height { get; }
         public int Width { get; }
-        public List<Color[]> Textures { get; set; }
+        public List<Sprite> Textures { get; set; }
 
         public Map(int[,] tiles, List<Texture2D> textures)
         {
@@ -21,13 +21,13 @@ namespace DungeonsAndDungeons
             Width = tiles.GetLength(1);
             Height = tiles.GetLength(0);
 
-            Textures = new List<Color[]>();
+            Textures = new List<Sprite>();
 
             VerifyTextureSizeConsistency(textures);
 
             foreach (Texture2D texture in textures)
             {
-                Textures.Add(texture.GenerateColorArray());
+                Textures.Add(new Sprite(texture));
             }
         }
 
