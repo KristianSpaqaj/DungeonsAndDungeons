@@ -4,6 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace DungeonsAndDungeons
 {
+    /// <summary>
+    /// Wrapper class for <c>Texture2D</c> which allows for implicit conversion to both <c>Color</c> arrays and <c>Texture2D</c>
+    /// </summary>
     public class Sprite
     {
         public Color[] Pixels { get; set; }

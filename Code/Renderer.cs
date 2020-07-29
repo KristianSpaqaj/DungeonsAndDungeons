@@ -48,6 +48,11 @@ namespace DungeonsAndDungeons
             return _buffer;
         }
 
+        /// <summary>
+        /// Draws floor and ceiling to internal buffer based on <paramref name="camera"/> perspective
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="level"></param>
         private void RenderFloorAndCeiling(Camera camera, Level level)
         {
             for (int y = 0; y < ScreenHeight; y++)
@@ -102,6 +107,11 @@ namespace DungeonsAndDungeons
             }
         }
 
+        /// <summary>
+        /// Draws walls to internal buffer based on <paramref name="camera"/> perspective and <paramref name="level"/>.Map
+        /// </summary>
+        /// <param name="camera"></param>
+        /// <param name="level"></param>
         private void RenderWalls(Camera camera, Level level)
         {
             for (int x = 0; x < ScreenWidth; x++)
@@ -242,8 +252,12 @@ namespace DungeonsAndDungeons
             }
         }
 
-
-
+        /// <summary>
+        /// Draws a list of drawable objects to internal buffer, based on <paramref name="camera"/> perspective
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="camera"></param>
+        /// <param name="renderables">List of objects implementing the <c>IRenderable</c> interface</param>
         private void RenderSprites<T>(Camera camera, List<T> renderables) where T : class, IRenderable
         {
             for (int i = 0; i < renderables.Count; i++)

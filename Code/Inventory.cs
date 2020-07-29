@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace DungeonsAndDungeons
 {
+    /// <summary>
+    /// Represents a collection of Items
+    /// </summary>
     public class Inventory
     {
         private List<Item> Items { get; set; }

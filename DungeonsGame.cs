@@ -130,7 +130,7 @@ namespace DungeonsAndDungeons
         protected override void Update(GameTime gameTime)
         {
             GameContext.GameTime = gameTime;
-            ProcessInput(gameTime);
+            ProcessInput();
 
             TurnProcessor.RunCurrentTurn(level, GameContext);
 
@@ -140,7 +140,11 @@ namespace DungeonsAndDungeons
             base.Update(gameTime);
         }
 
-        public void ProcessInput(GameTime gameTime)
+        /// <summary>
+        /// Reads keyboard input from current frame and translates it to action descriptions
+        /// </summary>
+
+        public void ProcessInput()
         {
 
             Keys[] pressed = Keyboard.GetState().GetPressedKeys();

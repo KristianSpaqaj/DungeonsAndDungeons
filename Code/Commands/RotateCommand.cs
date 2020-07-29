@@ -16,7 +16,6 @@ namespace DungeonsAndDungeons.Commands
         public override void Execute()
         {
             Creator.Direction = Creator.Direction.RotateDegree(90 * (TurnRight ? -1 : 1));
-
         }
     }
 }

@@ -28,8 +28,19 @@ namespace DungeonsAndDungeons.Entities
             State = state;
         }
 
+        /// <summary>
+        /// Used for updating the internal entity state, if such processing is required by a given entity
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="ctx"></param>
         virtual protected void Update(Level level, GameContext ctx) { } // should perhaps be abstract
+        
+        /// <summary>
+        /// Computes an command that represents the entity's action for the turn
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="ctx"></param>
+        /// <returns>A Command object representing an action</returns>
         abstract public Command GetAction(Level level, GameContext ctx);
-
     }
 }

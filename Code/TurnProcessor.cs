@@ -18,6 +18,12 @@ namespace DungeonsAndDungeons
             TimeSinceLastTurn = 0;
         }
 
+        /// <summary>
+        /// Gets and runs actions from player and entities
+        /// </summary>
+        /// <remarks>Waits a predetermined amount betweeen each command execution</remarks>
+        /// <param name="currentLevel"></param>
+        /// <param name="ctx"></param>
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
@@ -36,11 +42,15 @@ namespace DungeonsAndDungeons
                     State = States.PLAYER_TURN;
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
-
-
             }
         }
 
+        /// <summary>
+        /// Gets action from player and executes it
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="ctx"></param>
+        /// <returns>True if player has returned a non-null command, false otherwise</returns>
         private bool RunPlayerTurn(Level level, GameContext ctx)
         {
             TurnCommand = level.Player.GetAction(level, ctx); // player should perhaps have a set amount of comands they can build per turn
@@ -55,6 +65,11 @@ namespace DungeonsAndDungeons
             }
         }
 
+        /// <summary>
+        /// Runs through entities in <paramref name="level"/>, getting and executing actione from each
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="ctx"></param>
         private void RunEntitiesTurn(Level level, GameContext ctx)
         {
             foreach (Entity entity in level.Entities)
