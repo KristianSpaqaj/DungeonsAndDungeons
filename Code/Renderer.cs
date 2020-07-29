@@ -179,7 +179,7 @@ namespace DungeonsAndDungeons
                         side = 1;
                     }
 
-                    if (level.Map[mapX, mapY] > 0)
+                    if (!level.Map.IsEmpty(mapX, mapY))
                     {
                         hit = 1;
                     }

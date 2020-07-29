@@ -10,7 +10,7 @@ namespace DungeonsAndDungeons
     {
         public List<Sprite> Textures { get; }
 
-        public TexturedMap(int[,] tiles, List<Texture2D> textures) : base(tiles)
+        public TexturedMap(int[,] tiles, List<Texture2D> textures) : base(tiles, 0)
         {
             Textures = new List<Sprite>();
 

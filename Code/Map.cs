@@ -1,30 +1,28 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
-    public class Map<T> : ICollection
+    public class Map<T> : ICollection where T : IComparable
     {
         public T[,] Tiles { get; set; }
+        public T EmptyTile { get; }
         public int Height => Tiles.GetLength(0);
         public int Width => Tiles.GetLength(1);
-        public T EmptyTile { get; }
         public int Count => Tiles.Length;
 
         public object SyncRoot => Tiles.SyncRoot;
 
         public bool IsSynchronized => Tiles.IsSynchronized;
 
-        public Map(T[,] tiles)
+        public Map(T[,] tiles, T empty)
         {
             Tiles = tiles;
-            EmptyTile = default;
-        }
-
-        public Map(T[,] tiles, T empty) : this(tiles)
-        {
             EmptyTile = empty;
         }
+
+        public bool IsEmpty(int x, int y) => Tiles[x, y].CompareTo(EmptyTile) <= 0;
 
         public void CopyTo(Array array, int index)
         {

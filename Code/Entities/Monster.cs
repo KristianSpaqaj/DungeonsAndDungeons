@@ -14,9 +14,11 @@ namespace DungeonsAndDungeons.Entities
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            Vector2 nextPos = Vector2.Normalize(Position) * Vector2.Normalize(Direction);
 
-            if (level.Map[(int)nextPos.X, (int)nextPos.Y] != 0)
+            int nextX = (int)(Position.X + Direction.X);
+            int nextY = (int)(Position.Y + Direction.Y);
+
+            if (level.Map.IsEmpty(nextX,nextY))
             {
                 Direction = Direction.RotateDegree(180);
             }
