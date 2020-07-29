@@ -6,7 +6,7 @@ namespace DungeonsAndDungeons.Commands
 {
     public class MoveCommand : Command
     {
-        private bool MoveForward { get; set; }
+        private bool MoveForward { get; }
         public MoveCommand(Entity entity, Level level, GameContext ctx, bool moveForward) : base(entity, level, ctx)
         {
             MoveForward = moveForward;

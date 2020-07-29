@@ -4,9 +4,9 @@ namespace DungeonsAndDungeons.Commands
 {
     public abstract class Command
     {
-        protected Entity Creator { get; private set; }
-        protected Level Level { get; private set; }
-        protected GameContext Context { get; private set; }
+        protected Entity Creator { get; }
+        protected Level Level { get; }
+        protected GameContext Context { get; }
 
         public Command(Entity entity, Level level, GameContext ctx)
         {

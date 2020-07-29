@@ -16,7 +16,7 @@ namespace DungeonsAndDungeons
         {
             Items = new List<Item>();
         }
-        
+
         public Inventory(params Item[] items)
         {
             Items = items.ToList();
@@ -47,14 +47,14 @@ namespace DungeonsAndDungeons
 
         public bool Contains(object value)
         {
-            return Items.Contains((Item)value); 
+            return Items.Contains((Item)value);
         }
 
         public void CopyTo(Array array, int index)
         {
             for (int i = index; i < array.Length; i++)
             {
-                array.SetValue(Items[i],i);
+                array.SetValue(Items[i], i);
             }
         }
 

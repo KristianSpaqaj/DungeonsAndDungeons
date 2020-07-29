@@ -4,10 +4,10 @@ namespace DungeonsAndDungeons
 {
     public class Adventure
     {
-        private LevelGenerator Generator { get; set; }
-        private int NumberOfLevels { get; set; }
-        private string Seed { get; set; }
-        private int Difficulty { get; set; }
-        private Entity Player { get; set; }
+        private LevelGenerator Generator { get; }
+        private int NumberOfLevels { get; }
+        private string Seed { get; }
+        private int Difficulty { get; }
+        private Entity Player { get; }
     }
 }

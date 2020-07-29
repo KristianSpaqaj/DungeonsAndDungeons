@@ -6,7 +6,7 @@ namespace DungeonsAndDungeons.Commands
     public class RotateCommand : Command
     {
 
-        public bool TurnRight { get; set; } = false;
+        private bool TurnRight { get; }
 
         public RotateCommand(Entity entity, Level level, GameContext ctx, bool turnRight) : base(entity, level, ctx)
         {

@@ -220,7 +220,7 @@ namespace DungeonsAndDungeons
 
                 wallX -= Math.Floor(wallX);
 
-                int texX = (int)(wallX * (double)TexWidth);
+                int texX = (int)(wallX * TexWidth);
                 if (side == 0 && rayDirX > 0)
                 {
                     texX = TexWidth - texX - 1;
@@ -300,7 +300,7 @@ namespace DungeonsAndDungeons
 
                 for (int stripe = drawStartX; stripe < drawEndX; stripe++)
                 {
-                    int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TexWidth / spriteWidth) / 256;
+                    int texX = 256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TexWidth / spriteWidth / 256;
                     //the conditions in the if are:
                     //1) it's in front of camera plane so you don't see things behind you
                     //2) it's on the screen (left)

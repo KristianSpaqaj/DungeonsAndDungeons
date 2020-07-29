@@ -7,7 +7,7 @@ namespace DungeonsAndDungeons
 {
     public class InputMapper
     {
-        Dictionary<string, string> Bindings { get; set; }
+        Dictionary<string, string> Bindings { get; }
 
         public InputMapper(Dictionary<string, string> bindings)
         {

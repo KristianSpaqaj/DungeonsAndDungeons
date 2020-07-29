@@ -6,9 +6,9 @@ namespace DungeonsAndDungeons
 {
     public class Item : IRenderable
     {
-        public Dictionary<string, object> Attributes { get; set; }
+        public Dictionary<string, object> Attributes { get; }
         public Sprite Sprite { get; }
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; }
 
         public Item(Sprite sprite, Vector2 position, Dictionary<string, object> attributes = default)
         {

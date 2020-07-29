@@ -6,7 +6,7 @@ namespace DungeonsAndDungeons
     public class TurnProcessor
     {
         private enum States { PLAYER_TURN, OTHER_TURN }
-        private States State { get; set; }
+        private States State { get; }
         private Command TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }

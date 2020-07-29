@@ -8,14 +8,14 @@ namespace DungeonsAndDungeons.Entities
     abstract public class Entity : IRenderable
     {
         public int Id { get; }
-        public List<Sprite> Stances { get; set; }
-        private int StanceIndex { get; set; }
+        public List<Sprite> Stances { get; }
+        protected int StanceIndex { get; set; }
         public Sprite Sprite { get => Stances[StanceIndex]; }
-        public Vector2 Position { get; set; }
-        public Vector2 Direction { get; set; }
-        public Inventory Inventory { get; set; }
+        public Vector2 Position { get; }
+        public Vector2 Direction { get; }
+        public Inventory Inventory { get; }
         public double Health { get; set; }
-        public EntityState State { get; set; }
+        public EntityState State { get; }
 
         public Entity(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE)
         {

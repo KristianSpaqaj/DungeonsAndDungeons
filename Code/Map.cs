@@ -8,10 +8,10 @@ namespace DungeonsAndDungeons
 {
     public class Map
     {
-        public int[,] Tiles { get; set; }
+        public int[,] Tiles { get; }
         public int Height { get; }
         public int Width { get; }
-        public List<Sprite> Textures { get; set; }
+        public List<Sprite> Textures { get; }
 
         public Map(int[,] tiles, List<Texture2D> textures)
         {
