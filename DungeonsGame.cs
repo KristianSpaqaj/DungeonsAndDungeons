@@ -21,7 +21,7 @@ namespace DungeonsAndDungeons
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Renderer renderer;
-        private GuiRenderer GuiRenderer {get;set;}
+        private GuiRenderer GuiRenderer { get; set; }
         private Texture2D screen;
         private Texture2D gui;
         private readonly List<Texture2D> textures;
@@ -175,7 +175,7 @@ namespace DungeonsAndDungeons
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
 
             spriteBatch.End();
-            
+
             base.Draw(gameTime);
         }
 

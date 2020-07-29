@@ -18,10 +18,10 @@ namespace DungeonsAndDungeons
             ItemLimit = int.MaxValue;
         }
 
-        public Inventory(List<Item> items, int itemLimit=int.MaxValue)
+        public Inventory(List<Item> items, int itemLimit = int.MaxValue)
         {
             Items = items;
-            itemLimit = itemLimit;
+            ItemLimit = itemLimit;
         }
 
         public void AddItem(Item item)

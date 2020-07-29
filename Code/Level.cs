@@ -24,7 +24,7 @@ namespace DungeonsAndDungeons
         }
 
 
-        public List<Item> ItemsAt(int x,int y)
+        public List<Item> ItemsAt(int x, int y)
         { // TODO generate item map with bools
             return Items.Where((i) => (int)i.Position.X == x && (int)i.Position.Y == y).ToList();
         }

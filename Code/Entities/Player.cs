@@ -41,11 +41,11 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("PICKUP_ITEM"))
             {
-                var items = level.ItemsAt((int)Position.X, (int)Position.Y);
+                List<Item> items = level.ItemsAt((int)Position.X, (int)Position.Y);
 
-                if(items.Count > 0)
+                if (items.Count > 0)
                 {
-                    cmd = new PickUpItemCommand(this,level,ctx, items[0]); //todo find way of choosing which item
+                    cmd = new PickUpItemCommand(this, level, ctx, items[0]); //todo find way of choosing which item
                 }
             }
 

@@ -34,7 +34,7 @@ namespace DungeonsAndDungeons.Entities
         /// <param name="level"></param>
         /// <param name="ctx"></param>
         virtual protected void Update(Level level, GameContext ctx) { } // should perhaps be abstract
-        
+
         /// <summary>
         /// Computes an command that represents the entity's action for the turn
         /// </summary>

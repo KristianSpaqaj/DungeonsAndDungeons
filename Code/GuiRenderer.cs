@@ -5,11 +5,11 @@ namespace DungeonsAndDungeons
 {
     public class GuiRenderer
     {
-        private Color[] _buffer;
+        private readonly Color[] _buffer;
 
         public GuiRenderer(int width, int height)
         {
-            _buffer = new Color[width*height];
+            _buffer = new Color[width * height];
         }
         public Color[] Render(Player player)
         {

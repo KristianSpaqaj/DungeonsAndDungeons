@@ -1,26 +1,19 @@
-﻿using DungeonsAndDungeons.Commands;
-using DungeonsAndDungeons.Entities;
-using System.Collections.Generic;
+﻿using DungeonsAndDungeons.Entities;
 
 namespace DungeonsAndDungeons.Commands
 {
     internal class PickUpItemCommand : Command
     {
-        private Entity Entity;
-        private GameContext Ctx;
-        private Item Item;
+        private readonly Item Item;
 
-        public PickUpItemCommand(Entity entity, Level level, GameContext ctx, Item item) :  base(entity,level,ctx)
+        public PickUpItemCommand(Entity entity, Level level, GameContext ctx, Item item) : base(entity, level, ctx)
         {
-            Entity = entity;
-            Level = level;
-            Ctx = ctx;
             Item = item;
         }
 
         public override void Execute()
         {
-            Entity.Inventory.AddItem(Item);
+            Creator.Inventory.AddItem(Item);
             Level.Items.Remove(Item);
         }
     }
