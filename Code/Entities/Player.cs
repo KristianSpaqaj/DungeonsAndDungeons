@@ -45,7 +45,7 @@ namespace DungeonsAndDungeons.Entities
                     cmd = new PickUpItemCommand(this, level, ctx, items[0]); //todo find way of choosing which item
                 }
             }
-
+           
             return cmd;
         }
 

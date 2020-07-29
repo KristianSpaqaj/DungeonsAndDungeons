@@ -1,6 +1,7 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Extensions;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons.Entities
@@ -12,17 +13,18 @@ namespace DungeonsAndDungeons.Entities
         {
         }
 
+
         public override Command GetAction(Level level, GameContext ctx)
         {
 
             int nextX = (int)(Position.X + Direction.X);
             int nextY = (int)(Position.Y + Direction.Y);
 
-            if (level.Map.IsEmpty(nextX,nextY))
+            if (!level.Map.IsValid(nextX,nextY))
             {
+                Random rand = new Random();
                 Direction = Direction.RotateDegree(180);
             }
-
 
             return new MoveCommand(this, level, ctx, true);
         }
