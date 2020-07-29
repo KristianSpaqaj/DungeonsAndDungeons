@@ -38,13 +38,14 @@ namespace DungeonsAndDungeons
         public Color[] Render(Camera camera, Level level)
         {
             RenderFloorAndCeiling(camera, level);
-
             RenderWalls(camera, level);
-
             RenderSprites(camera, level.Entities);
             RenderSprites(camera, level.Items);
 
-            //RenderPlayerWeapon(camera, level);
+            if (level.Player.DrawnItem != null)
+            {
+                RenderPlayerItem(camera, level);
+            }
 
             return _buffer;
         }
@@ -330,21 +331,12 @@ namespace DungeonsAndDungeons
             }
         }
 
-        private void RenderPlayerWeapon(Camera camera, Level level)
+        private void RenderPlayerItem(Camera camera, Level level)
         {
-            int drawStartY = ScreenHeight - TexHeight;
-            int drawEndY = ScreenHeight;
-
-            int drawStartX = (ScreenWidth / 2) - TexWidth / 2;
-            int drawEndX = (ScreenWidth / 2) + TexWidth / 2;
-
-            for (int y = drawStartY; y < drawEndY; y++)
-            {
-                for (int x = drawStartX; x < drawEndX; x++)
-                {
-                    _buffer[x + (y * TexWidth)] = GetPixel(level.Player.DrawnItem.Sprite, x, y);
-                }
-            }
+            Player player = level.Player;
+            Item item = player.DrawnItem;
+            item.Position = new Vector2((player.Position.X + player.Direction.X * 1), player.Position.Y + player.Direction.Y * 1);
+            RenderSprite(camera, item);
         }
         public Color ChangeBrightness(Color color, float f)
         {

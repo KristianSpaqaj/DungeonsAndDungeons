@@ -173,6 +173,7 @@ namespace DungeonsAndDungeons
             spriteBatch.Draw(gui, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
+            spriteBatch.DrawString(defaultFont, string.Join(" , ", level.Player.Inventory), new Vector2(100, 200), Color.LimeGreen);
 
             spriteBatch.End();
 
