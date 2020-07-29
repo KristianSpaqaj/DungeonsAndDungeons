@@ -7,10 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -54,28 +52,17 @@ namespace DungeonsAndDungeons
 
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
-
-        private readonly double seconds;
-
         private Level level;
-
         private TurnProcessor TurnProcessor { get; set; }
-
         Dictionary<string, string> KeyBinding { get; set; }
-
         private List<Command> Commands { get; set; }
-
         private SoundEffect song;
-
         private InputMapper InputMapper;
-
         private GameContext GameContext { get; set; }
-
         private SpriteFont defaultFont;
-
         private Dictionary<string, string> Configuration { get; set; }
-
         private Camera camera;
+        const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
 
         public DungeonsGame()
         {
@@ -84,7 +71,6 @@ namespace DungeonsAndDungeons
             textures = new List<Texture2D>();
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
-            seconds = 0;
             GameContext = new GameContext(new GameTime());
             Commands = new List<Command>();
             TurnProcessor = new TurnProcessor();
@@ -92,11 +78,11 @@ namespace DungeonsAndDungeons
 
         protected override void Initialize()
         {
-            string text = File.ReadAllText("../../../../Code/Config.json");
+            string text = File.ReadAllText($"{ConfigDirectory}/Config.json");
             Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
 
-            string bindingsText = File.ReadAllText("../../../../Code/Keybindings.json");
-            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string,string>>(bindingsText);
+            string bindingsText = File.ReadAllText($"{ConfigDirectory}/Keybindings.json");
+            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, string>>(bindingsText);
 
             for (int i = 1; i < 9; i++)
             {

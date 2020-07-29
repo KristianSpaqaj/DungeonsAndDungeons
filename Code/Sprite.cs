@@ -1,5 +1,4 @@
-﻿using DungeonsAndDungeons.Code;
-using DungeonsAndDungeons.Extensions;
+﻿using DungeonsAndDungeons.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 

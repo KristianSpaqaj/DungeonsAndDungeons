@@ -1,7 +1,7 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using DungeonsAndDungeons.Extensions;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Linq;
-using DungeonsAndDungeons.Extensions;
 
 namespace DungeonsAndDungeons
 {
@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons
     {
         Dictionary<string, string> Bindings { get; set; }
 
-        public InputMapper(Dictionary<string,string> bindings)
+        public InputMapper(Dictionary<string, string> bindings)
         {
             Bindings = bindings;
         }

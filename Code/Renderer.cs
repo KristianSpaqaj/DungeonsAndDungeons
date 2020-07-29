@@ -239,7 +239,6 @@ namespace DungeonsAndDungeons
                 }
 
                 zBuffer[x] = perpWallDist; //perpendicular distance is used
-
             }
         }
 
