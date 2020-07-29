@@ -21,7 +21,9 @@ namespace DungeonsAndDungeons
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Renderer renderer;
+        private GuiRenderer GuiRenderer {get;set;}
         private Texture2D screen;
+        private Texture2D gui;
         private readonly List<Texture2D> textures;
         private readonly int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
@@ -74,6 +76,7 @@ namespace DungeonsAndDungeons
             GameContext = new GameContext(new GameTime());
             Commands = new List<Command>();
             TurnProcessor = new TurnProcessor();
+            GuiRenderer = new GuiRenderer(ScreenWidth, ScreenHeight);
         }
 
         protected override void Initialize()
@@ -104,6 +107,7 @@ namespace DungeonsAndDungeons
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
+            gui = new Texture2D(graphics.GraphicsDevice, ScreenWidth, ScreenHeight);
 
             level = new Level(new Map(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
 
@@ -161,16 +165,18 @@ namespace DungeonsAndDungeons
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
             Color[] colors = renderer.Render(camera, level);
-
             screen.SetData<Color>(colors);
-
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
+
+            colors = GuiRenderer.Render(level.Player);
+            gui.SetData<Color>(colors);
+            spriteBatch.Draw(gui, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
             spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
 
-            base.Draw(gameTime);
-
             spriteBatch.End();
+            
+            base.Draw(gameTime);
         }
 
     }
