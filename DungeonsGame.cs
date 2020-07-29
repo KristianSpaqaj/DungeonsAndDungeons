@@ -113,11 +113,13 @@ namespace DungeonsAndDungeons
                                        100,
                                        new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) });
 
+            Item knife = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(17.5f, 6.5f));
+
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            level = new Level(new Map(tiles, textures), null, new List<Entity>() { demon }, player);
+            level = new Level(new Map(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
