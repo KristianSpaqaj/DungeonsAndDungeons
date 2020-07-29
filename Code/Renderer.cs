@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Interfaces;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -39,7 +41,8 @@ namespace DungeonsAndDungeons
 
             RenderWalls(camera, level);
 
-            RenderSprites(camera, level);
+            RenderSprites<Entity>(camera, level.Entities);
+
 
             return _buffer;
         }
@@ -241,23 +244,23 @@ namespace DungeonsAndDungeons
 
 
 
-        private void RenderSprites(Camera camera, Level level)
+        private void RenderSprites<T>(Camera camera, List<T> renderables) where T : class, IRenderable
         {
-            for (int i = 0; i < level.Entities.Count; i++)
+            for (int i = 0; i < renderables.Count; i++)
             {
                 spriteOrder.Add(i);
-                spriteDistance.Add(Math.Pow(camera.Position.X - level.Entities[i].Position.X, 2) +
-                                   Math.Pow(camera.Position.Y - level.Entities[i].Position.Y, 2));
+                spriteDistance.Add(Math.Pow(camera.Position.X - renderables[i].Position.X, 2) +
+                                   Math.Pow(camera.Position.Y - renderables[i].Position.Y, 2));
             }
 
-            sortSprites(spriteOrder, spriteDistance, level.Entities.Count);
+            sortSprites(spriteOrder, spriteDistance, renderables.Count);
 
-            for (int i = 0; i < level.Entities.Count; i++)
+            for (int i = 0; i < renderables.Count; i++)
             {
                 //translate sprite position to relative to camera
 
-                double spriteX = level.Entities[spriteOrder[i]].Position.X - camera.Position.X;
-                double spriteY = level.Entities[spriteOrder[i]].Position.Y - camera.Position.Y;
+                double spriteX = renderables[spriteOrder[i]].Position.X - camera.Position.X;
+                double spriteY = renderables[spriteOrder[i]].Position.Y - camera.Position.Y;
 
                 double invDet = 1.0 / (camera.Plane.X * camera.Direction.Y - camera.Direction.X * camera.Plane.Y); //required for correct matrix multiplication
 
@@ -295,7 +298,7 @@ namespace DungeonsAndDungeons
                         {
                             int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                             int texY = ((d * TexHeight) / spriteHeight) / 256;
-                            Color color = GetPixel(level.Entities[0].Sprite, texX, texY); //get current color from the texture
+                            Color color = GetPixel(renderables[0].Sprite, texX, texY); //get current color from the texture
                             if (color != Color.White)
                             {
                                 _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color

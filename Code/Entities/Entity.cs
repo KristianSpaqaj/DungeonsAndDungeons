@@ -1,10 +1,11 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons.Entities
 {
-    abstract public class Entity
+    abstract public class Entity : IRenderable
     {
         public int Id { get; }
         public List<Sprite> Stances { get; set; }

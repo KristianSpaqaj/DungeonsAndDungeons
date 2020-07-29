@@ -55,6 +55,7 @@
     <Compile Include="Code\Extensions\DictionaryExtension.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\InputState.cs" />
+    <Compile Include="Code\Interfaces\IRenderable.cs" />
     <Compile Include="Code\Inventory.cs" />
     <Compile Include="Code\Item.cs" />
     <Compile Include="Code\Level.cs" />
