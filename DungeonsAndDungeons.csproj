@@ -52,6 +52,7 @@
     <Compile Include="Code\Commands\RotateCommand.cs" />
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityState.cs" />
+    <Compile Include="Code\Commands\PickUpItemCommand.cs" />
     <Compile Include="Code\Extensions\DictionaryExtension.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\GuiRenderer.cs" />

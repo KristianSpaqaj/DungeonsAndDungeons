@@ -18,14 +18,6 @@ namespace DungeonsAndDungeons.Entities
             Rotation = 0;
             Command cmd = null;
 
-            var items = level.ItemsAt((int)Position.X, (int)Position.Y);
-
-            foreach (Item item in items)
-            {
-                level.Items.Remove(item);
-                Inventory.AddItem(item);
-            }
-
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
@@ -45,6 +37,16 @@ namespace DungeonsAndDungeons.Entities
             if (InputState.HasAction("MOVE_BACKWARD"))
             {
                 cmd = new MoveCommand(this, level, ctx, false);
+            }
+
+            if (InputState.HasAction("PICKUP_ITEM"))
+            {
+                var items = level.ItemsAt((int)Position.X, (int)Position.Y);
+
+                if(items.Count > 0)
+                {
+                    cmd = new PickUpItemCommand(this,level,ctx, items[0]); //todo find way of choosing which item
+                }
             }
 
             return cmd;
