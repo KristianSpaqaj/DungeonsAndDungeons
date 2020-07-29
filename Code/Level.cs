@@ -7,18 +7,18 @@ namespace DungeonsAndDungeons
     public class Level
     {
         public Player Player { get; }
-        public Map Map { get; }
+        public TexturedMap Map { get; }
         public List<Item> Items { get; }
         public List<Entity> Entities { get; }
 
-        public Level(Map map, List<Item> items, List<Entity> entities)
+        public Level(TexturedMap map, List<Item> items, List<Entity> entities)
         {
             Map = map;
             Items = items;
             Entities = entities;
         }
 
-        public Level(Map map, List<Item> items, List<Entity> entities, Player player) : this(map, items, entities)
+        public Level(TexturedMap map, List<Item> items, List<Entity> entities, Player player) : this(map, items, entities)
         {
             Player = player;
         }

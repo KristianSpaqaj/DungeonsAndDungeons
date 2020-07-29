@@ -1,50 +1,41 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections;
 
 namespace DungeonsAndDungeons
 {
-    public class Map
+    public class Map<T> : ICollection
     {
-        public int[,] Tiles { get; }
-        public int Height { get; }
-        public int Width { get; }
-        public List<Sprite> Textures { get; }
+        public T[,] Tiles { get; }
+        public int Height => Tiles.GetLength(0);
+        public int Width => Tiles.GetLength(1);
+        public T EmptyTile { get; }
+        public int Count => Tiles.Length;
 
-        public Map(int[,] tiles, List<Texture2D> textures)
+        public object SyncRoot => Tiles.SyncRoot;
+
+        public bool IsSynchronized => Tiles.IsSynchronized;
+
+        public Map(T[,] tiles)
         {
             Tiles = tiles;
-            Width = tiles.GetLength(1);
-            Height = tiles.GetLength(0);
-
-            Textures = new List<Sprite>();
-
-            VerifyTextureSizeConsistency(textures);
-
-            foreach (Texture2D texture in textures)
-            {
-                Textures.Add(new Sprite(texture));
-            }
+            EmptyTile = default;
         }
 
-        public Color[] GetTileTexture(int x, int y)
+        public Map(T[,] tiles, T empty) : this(tiles)
         {
-            return Textures[Tiles[x, y]];
+            EmptyTile = empty;
         }
 
-        private void VerifyTextureSizeConsistency(List<Texture2D> textures)
+        public void CopyTo(Array array, int index)
         {
-            int height = textures[0].Height;
-            int width = textures[0].Width;
-
-            if (!textures.All((texture) => texture.Height == height && texture.Width == width))
-            {
-                throw new ArgumentException("Textures must all be same height and width");
-            }
+            Tiles.CopyTo(array, index);
         }
 
-        public int this[int i, int j] => Tiles[i, j];
+        public IEnumerator GetEnumerator()
+        {
+            return Tiles.GetEnumerator();
+        }
+
+        public T this[int i, int j] => Tiles[i, j];
     }
 }

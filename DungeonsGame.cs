@@ -109,7 +109,7 @@ namespace DungeonsAndDungeons
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
             gui = new Texture2D(graphics.GraphicsDevice, ScreenWidth, ScreenHeight);
 
-            level = new Level(new Map(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
+            level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
 
