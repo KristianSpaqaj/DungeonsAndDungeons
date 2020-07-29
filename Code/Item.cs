@@ -8,7 +8,7 @@ namespace DungeonsAndDungeons
     {
         public Dictionary<string, object> Attributes { get; }
         public Sprite Sprite { get; }
-        public Vector2 Position { get; }
+        public Vector2 Position { get; set; }
 
         public Item(Sprite sprite, Vector2 position, Dictionary<string, object> attributes = default)
         {

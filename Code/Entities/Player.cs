@@ -7,8 +7,11 @@ namespace DungeonsAndDungeons.Entities
 {
     public class Player : Entity
     {
+        public Item DrawnItem { get; set; }
+
         public Player(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
+            DrawnItem = null;
         }
 
         public override Command GetAction(Level level, GameContext ctx)
@@ -43,9 +46,10 @@ namespace DungeonsAndDungeons.Entities
                 if (items.Count > 0)
                 {
                     cmd = new PickUpItemCommand(this, level, ctx, items[0]); //todo find way of choosing which item
+                    DrawnItem = items[0];
                 }
             }
-           
+
             return cmd;
         }
 

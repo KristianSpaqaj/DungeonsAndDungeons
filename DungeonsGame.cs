@@ -93,16 +93,16 @@ namespace DungeonsAndDungeons
             }
 
             InputMapper = new InputMapper(KeyBinding);
+            
+            Item knife = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(17.5f, 6.5f));
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory(), 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory() { }, 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, 1),
                                        new Inventory(),
                                        100,
                                        new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) });
-
-            Item knife = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(17.5f, 6.5f));
 
             renderer = new Renderer(640, 480);
 

@@ -41,12 +41,15 @@ namespace DungeonsAndDungeons
 
             RenderWalls(camera, level);
 
-            RenderSprites<Entity>(camera, level.Entities);
-            RenderSprites<Item>(camera, level.Items);
+            RenderSprites(camera, level.Entities);
+            RenderSprites(camera, level.Items);
 
+            //RenderPlayerWeapon(camera, level);
 
             return _buffer;
         }
+
+
 
         /// <summary>
         /// Draws floor and ceiling to internal buffer based on <paramref name="camera"/> perspective
@@ -271,58 +274,78 @@ namespace DungeonsAndDungeons
 
             for (int i = 0; i < renderables.Count; i++)
             {
-                //translate sprite position to relative to camera
+                RenderSprite(camera, renderables[spriteOrder[i]]);
+            }
+        }
 
-                double spriteX = renderables[spriteOrder[i]].Position.X - camera.Position.X;
-                double spriteY = renderables[spriteOrder[i]].Position.Y - camera.Position.Y;
+        private void RenderSprite<T>(Camera camera, T renderable) where T : class, IRenderable
+        {
+            //translate sprite position to relative to camera
+            double spriteX = renderable.Position.X - camera.Position.X;
+            double spriteY = renderable.Position.Y - camera.Position.Y;
 
-                double invDet = 1.0 / (camera.Plane.X * camera.Direction.Y - camera.Direction.X * camera.Plane.Y); //required for correct matrix multiplication
+            double invDet = 1.0 / (camera.Plane.X * camera.Direction.Y - camera.Direction.X * camera.Plane.Y); //required for correct matrix multiplication
 
-                double transformX = invDet * (camera.Direction.Y * spriteX - camera.Direction.X * spriteY);
-                double transformY = invDet * (-camera.Plane.Y * spriteX + camera.Plane.X * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
+            double transformX = invDet * (camera.Direction.Y * spriteX - camera.Direction.X * spriteY);
+            double transformY = invDet * (-camera.Plane.Y * spriteX + camera.Plane.X * spriteY); //this is actually the depth inside the screen, that what Z is in 3D
 
-                int spriteScreenX = (int)((ScreenWidth / 2) * (1 + transformX / transformY));
+            int spriteScreenX = (int)((ScreenWidth / 2) * (1 + transformX / transformY));
 
-                //calculate height of the sprite on screen
-                int spriteHeight = (int)Math.Abs(Math.Floor(ScreenHeight / transformY)); //using 'transformY' instead of the real distance prevents fisheye
-                                                                                         //calculate lowest and highest pixel to fill in current stripe
-                int drawStartY = -spriteHeight / 2 + ScreenHeight / 2;
-                if (drawStartY < 0) drawStartY = 0;
-                int drawEndY = spriteHeight / 2 + ScreenHeight / 2;
-                if (drawEndY >= ScreenHeight) drawEndY = ScreenHeight - 1;
+            //calculate height of the sprite on screen
+            int spriteHeight = (int)Math.Abs(Math.Floor(ScreenHeight / transformY)); //using 'transformY' instead of the real distance prevents fisheye
+                                                                                     //calculate lowest and highest pixel to fill in current stripe
+            int drawStartY = -spriteHeight / 2 + ScreenHeight / 2;
+            if (drawStartY < 0) drawStartY = 0;
+            int drawEndY = spriteHeight / 2 + ScreenHeight / 2;
+            if (drawEndY >= ScreenHeight) drawEndY = ScreenHeight - 1;
 
-                //calculate width of the sprite
-                int spriteWidth = (int)Math.Abs(Math.Floor(ScreenWidth / transformY)) / 2;
-                int drawStartX = -spriteWidth / 2 + spriteScreenX;
-                if (drawStartX < 0) drawStartX = 0;
-                int drawEndX = spriteWidth / 2 + spriteScreenX;
-                if (drawEndX >= ScreenWidth) drawEndX = ScreenWidth - 1;
+            //calculate width of the sprite
+            int spriteWidth = (int)Math.Abs(Math.Floor(ScreenWidth / transformY)) / 2;
+            int drawStartX = -spriteWidth / 2 + spriteScreenX;
+            if (drawStartX < 0) drawStartX = 0;
+            int drawEndX = spriteWidth / 2 + spriteScreenX;
+            if (drawEndX >= ScreenWidth) drawEndX = ScreenWidth - 1;
 
-                for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+            for (int stripe = drawStartX; stripe < drawEndX; stripe++)
+            {
+                int texX = 256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TexWidth / spriteWidth / 256;
+                //the conditions in the if are:
+                //1) it's in front of camera plane so you don't see things behind you
+                //2) it's on the screen (left)
+                //3) it's on the screen (right)
+                //4) ZBuffer, with perpendicular distance
+                if (transformY > 0 && stripe > 0 && stripe < ScreenWidth && transformY < zBuffer[stripe])
                 {
-                    int texX = 256 * (stripe - (-spriteWidth / 2 + spriteScreenX)) * TexWidth / spriteWidth / 256;
-                    //the conditions in the if are:
-                    //1) it's in front of camera plane so you don't see things behind you
-                    //2) it's on the screen (left)
-                    //3) it's on the screen (right)
-                    //4) ZBuffer, with perpendicular distance
-                    if (transformY > 0 && stripe > 0 && stripe < ScreenWidth && transformY < zBuffer[stripe])
+                    for (int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
                     {
-                        for (int y = drawStartY; y < drawEndY; y++) //for every pixel of the current stripe
+                        int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
+                        int texY = ((d * TexHeight) / spriteHeight) / 256;
+                        Color color = GetPixel(renderable.Sprite, texX, texY); //get current color from the texture
+                        if (color != Color.White)
                         {
-                            int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
-                            int texY = ((d * TexHeight) / spriteHeight) / 256;
-                            Color color = GetPixel(renderables[0].Sprite, texX, texY); //get current color from the texture
-                            if (color != Color.White)
-                            {
-                                _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
-                            }
+                            _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
                         }
                     }
                 }
             }
         }
 
+        private void RenderPlayerWeapon(Camera camera, Level level)
+        {
+            int drawStartY = ScreenHeight - TexHeight;
+            int drawEndY = ScreenHeight;
+
+            int drawStartX = (ScreenWidth / 2) - TexWidth / 2;
+            int drawEndX = (ScreenWidth / 2) + TexWidth / 2;
+
+            for (int y = drawStartY; y < drawEndY; y++)
+            {
+                for (int x = drawStartX; x < drawEndX; x++)
+                {
+                    _buffer[x + (y * TexWidth)] = GetPixel(level.Player.DrawnItem.Sprite, x, y);
+                }
+            }
+        }
         public Color ChangeBrightness(Color color, float f)
         {
             Color changed = Color.Multiply(color, f);
