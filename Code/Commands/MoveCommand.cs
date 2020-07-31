@@ -12,13 +12,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-            Move();
+            Creator.Position += (Creator.Direction * Direction);
         }
-
-        private void Move()
-        {
-            Creator.Position = Creator.Position + (Creator.Direction * Direction);
-        }
-
     }
 }

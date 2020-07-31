@@ -41,7 +41,7 @@ namespace DungeonsAndDungeons
         /// <param name="forward"></param>
         public void Move(GameTime time, bool forward = true)
         {
-            Position = Position + Direction;
+            Position += Direction;
         }
 
         /// <summary>
