@@ -1,6 +1,6 @@
-﻿using DungeonsAndDungeons.Code;
-using DungeonsAndDungeons.Commands;
+﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,7 +22,7 @@ namespace DungeonsAndDungeons
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Renderer renderer;
-        private GuiRenderer GuiRenderer { get; set; }
+        private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
         private Texture2D gui;
         private readonly List<Texture2D> textures;
@@ -77,7 +77,6 @@ namespace DungeonsAndDungeons
             GameContext = new GameContext(new GameTime());
             Commands = new List<Command>();
             TurnProcessor = new TurnProcessor();
-            GuiRenderer = new GuiRenderer(ScreenWidth, ScreenHeight);
         }
 
         protected override void Initialize()
@@ -113,6 +112,7 @@ namespace DungeonsAndDungeons
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
+            
 
             base.Initialize();
         }
@@ -123,8 +123,10 @@ namespace DungeonsAndDungeons
             spriteBatch = new SpriteBatch(GraphicsDevice);
             song = Content.Load<SoundEffect>(Configuration.Value<string>("ambientsong"));
             MediaPlayer.Volume = float.Parse(Configuration.Value<string>("musicVolume"));
-            defaultFont = Content.Load<SpriteFont>("DefaultFont");
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
+            defaultFont = Content.Load<SpriteFont>("DefaultFont");
+
+            GuiRenderer = new GUIRenderer(defaultFont);
         }
 
         protected override void UnloadContent()
@@ -177,9 +179,9 @@ namespace DungeonsAndDungeons
 
             if (Configuration.Value<bool>("enableOverlay"))
             {
-                spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
-                spriteBatch.DrawString(defaultFont, string.Join(" , ", level.Player.Inventory), new Vector2(100, 200), Color.LimeGreen);
+                GuiRenderer.Render(spriteBatch, level);
             }
+
 
             spriteBatch.End();
 

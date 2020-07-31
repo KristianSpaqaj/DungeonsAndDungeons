@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons
         public TurnProcessor()
         {
             State = States.PLAYER_TURN;
-            TimeOutPeriod = 0.5;
+            TimeOutPeriod = 0.25;
             TimeSinceLastTurn = 0;
         }
 

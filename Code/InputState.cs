@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DungeonsAndDungeons.Code
+namespace DungeonsAndDungeons
 {
     /// <summary>
     /// Holds the translated actions of a single frame
