@@ -2,5 +2,6 @@
   "musicVolume": "0.00",
   "ambientsong": "damdamdehdeh",
   "enableOverlay": true,
-  "isFullScreen": false
+  "isFullScreen": false,
+  "fov" : 60
 }

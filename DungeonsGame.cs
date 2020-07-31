@@ -113,7 +113,7 @@ namespace DungeonsAndDungeons
 
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife,knife2,knife3 }, new List<Entity>() { demon }, player);
 
-            camera = new Camera(player.Position, player.Direction, 66);
+            camera = new Camera(player.Position, player.Direction, Configuration.Value<float>("fov"));
 
                 
 
