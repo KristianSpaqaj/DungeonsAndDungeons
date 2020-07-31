@@ -1,4 +1,5 @@
 ﻿{
-    "musicVolume": "0.05",
-    "ambientsong": "damdamdehdeh"    
+  "musicVolume": "0.05",
+  "ambientsong": "damdamdehdeh",
+  "enableOveraly": false
 }

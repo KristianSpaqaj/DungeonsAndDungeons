@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
 using Color = Microsoft.Xna.Framework.Color;
@@ -62,7 +63,7 @@ namespace DungeonsAndDungeons
         private InputMapper InputMapper;
         private GameContext GameContext { get; set; }
         private SpriteFont defaultFont;
-        private Dictionary<string, string> Configuration { get; set; }
+        private JObject Configuration { get; set; }
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
 
@@ -82,7 +83,7 @@ namespace DungeonsAndDungeons
         protected override void Initialize()
         {
             string text = File.ReadAllText($"{ConfigDirectory}/Config.json");
-            Configuration = JsonConvert.DeserializeObject<Dictionary<string, string>>(text);
+            Configuration = JObject.Parse(text);
 
             string bindingsText = File.ReadAllText($"{ConfigDirectory}/Keybindings.json");
             KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, string>>(bindingsText);
@@ -120,8 +121,8 @@ namespace DungeonsAndDungeons
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            song = Content.Load<SoundEffect>(Configuration["ambientsong"]);
-            MediaPlayer.Volume = float.Parse(Configuration["musicVolume"]);
+            song = Content.Load<SoundEffect>(Configuration.Value<string>("ambientsong"));
+            MediaPlayer.Volume = float.Parse(Configuration.Value<string>("musicVolume"));
             defaultFont = Content.Load<SpriteFont>("DefaultFont");
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
         }
@@ -154,9 +155,14 @@ namespace DungeonsAndDungeons
             Keys[] pressed = Keyboard.GetState().GetPressedKeys();
             InputState.Actions = InputMapper.Translate(pressed);
 
-            if (InputState.HasAction("Escape"))
+            if (InputState.HasAction("QUIT"))
             {
                 Exit();
+            }
+
+            if (InputState.HasAction("OVERLAY"))
+            {
+                Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
             }
         }
 
@@ -168,12 +174,12 @@ namespace DungeonsAndDungeons
             screen.SetData<Color>(colors);
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
-            colors = GuiRenderer.Render(level.Player);
-            gui.SetData<Color>(colors);
-            spriteBatch.Draw(gui, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
 
-            spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
-            spriteBatch.DrawString(defaultFont, string.Join(" , ", level.Player.Inventory), new Vector2(100, 200), Color.LimeGreen);
+            if (Configuration.Value<bool>("enableOverlay"))
+            {
+                spriteBatch.DrawString(defaultFont, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen);
+                spriteBatch.DrawString(defaultFont, string.Join(" , ", level.Player.Inventory), new Vector2(100, 200), Color.LimeGreen);
+            }
 
             spriteBatch.End();
 
