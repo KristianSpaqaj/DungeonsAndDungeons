@@ -33,7 +33,7 @@ namespace DungeonsAndDungeons.GUI
         {
             batch.Draw(MakeTexture(Color.DarkMagenta), InventoryRectangle, Color.White);
 
-            int scaleFactor = 2;
+            int scaleFactor = 2; // TODO find way of scaling (possibly using content rectangle)
 
             int itemWidth = inventory[0].Sprite.Width * scaleFactor;
             int itemHeight = inventory[0].Sprite.Height*scaleFactor;

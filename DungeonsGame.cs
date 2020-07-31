@@ -112,7 +112,12 @@ namespace DungeonsAndDungeons
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife }, new List<Entity>() { demon }, player);
 
             camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
-            
+
+            if (Configuration.Value<bool>("isFullScreen")) //find way of moving this into constructor
+            {
+                graphics.IsFullScreen = true;
+                graphics.ApplyChanges();
+            }
 
             base.Initialize();
         }
@@ -165,6 +170,12 @@ namespace DungeonsAndDungeons
             if (InputState.HasAction("TOGGLE_OVERLAY"))
             {
                 Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
+            }
+
+            if (InputState.HasAction("TOGGLE_FULLSCREEN"))
+            {
+                graphics.IsFullScreen = !graphics.IsFullScreen;
+                graphics.ApplyChanges();
             }
         }
 
