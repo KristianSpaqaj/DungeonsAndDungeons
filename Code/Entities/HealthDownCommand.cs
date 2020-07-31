@@ -2,10 +2,10 @@
 
 namespace DungeonsAndDungeons.Entities
 {
-    internal class HealthDownCommand : Command
+    internal class HealthDownCommand : Command // NOTE only for test purposes
     {
-        private int v;
-        public HealthDownCommand(Entity entity, Level level, GameContext ctx, int v) : base(entity,level,ctx)
+        private readonly int v;
+        public HealthDownCommand(Entity entity, Level level, GameContext ctx, int v) : base(entity, level, ctx)
         {
             this.v = v;
         }

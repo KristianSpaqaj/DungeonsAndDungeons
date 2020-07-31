@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
@@ -17,7 +13,7 @@ namespace DungeonsAndDungeons
         public T Maximum { get; set; }
 
 
-        public Range(T minimum, T maximum) 
+        public Range(T minimum, T maximum)
         {
             Minimum = minimum;
             Maximum = maximum;

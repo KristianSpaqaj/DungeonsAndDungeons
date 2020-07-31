@@ -19,7 +19,7 @@ namespace DungeonsAndDungeons.GUI
             Graphics = graphics;
             InventoryRectangle = new Rectangle(0, window.ClientBounds.Height - 200, window.ClientBounds.Width, 200);
             HealthBoxRectangle = new Rectangle(0, InventoryRectangle.Y - 50, 200, 50);
-            HealthBarRectangle = new Rectangle(HealthBoxRectangle.X+5, HealthBoxRectangle.Y+5, HealthBoxRectangle.Width-10, HealthBoxRectangle.Height-10);
+            HealthBarRectangle = new Rectangle(HealthBoxRectangle.X + 5, HealthBoxRectangle.Y + 5, HealthBoxRectangle.Width - 10, HealthBoxRectangle.Height - 10);
         }
 
         public void Render(SpriteBatch batch, Level level)
@@ -43,9 +43,9 @@ namespace DungeonsAndDungeons.GUI
 
             int step = (int)Math.Round((double)HealthBarRectangle.Width / health.Maximum);
 
-            for(int i = 0; i < health.Remaining; i ++)
+            for (int i = 0; i < health.Remaining; i++)
             {
-                batch.Draw(MakeTexture(Color.Red), new Rectangle(i*step, HealthBarRectangle.Y, step, HealthBarRectangle.Height), Color.White);
+                batch.Draw(MakeTexture(Color.Red), new Rectangle(i * step, HealthBarRectangle.Y, step, HealthBarRectangle.Height), Color.White);
             }
         }
 
