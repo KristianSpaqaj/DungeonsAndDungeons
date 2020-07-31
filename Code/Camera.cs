@@ -14,11 +14,24 @@ namespace DungeonsAndDungeons
 
         public Vector2 Plane { get; private set; }
 
-        public Camera(Vector2 position, Vector2 direction, Vector2 plane)
+        public Camera(Vector2 position, Vector2 direction, float FOV)
         {
             Position = position;
             Direction = direction;
-            Plane = plane;
+
+            double radians = FOV * (Math.PI / 180);
+
+            float p = (float)(Direction.Length() * Math.Tan(radians/2));
+            Plane = new Vector2((float)p, 0);
+
+            if (Direction.X == 0)
+            {
+                Plane = new Vector2(p, 0);
+            }
+            else
+            {
+                Plane = new Vector2(0, p);
+            }
         }
 
         /// <summary>
