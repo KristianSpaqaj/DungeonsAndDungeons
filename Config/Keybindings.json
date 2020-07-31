@@ -6,6 +6,7 @@
   "E": "PICKUP_ITEM",
   "Q": "DROP_ITEM",
   "F": "TOGGLE_OVERLAY",
+  "C": "HEALTHDOWN",
   "Escape": "QUIT",
   "Enter": "TOGGLE_FULLSCREEN"
 }

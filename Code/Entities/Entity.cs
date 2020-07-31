@@ -14,10 +14,10 @@ namespace DungeonsAndDungeons.Entities
         public Vector2 Position { get; set; }
         public Vector2 Direction { get; set; }
         public Inventory Inventory { get; }
-        public double Health { get; set; }
+        public Health Health { get; set; }
         public EntityState State { get; }
 
-        public Entity(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE)
+        public Entity(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE)
         {
             Position = position;
             Direction = direction;

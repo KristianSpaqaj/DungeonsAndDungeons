@@ -8,7 +8,7 @@ namespace DungeonsAndDungeons.Entities
     {
         public Item DrawnItem { get; set; }
         public int Rotation { get; set; }
-        public Player(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
+        public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
             DrawnItem = null;
             Rotation = 0;
@@ -60,6 +60,10 @@ namespace DungeonsAndDungeons.Entities
             }
 
 
+            if (InputState.HasAction("HEALTHDOWN"))
+            {
+                cmd = new HealthDownCommand(this, level, ctx, 10);
+            }
 
             return cmd;
         }

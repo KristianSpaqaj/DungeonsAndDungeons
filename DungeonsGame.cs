@@ -98,12 +98,12 @@ namespace DungeonsAndDungeons
             Item knife2 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(15.5f, 6.5f));
             Item knife3 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(16.5f, 6.5f));
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Inventory() { knife, knife2, knife3 }, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Inventory() { knife, knife2, knife3 }, new Health(100), new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, 1),
                                        new Inventory(),
-                                       100,
+                                       new Health(100),
                                        new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) });
 
             renderer = new Renderer(640, 480);
