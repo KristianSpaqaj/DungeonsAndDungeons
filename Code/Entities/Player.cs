@@ -57,7 +57,21 @@ namespace DungeonsAndDungeons.Entities
                 }
             }
 
+            
+
             return cmd;
+        }
+
+        public override void Update()
+        {
+            if (Inventory.Count > 0)
+            {
+                DrawnItem = Inventory[0];
+            }
+            else
+            {
+                DrawnItem = null;
+            }
         }
 
     }

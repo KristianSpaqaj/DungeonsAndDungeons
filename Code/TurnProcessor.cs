@@ -32,6 +32,7 @@ namespace DungeonsAndDungeons
                 {
                     if (RunPlayerTurn(currentLevel, ctx)) // Split into checking and running methods
                     {
+                        currentLevel.Player.Update();
                         State = States.OTHER_TURN;
                         TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                     }
@@ -77,6 +78,7 @@ namespace DungeonsAndDungeons
                 {
                     TurnCommand = entity.GetAction(level, ctx);
                     TurnCommand.Execute();
+                    entity.Update();
                 }
             }
         }
