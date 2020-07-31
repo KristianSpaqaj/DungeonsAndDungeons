@@ -98,7 +98,7 @@ namespace DungeonsAndDungeons
             Item knife2 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(15.5f, 6.5f));
             Item knife3 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(16.5f, 6.5f));
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1,0), new Inventory() {  }, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1,0), new Inventory() { knife, knife2, knife3 }, 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, 1),
@@ -111,7 +111,7 @@ namespace DungeonsAndDungeons
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
             gui = new Texture2D(graphics.GraphicsDevice, ScreenWidth, ScreenHeight);
 
-            level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife,knife2,knife3 }, new List<Entity>() { demon }, player);
+            level = new Level(new TexturedMap(tiles, textures), new List<Item>() {  }, new List<Entity>() { demon }, player);
 
             camera = new Camera(player.Position, player.Direction, Configuration.Value<float>("fov"));
 
@@ -152,7 +152,6 @@ namespace DungeonsAndDungeons
 
             camera.Position = level.Player.Position;
             camera.Rotate(level.Player.Rotation);
-
             level.Player.Rotation = 0;
 
             base.Update(gameTime);
@@ -192,6 +191,7 @@ namespace DungeonsAndDungeons
             Color[] colors = renderer.Render(camera, level);
             screen.SetData<Color>(colors);
             spriteBatch.Draw(screen, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
+            spriteBatch.End();
 
             if (Configuration.Value<bool>("enableOverlay"))
             {
@@ -199,9 +199,8 @@ namespace DungeonsAndDungeons
             }
 
 
-            spriteBatch.End();
-
             base.Draw(gameTime);
+
         }
 
     }

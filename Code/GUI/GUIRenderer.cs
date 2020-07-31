@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace DungeonsAndDungeons.GUI
 {
@@ -19,16 +21,18 @@ namespace DungeonsAndDungeons.GUI
 
         public void Render(SpriteBatch batch, Level level)
         {
+            batch.Begin();
             RenderDebugInfo(batch);
-            RenderInventory(batch, level.Player.Inventory);
+            RenderPlayerInfo(batch, level.Player);
+            batch.End();
         }
 
-        private void RenderDebugInfo(SpriteBatch batch)
+        private void RenderPlayerInfo(SpriteBatch batch, Player player)
         {
-            batch.DrawString(Font, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen,
-                            0.0f, new Vector2(0, 0), 2, SpriteEffects.None, 0);
+            RenderInventory(batch, player.Inventory);
         }
 
+    
         private void RenderInventory(SpriteBatch batch, Inventory inventory)
         {
             batch.Draw(MakeTexture(Color.DarkMagenta), InventoryRectangle, Color.White);
@@ -48,6 +52,11 @@ namespace DungeonsAndDungeons.GUI
                 }
             }
 
+        }
+        private void RenderDebugInfo(SpriteBatch batch)
+        {
+            batch.DrawString(Font, string.Join(" , ", InputState.Actions), new Vector2(100, 100), Color.LimeGreen,
+                            0.0f, new Vector2(0, 0), 2, SpriteEffects.None, 0);
         }
 
         private Texture2D MakeTexture(Color color)
