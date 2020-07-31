@@ -322,10 +322,8 @@ namespace DungeonsAndDungeons
                         int d = (y) * 256 - ScreenHeight * 128 + spriteHeight * 128; //256 and 128 factors to avoid floats
                         int texY = ((d * TexHeight) / spriteHeight) / 256;
                         Color color = GetPixel(renderable.Sprite, texX, texY); //get current color from the texture
-                        if (color != Color.White)
-                        {
-                            _buffer[y * ScreenWidth + stripe] = color; //paint pixel if it isn't black, black is the invisible color
-                        }
+                        if (color != Color.Transparent)
+                            _buffer[y * ScreenWidth + stripe] = color;
                     }
                 }
             }

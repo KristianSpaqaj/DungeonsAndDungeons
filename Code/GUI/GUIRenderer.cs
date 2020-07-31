@@ -32,6 +32,9 @@ namespace DungeonsAndDungeons.GUI
         private void RenderInventory(SpriteBatch batch, Inventory inventory)
         {
             batch.Draw(MakeTexture(Color.Black), InventoryRectangle, Color.White);
+
+            Rectangle inventorySquare = new Rectangle(InventoryRectangle.X, InventoryRectangle.Y, 1, 1);
+
             for (int i = 0; i < inventory.Count; i++)
             {
                 batch.Draw(inventory[i].Sprite, new Rectangle(inventory[i].Sprite.Width * i, InventoryRectangle.Y+100,

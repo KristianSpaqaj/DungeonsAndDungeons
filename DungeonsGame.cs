@@ -96,7 +96,7 @@ namespace DungeonsAndDungeons
 
             Item knife = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(17.5f, 6.5f));
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory() { }, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory() { knife,knife }, 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, 1),
@@ -174,7 +174,7 @@ namespace DungeonsAndDungeons
 
             Color[] colors = renderer.Render(camera, level);
             screen.SetData<Color>(colors);
-            spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
+            spriteBatch.Draw(screen, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
 
             if (Configuration.Value<bool>("enableOverlay"))
             {
