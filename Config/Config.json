@@ -1,5 +1,6 @@
 ﻿{
-  "musicVolume": "0.05",
+  "musicVolume": "0.00",
   "ambientsong": "damdamdehdeh",
-  "enableOverlay": true
+  "enableOverlay": true,
+  "isFullScreen": false
 }

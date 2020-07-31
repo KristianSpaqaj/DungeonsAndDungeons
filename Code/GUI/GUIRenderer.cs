@@ -31,14 +31,18 @@ namespace DungeonsAndDungeons.GUI
 
         private void RenderInventory(SpriteBatch batch, Inventory inventory)
         {
-            batch.Draw(MakeTexture(Color.Black), InventoryRectangle, Color.White);
+            batch.Draw(MakeTexture(Color.DarkMagenta), InventoryRectangle, Color.White);
 
-            Rectangle inventorySquare = new Rectangle(InventoryRectangle.X, InventoryRectangle.Y, 1, 1);
+            int scaleFactor = 2;
+
+            int itemWidth = inventory[0].Sprite.Width * scaleFactor;
+            int itemHeight = inventory[0].Sprite.Height*scaleFactor;
+
+            int y = InventoryRectangle.Y;
 
             for (int i = 0; i < inventory.Count; i++)
             {
-                batch.Draw(inventory[i].Sprite, new Rectangle(inventory[i].Sprite.Width * i, InventoryRectangle.Y+100,
-                                                                inventory[i].Sprite.Width, inventory[i].Sprite.Height), Color.White);
+                batch.Draw(inventory[i].Sprite, new Rectangle(itemWidth*i, y, itemWidth, itemHeight), Color.White);
             }
         }
 
