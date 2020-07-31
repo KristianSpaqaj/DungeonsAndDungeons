@@ -3,7 +3,8 @@
   "A": "ROTATE_LEFT",
   "S": "MOVE_BACKWARD",
   "D": "ROTATE_RIGHT",
-  "Q": "PICKUP_ITEM",
+  "E": "PICKUP_ITEM",
+  "Q": "DROP_ITEM",
   "F": "TOGGLE_OVERLAY",
   "Escape": "QUIT",
   "Enter": "TOGGLE_FULLSCREEN"

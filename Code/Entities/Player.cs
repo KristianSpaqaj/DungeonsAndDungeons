@@ -45,7 +45,15 @@ namespace DungeonsAndDungeons.Entities
                 if (items.Count > 0)
                 {
                     cmd = new PickUpItemCommand(this, level, ctx, items[0]); //todo find way of choosing which item
-                    DrawnItem = items[0];
+                }
+
+            }
+
+            if (InputState.HasAction("DROP_ITEM"))
+            {
+                if (Inventory.Count > 0)
+                {
+                    cmd = new DropItemCommand(this, level, ctx, Inventory[0]);
                 }
             }
 

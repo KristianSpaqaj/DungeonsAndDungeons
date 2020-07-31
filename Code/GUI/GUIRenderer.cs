@@ -33,17 +33,21 @@ namespace DungeonsAndDungeons.GUI
         {
             batch.Draw(MakeTexture(Color.DarkMagenta), InventoryRectangle, Color.White);
 
-            int scaleFactor = 2; // TODO find way of scaling (possibly using content rectangle)
-
-            int itemWidth = inventory[0].Sprite.Width * scaleFactor;
-            int itemHeight = inventory[0].Sprite.Height*scaleFactor;
-
-            int y = InventoryRectangle.Y;
-
-            for (int i = 0; i < inventory.Count; i++)
+            if(inventory.Count > 0)
             {
-                batch.Draw(inventory[i].Sprite, new Rectangle(itemWidth*i, y, itemWidth, itemHeight), Color.White);
+                int scaleFactor = 2; // TODO find way of scaling (possibly using content rectangle)
+
+                int itemWidth = inventory[0].Sprite.Width * scaleFactor;
+                int itemHeight = inventory[0].Sprite.Height * scaleFactor;
+
+                int y = InventoryRectangle.Y;
+
+                for (int i = 0; i < inventory.Count; i++)
+                {
+                    batch.Draw(inventory[i].Sprite, new Rectangle(itemWidth * i, y, itemWidth, itemHeight), Color.White);
+                }
             }
+
         }
 
         private Texture2D MakeTexture(Color color)
