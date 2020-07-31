@@ -21,7 +21,7 @@ namespace DungeonsAndDungeons
 
             double radians = FOV * (Math.PI / 180);
 
-            float p = (float)(Direction.Length() * Math.Tan(radians/2));
+            float p = (float)(Direction.Length() * Math.Tan(radians / 2));
             Plane = new Vector2((float)p, 0);
 
             if (Direction.X == 0)

@@ -1,8 +1,6 @@
 ﻿using DungeonsAndDungeons.Entities;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace DungeonsAndDungeons.GUI
 {
@@ -32,12 +30,12 @@ namespace DungeonsAndDungeons.GUI
             RenderInventory(batch, player.Inventory);
         }
 
-    
+
         private void RenderInventory(SpriteBatch batch, Inventory inventory)
         {
             batch.Draw(MakeTexture(Color.DarkMagenta), InventoryRectangle, Color.White);
 
-            if(inventory.Count > 0)
+            if (inventory.Count > 0)
             {
                 int scaleFactor = 2; // TODO find way of scaling (possibly using content rectangle)
 

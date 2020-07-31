@@ -352,14 +352,14 @@ namespace DungeonsAndDungeons
         {
             List<Tuple<double, int>> sprites = new List<Tuple<double, int>>();
 
-            for(int i = 0;  i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 sprites.Add(new Tuple<double, int>(spriteDistance[i], spriteOrder[i]));
             }
 
             sprites.Sort();
 
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 spriteDistance[i] = sprites[count - i - 1].Item1;
                 spriteOrder[i] = sprites[count - i - 1].Item2;

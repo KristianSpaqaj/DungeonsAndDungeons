@@ -1,5 +1,4 @@
 ﻿using DungeonsAndDungeons.Entities;
-using DungeonsAndDungeons.Extensions;
 using Microsoft.Xna.Framework;
 
 namespace DungeonsAndDungeons.Commands
