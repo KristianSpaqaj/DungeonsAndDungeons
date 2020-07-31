@@ -150,7 +150,6 @@ namespace DungeonsAndDungeons
         /// <summary>
         /// Reads keyboard input from current frame and translates it to action descriptions
         /// </summary>
-
         public void ProcessInput()
         {
 
@@ -162,7 +161,8 @@ namespace DungeonsAndDungeons
                 Exit();
             }
 
-            if (InputState.HasAction("OVERLAY"))
+            //TODO Add timeout period
+            if (InputState.HasAction("TOGGLE_OVERLAY"))
             {
                 Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
             }
@@ -175,7 +175,6 @@ namespace DungeonsAndDungeons
             Color[] colors = renderer.Render(camera, level);
             screen.SetData<Color>(colors);
             spriteBatch.Draw(screen, destinationRectangle: new Rectangle(0, 0, ScreenWidth, ScreenHeight));
-
 
             if (Configuration.Value<bool>("enableOverlay"))
             {

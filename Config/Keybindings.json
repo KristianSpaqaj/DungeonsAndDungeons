@@ -4,6 +4,6 @@
   "S": "MOVE_BACKWARD",
   "D": "ROTATE_RIGHT",
   "Q": "PICKUP_ITEM",
-  "F": "OVERLAY",
+  "F": "TOGGLE_OVERLAY",
   "Escape": "QUIT"
 }
