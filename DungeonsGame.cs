@@ -98,7 +98,7 @@ namespace DungeonsAndDungeons
             Item knife2 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(15.5f, 6.5f));
             Item knife3 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(16.5f, 6.5f));
 
-            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(0, 1), new Inventory() {  }, 100, new List<Sprite>() { });
+            Player player = new Player(new Vector2(17.5f, 4.5f), new Vector2(-1,0), new Inventory() {  }, 100, new List<Sprite>() { });
 
             Entity demon = new Monster(new Vector2(17.5f, 8.5f),
                                        new Vector2(0, 1),
@@ -113,7 +113,7 @@ namespace DungeonsAndDungeons
 
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife,knife2,knife3 }, new List<Entity>() { demon }, player);
 
-            camera = new Camera(new Vector2(17.5f, 4.5f), new Vector2(-1, 0), new Vector2(0, 0.66f));
+            camera = new Camera(player.Position, player.Direction, new Vector2(0, 0.66f));
 
             if (Configuration.Value<bool>("isFullScreen")) //find way of moving this into constructor
             {
@@ -149,7 +149,9 @@ namespace DungeonsAndDungeons
             TurnProcessor.RunCurrentTurn(level, GameContext);
 
             camera.Position = level.Player.Position;
-            camera.SetDirection(level.Player.Direction);
+            camera.Rotate(level.Player.Rotation);
+
+            level.Player.Rotation = 0;
 
             base.Update(gameTime);
         }

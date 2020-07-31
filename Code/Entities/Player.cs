@@ -7,16 +7,16 @@ namespace DungeonsAndDungeons.Entities
     public class Player : Entity
     {
         public Item DrawnItem { get; set; }
-
+        public int Rotation { get; set; }
         public Player(Vector2 position, Vector2 direction, Inventory inventory, double health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
             DrawnItem = null;
+            Rotation = 0;
         }
 
         public override Command GetAction(Level level, GameContext ctx)
         {
             Command cmd = null;
-
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
@@ -26,11 +26,13 @@ namespace DungeonsAndDungeons.Entities
             if (InputState.HasAction("ROTATE_LEFT"))
             {
                 cmd = new RotateCommand(this, level, ctx, false);
+                Rotation = 90;
             }
 
             if (InputState.HasAction("ROTATE_RIGHT"))
             {
                 cmd = new RotateCommand(this, level, ctx, true);
+                Rotation = -90;
             }
 
             if (InputState.HasAction("MOVE_BACKWARD"))

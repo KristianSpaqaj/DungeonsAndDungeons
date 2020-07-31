@@ -28,29 +28,7 @@ namespace DungeonsAndDungeons
         /// <param name="forward"></param>
         public void Move(GameTime time, bool forward = true)
         {
-            double angle = GetDirectionQuadrant();
-
-            int direction = forward ? 1 : -1;
-
-            switch (angle)
-            {
-                case -180: // this angle is occasionally erroneously calculated 
-                case 180:
-                    Position = new Vector2(Position.X - direction, Position.Y);
-                    break;
-
-                case 0:
-                    Position = new Vector2(Position.X + direction, Position.Y);
-                    break;
-
-                case 90:
-                    Position = new Vector2(Position.X, Position.Y + direction);
-                    break;
-
-                case -90:
-                    Position = new Vector2(Position.X, Position.Y - direction);
-                    break;
-            }
+            Position = Position + Direction;
         }
 
         /// <summary>
@@ -74,17 +52,5 @@ namespace DungeonsAndDungeons
             Direction = Direction.RotateDegree(degrees);
             Plane = Plane.RotateDegree(degrees);
         }
-
-        /// <summary>
-        /// Computes the nearest quadrant that the camera is facing
-        /// </summary>
-        /// <remarks>Gives weird values but works</remarks>
-        /// <returns></returns>
-        public double GetDirectionQuadrant()
-        {
-            double angle = Math.Atan2(Direction.Y, Direction.X) * 180 / Math.PI;
-            return Math.Round(angle / 90) * 90;
-        }
-
     }
 }
