@@ -1,21 +1,24 @@
 ﻿using DungeonsAndDungeons.Entities;
 using DungeonsAndDungeons.Extensions;
+using Microsoft.Xna.Framework;
 
 namespace DungeonsAndDungeons.Commands
 {
     public class RotateCommand : Command
     {
 
-        private bool TurnRight { get; }
+        private int Direction { get; }
+        private Vector2 Rotation { get; }
 
         public RotateCommand(Entity entity, Level level, GameContext ctx, bool turnRight) : base(entity, level, ctx)
         {
-            TurnRight = turnRight;
+            Direction = turnRight ? -1 : 1;
+            Rotation = new Vector2(-Creator.Direction.Y, Creator.Direction.X);
         }
 
         public override void Execute()
         {
-            Creator.Direction = Creator.Direction.RotateDegree(90 * (TurnRight ? -1 : 1));
+            Creator.Direction = Rotation * Direction;
         }
     }
 }
