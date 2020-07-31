@@ -12,6 +12,9 @@ namespace DungeonsAndDungeons
         public Color[] Pixels { get; }
         private readonly Texture2D Texture;
 
+        public int Height => Texture.Height;
+        public int Width => Texture.Width;
+
         public Sprite(Texture2D texture)
         {
             Pixels = texture.GenerateColorArray();

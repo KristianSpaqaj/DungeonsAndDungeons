@@ -126,7 +126,7 @@ namespace DungeonsAndDungeons
             song.Play(MediaPlayer.Volume, 0.0f, 0.0f);
             defaultFont = Content.Load<SpriteFont>("DefaultFont");
 
-            GuiRenderer = new GUIRenderer(defaultFont);
+            GuiRenderer = new GUIRenderer(graphics, Window, defaultFont);
         }
 
         protected override void UnloadContent()
