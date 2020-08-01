@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace DungeonsAndDungeons
 {
@@ -7,5 +8,7 @@ namespace DungeonsAndDungeons
     /// </summary>
     public class Inventory : Collection<Item>
     {
+        public Inventory() : base(new List<Item>(10)) { } // an inventory always has 10 slots
+
     }
 }

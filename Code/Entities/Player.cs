@@ -6,12 +6,14 @@ namespace DungeonsAndDungeons.Entities
 {
     public class Player : Entity
     {
-        public Item DrawnItem { get; set; }
+        public Item SelectedItem => Inventory[SelectedSlot];
         public int Rotation { get; set; }
+        private int SelectedSlot { get; set; }
+
         public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
-            DrawnItem = null;
             Rotation = 0;
+            SelectedSlot = 0;
         }
 
         public override Command GetAction(Level level, GameContext ctx)
@@ -53,10 +55,7 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("DROP_ITEM"))
             {
-                if (Inventory.Count > 0)
-                {
-                    cmd = new DropItemCommand(this, level, ctx, Inventory[0]);
-                }
+                cmd = new DropItemCommand(this, level, ctx, SelectedItem);
             }
 
 
@@ -70,14 +69,6 @@ namespace DungeonsAndDungeons.Entities
 
         public override void Update()
         {
-            if (Inventory.Count > 0)
-            {
-                DrawnItem = Inventory[0];
-            }
-            else
-            {
-                DrawnItem = null;
-            }
         }
 
     }

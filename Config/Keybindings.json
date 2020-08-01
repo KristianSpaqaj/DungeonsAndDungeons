@@ -7,6 +7,7 @@
   "Q": "DROP_ITEM",
   "F": "TOGGLE_OVERLAY",
   "C": "HEALTHDOWN",
+  "D1" :  "SLOT1",
   "Escape": "QUIT",
   "Enter": "TOGGLE_FULLSCREEN"
 }

@@ -42,7 +42,7 @@ namespace DungeonsAndDungeons
             RenderSprites(camera, level.Entities);
             RenderSprites(camera, level.Items);
 
-            if (level.Player.DrawnItem != null)
+            if (level.Player.SelectedItem != null)
             {
                 RenderPlayerItem(camera, level);
             }
@@ -332,7 +332,7 @@ namespace DungeonsAndDungeons
         private void RenderPlayerItem(Camera camera, Level level)
         {
             Player player = level.Player;
-            Item item = player.DrawnItem;
+            Item item = player.SelectedItem;
             item.Position = new Vector2((player.Position.X + player.Direction.X * 1), player.Position.Y + player.Direction.Y * 1);
             RenderSprite(camera, item);
         }
