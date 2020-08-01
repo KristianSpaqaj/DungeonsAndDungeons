@@ -55,7 +55,10 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("DROP_ITEM"))
             {
-                cmd = new DropItemCommand(this, level, ctx, SelectedItem);
+                if(SelectedItem != null)
+                {
+                    cmd = new DropItemCommand(this, level, ctx, SelectedItem);
+                }
             }
 
 
