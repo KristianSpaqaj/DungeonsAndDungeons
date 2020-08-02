@@ -7,8 +7,8 @@ namespace DungeonsAndDungeons.Entities
 {
     public class Monster : Entity
     {
-        public Monster(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stances, EntityState state = EntityState.IDLE)
-            : base(position, direction, inventory, health, stances, state)
+        public Monster(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stances, ActionPoints ap, EntityState state = EntityState.IDLE)
+            : base(position, direction, inventory, health, stances, ap, state)
         {
         }
 

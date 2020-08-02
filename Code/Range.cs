@@ -12,11 +12,20 @@ namespace DungeonsAndDungeons
         /// <summary>Maximum value of the range.</summary>
         public T Maximum { get; set; }
 
+        private T _remaining;
+        public T Remaining { get => _remaining; set => SetRemaining(value); }
 
         public Range(T minimum, T maximum)
         {
             Minimum = minimum;
             Maximum = maximum;
+            Remaining = Maximum;
+
+            if (!IsValid())
+            {
+                throw new ArgumentException($"Invalid Range. {Minimum} is not greater than {Maximum}");
+            }
+
         }
 
         /// <summary>Presents the Range in readable format.</summary>
@@ -55,6 +64,22 @@ namespace DungeonsAndDungeons
         public bool ContainsRange(Range<T> range)
         {
             return this.IsValid() && range.IsValid() && this.ContainsValue(range.Minimum) && this.ContainsValue(range.Maximum);
+        }
+
+        private void SetRemaining(T value)
+        {
+            if (value.CompareTo(Minimum) < 0)
+            {
+                _remaining = Minimum;
+            }
+            else if (value.CompareTo(Maximum) > 0)
+            {
+                _remaining = Maximum;
+            }
+            else
+            {
+                _remaining = value;
+            }
         }
     }
 

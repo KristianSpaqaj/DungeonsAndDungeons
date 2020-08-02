@@ -9,7 +9,8 @@ namespace DungeonsAndDungeons.Entities
     {
         public int Rotation { get; set; }
 
-        public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
+        public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, ActionPoints ap, EntityState state = EntityState.IDLE)
+            : base(position, direction, inventory, health, stance, ap, state)
         {
             Rotation = 0;
         }
@@ -71,7 +72,7 @@ namespace DungeonsAndDungeons.Entities
             {
                 cmd = new SelectInventorySlotCommand(this, level, ctx);
                 var s = matches[0].Substring(4);
-                ((SelectInventorySlotCommand)cmd).Slot = int.Parse(s)-1;
+                ((SelectInventorySlotCommand)cmd).Slot = int.Parse(s) - 1;
             }
             return cmd;
         }
