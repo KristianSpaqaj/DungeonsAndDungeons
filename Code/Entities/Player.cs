@@ -7,20 +7,16 @@ namespace DungeonsAndDungeons.Entities
 {
     public class Player : Entity
     {
-        public Item SelectedItem => Inventory[SelectedSlot];
         public int Rotation { get; set; }
-        public int SelectedSlot { get; private set; }
 
         public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
             Rotation = 0;
-            SelectedSlot = 0;
         }
 
         public override Command GetAction(Level level, GameContext ctx)
         {
             Command cmd = null;
-            SelectedSlot = Inventory.SelectedSlot;
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
@@ -57,9 +53,9 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("DROP_ITEM"))
             {
-                if (SelectedItem != null)
+                if (Inventory.Selected != null)
                 {
-                    cmd = new DropItemCommand(this, level, ctx, SelectedItem);
+                    cmd = new DropItemCommand(this, level, ctx, Inventory.Selected);
                 }
             }
 

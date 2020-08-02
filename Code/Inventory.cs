@@ -13,6 +13,7 @@ namespace DungeonsAndDungeons
         public int Size { get; }
         private Item[] Items { get; }
         public int SelectedSlot { get; set; }
+        public Item Selected => Items[SelectedSlot];
 
         public Inventory(int size)
         {
@@ -39,7 +40,7 @@ namespace DungeonsAndDungeons
         {
             for (int i = 0; i < Size; i++)
             {
-                if (Items[i] != null)
+                if (IsSlotEmpty(i))
                 {
                     Items[i] = item;
                     return;
