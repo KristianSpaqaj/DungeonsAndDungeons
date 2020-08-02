@@ -1,6 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
-using System;
 
 namespace DungeonsAndDungeons
 {
@@ -12,7 +11,7 @@ namespace DungeonsAndDungeons
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
 
-        public TurnProcessor(double timeOutPeriod=0.25)
+        public TurnProcessor(double timeOutPeriod = 0.25)
         {
             State = States.PLAYER_TURN;
             TimeOutPeriod = timeOutPeriod;
@@ -34,14 +33,15 @@ namespace DungeonsAndDungeons
 
                     if (RunEntityTurn(currentLevel.Player, currentLevel, ctx))
                     {
-                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                         State = States.OTHER_TURN;
+                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                     }
                 }
                 else
                 {
                     currentLevel.Entities.ForEach(e => RunEntityTurn(e, currentLevel, ctx));
                     State = States.PLAYER_TURN;
+                    TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
         }

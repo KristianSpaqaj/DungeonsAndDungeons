@@ -1,5 +1,4 @@
-﻿using DungeonsAndDungeons.Commands;
-using DungeonsAndDungeons.Entities;
+﻿using DungeonsAndDungeons.Entities;
 using DungeonsAndDungeons.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -24,7 +23,6 @@ namespace DungeonsAndDungeons
         private Renderer renderer;
         private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
-        private Texture2D gui;
         private readonly List<Texture2D> textures;
         private readonly int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
@@ -58,7 +56,6 @@ namespace DungeonsAndDungeons
         private Level level;
         private TurnProcessor TurnProcessor { get; set; }
         Dictionary<string, string> KeyBinding { get; set; }
-        private List<Command> Commands { get; set; }
         private SoundEffect song;
         private InputMapper InputMapper;
         private GameContext GameContext { get; set; }
@@ -75,7 +72,6 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             GameContext = new GameContext(new GameTime());
-            Commands = new List<Command>();
             TurnProcessor = new TurnProcessor();
         }
 
@@ -109,7 +105,6 @@ namespace DungeonsAndDungeons
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
-            gui = new Texture2D(graphics.GraphicsDevice, ScreenWidth, ScreenHeight);
 
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { }, new List<Entity>() { demon }, player);
 

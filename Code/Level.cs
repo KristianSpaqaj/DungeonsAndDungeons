@@ -10,8 +10,8 @@ namespace DungeonsAndDungeons
         public TexturedMap Map { get; }
         public List<Item> Items { get; }
         public List<Entity> Entities { get; }
-       
-        public Level(TexturedMap map, List<Item> items, List<Entity> entities, Player player) 
+
+        public Level(TexturedMap map, List<Item> items, List<Entity> entities, Player player)
         {
             Player = player;
             Map = map;

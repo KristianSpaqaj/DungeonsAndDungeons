@@ -209,8 +209,6 @@ namespace DungeonsAndDungeons
                 int drawEnd = lineHeight / 2 + ScreenHeight / 2;
                 drawEnd = Math.Min(drawEnd, ScreenHeight - 1);
 
-                int texNum = level.Map[mapX, mapY] - 1;
-
                 double wallX;
 
                 if (side == 0)
@@ -271,7 +269,7 @@ namespace DungeonsAndDungeons
                                    Math.Pow(camera.Position.Y - renderables[i].Position.Y, 2));
             }
 
-            sortSprites(spriteOrder, spriteDistance, renderables.Count); // TODO currently only sorts through given set of sprites
+            SortSprites(spriteOrder, spriteDistance, renderables.Count); // TODO currently only sorts through given set of sprites
 
             for (int i = 0; i < renderables.Count; i++)
             {
@@ -348,7 +346,7 @@ namespace DungeonsAndDungeons
             return texture[x + (y * TexWidth)];
         }
 
-        private void sortSprites(List<int> spriteOrder, List<double> spriteDistance, int count)
+        private void SortSprites(List<int> spriteOrder, List<double> spriteDistance, int count)
         {
             List<Tuple<double, int>> sprites = new List<Tuple<double, int>>();
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace DungeonsAndDungeons
@@ -22,7 +21,7 @@ namespace DungeonsAndDungeons
 
         public Inventory(int size, IList<Item> items) : this(size)
         {
-            for(int i = 0; i < items.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
                 Items[i] = items[i];
             }
@@ -33,9 +32,9 @@ namespace DungeonsAndDungeons
 
         public bool Remove(Item item)
         {
-            for(int i = Size-1; i >= 0; i--)
+            for (int i = Size - 1; i >= 0; i--)
             {
-                if(Items[i] == item)
+                if (Items[i] == item)
                 {
                     Items[i] = null;
                     return true;
@@ -47,9 +46,9 @@ namespace DungeonsAndDungeons
 
         public void Add(Item item)
         {
-            for(int i = 0; i < Size; i++)
+            for (int i = 0; i < Size; i++)
             {
-                if(Items[i] != null)
+                if (Items[i] != null)
                 {
                     Items[i] = item;
                     return;
