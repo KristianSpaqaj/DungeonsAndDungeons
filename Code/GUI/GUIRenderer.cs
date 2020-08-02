@@ -12,6 +12,7 @@ namespace DungeonsAndDungeons.GUI
         private Rectangle InventoryRectangle { get; }
         private Rectangle HealthBoxRectangle { get; }
         private Rectangle HealthBarRectangle { get; }
+        private GameWindow Window { get; }
 
         public GUIRenderer(GraphicsDeviceManager graphics, GameWindow window, SpriteFont font)
         {
@@ -20,6 +21,7 @@ namespace DungeonsAndDungeons.GUI
             InventoryRectangle = new Rectangle(0, window.ClientBounds.Height - 200, window.ClientBounds.Width, 200);
             HealthBoxRectangle = new Rectangle(0, InventoryRectangle.Y - 50, 200, 50);
             HealthBarRectangle = new Rectangle(HealthBoxRectangle.X + 5, HealthBoxRectangle.Y + 5, HealthBoxRectangle.Width - 10, HealthBoxRectangle.Height - 10);
+            Window = window;
         }
 
         public void Render(SpriteBatch batch, Level level)
@@ -34,6 +36,13 @@ namespace DungeonsAndDungeons.GUI
         {
             RenderInventory(batch, player.Inventory);
             RenderHealthBar(batch, player.Health);
+            RenderActionPoints(batch, player.ActionPoints);
+        }
+
+        private void RenderActionPoints(SpriteBatch batch, ActionPoints actionPoints)
+        {
+            batch.DrawString(Font, $"Total Action Points: {actionPoints.Maximum}", new Vector2(Window.ClientBounds.Width*0.9f, Window.ClientBounds.Height*0.2f), Color.White);
+            batch.DrawString(Font, $"Remaining: {actionPoints.Remaining}", new Vector2(Window.ClientBounds.Width*0.9f, Window.ClientBounds.Height*0.25f), Color.White);
         }
 
         private void RenderHealthBar(SpriteBatch batch, Health health)
