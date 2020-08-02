@@ -15,11 +15,15 @@ namespace DungeonsAndDungeons
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
         private int CurrentIndex { get; set; }
+        private List<Entity> Entities { get; set; }
+        private Entity Current { get; set; }
+
         public TurnProcessor(double timeOutPeriod = 0.25)
         {
             State = States.PLAYER_TURN;
             TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
+            Entities = new List<Entity>();
         }
 
         /// <summary>
@@ -30,18 +34,19 @@ namespace DungeonsAndDungeons
         /// <param name="ctx"></param>
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
-            TurnCommand = null;
-            List<Entity> entities = new List<Entity>() { };
-            entities.Add(currentLevel.Player);
-            entities.AddRange(currentLevel.Entities);
+            Entities.Clear();
+            Entities.Add(currentLevel.Player);
+            Entities.AddRange(currentLevel.Entities);
+
+            Current = Entities[CurrentIndex];
 
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
-                TurnCommand = entities[CurrentIndex].GetAction(currentLevel, ctx);
-                if (TurnCommand is FinishTurnCommand || entities[CurrentIndex].ActionPoints.Remaining <= entities[CurrentIndex].ActionPoints.Minimum)
+                TurnCommand = Current.GetAction(currentLevel, ctx);
+                if (TurnCommand is FinishTurnCommand || Current.ActionPoints.Remaining <= Current.ActionPoints.Minimum)
                 {
-                    entities[CurrentIndex].ActionPoints.Remaining = entities[CurrentIndex].ActionPoints.Maximum;
-                    if (CurrentIndex < entities.Count - 1)
+                    Current.ActionPoints.Remaining = Current.ActionPoints.Maximum;
+                    if (CurrentIndex < Entities.Count - 1)
                     {
                         CurrentIndex++;
                     }
@@ -51,11 +56,11 @@ namespace DungeonsAndDungeons
                     }
                 }
 
-                else if (!(TurnCommand is EmptyCommand))
+                else if (!(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints.Remaining)
                 {
                     TurnCommand.Execute();
-                    entities[CurrentIndex].Update();
-                    entities[CurrentIndex].ActionPoints.Remaining -= TurnCommand.ActionCost;
+                    Current.Update();
+                    Current.ActionPoints.Remaining -= TurnCommand.ActionCost;
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
