@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace DungeonsAndDungeons
 {
@@ -22,6 +24,11 @@ namespace DungeonsAndDungeons
         public static bool HasAction(string action)
         {
             return Actions.Contains(action);
+        }
+
+        public static List<string> Find(Regex regex)
+        {
+            return Actions.Where(a => regex.IsMatch(a)).ToList();
         }
 
     }

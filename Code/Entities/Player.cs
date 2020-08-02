@@ -1,4 +1,5 @@
-﻿using DungeonsAndDungeons.Commands;
+﻿using DungeonsAndDungeons.Code.Commands;
+using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace DungeonsAndDungeons.Entities
     {
         public Item SelectedItem => Inventory[SelectedSlot];
         public int Rotation { get; set; }
-        private int SelectedSlot { get; set; }
+        public int SelectedSlot { get; private set; }
 
         public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, EntityState state = EntityState.IDLE) : base(position, direction, inventory, health, stance, state)
         {
@@ -19,6 +20,7 @@ namespace DungeonsAndDungeons.Entities
         public override Command GetAction(Level level, GameContext ctx)
         {
             Command cmd = null;
+            SelectedSlot = Inventory.SelectedSlot;
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
@@ -67,6 +69,14 @@ namespace DungeonsAndDungeons.Entities
                 cmd = new HealthDownCommand(this, level, ctx, 10);
             }
 
+            var matches = InputState.Find(new System.Text.RegularExpressions.Regex(@"^SLOT\d+$"));
+
+            if (matches.Count > 0)
+            {
+                cmd = new SelectInventorySlotCommand(this, level, ctx);
+                var s = matches[0].Substring(4);
+                ((SelectInventorySlotCommand)cmd).Slot = int.Parse(s)-1;
+            }
             return cmd;
         }
 

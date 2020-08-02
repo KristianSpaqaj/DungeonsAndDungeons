@@ -12,6 +12,7 @@ namespace DungeonsAndDungeons
     {
         public int Size { get; }
         private Item[] Items { get; }
+        public int SelectedSlot { get; set; }
 
         public Inventory(int size)
         {
@@ -29,19 +30,9 @@ namespace DungeonsAndDungeons
 
         public Item this[int i] { get => Items[i]; set => Items[i] = value; }
 
-
-        public bool Remove(Item item)
+        public void Remove(int index)
         {
-            for (int i = Size - 1; i >= 0; i--)
-            {
-                if (Items[i] == item)
-                {
-                    Items[i] = null;
-                    return true;
-                }
-            }
-
-            return false;
+            Items[index] = null;
         }
 
         public void Add(Item item)

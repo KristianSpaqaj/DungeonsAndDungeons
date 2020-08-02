@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons.Commands
         public override void Execute()
         {
             Item.Position = Creator.Position;
-            Creator.Inventory.Remove(Item);
+            Creator.Inventory.Remove(Creator.Inventory.SelectedSlot);
             Level.Items.Add(Item);
         }
     }

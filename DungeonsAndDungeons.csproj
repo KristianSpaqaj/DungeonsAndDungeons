@@ -51,6 +51,7 @@
     <Compile Include="Code\Commands\EmptyCommand.cs" />
     <Compile Include="Code\Commands\MoveCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
+    <Compile Include="Code\Commands\SelectInventorySlotCommand.cs" />
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityState.cs" />
     <Compile Include="Code\Commands\PickUpItemCommand.cs" />
