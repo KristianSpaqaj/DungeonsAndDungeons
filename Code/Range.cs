@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace DungeonsAndDungeons
 {
@@ -70,6 +71,11 @@ namespace DungeonsAndDungeons
             return this.IsValid() && range.IsValid() && this.ContainsValue(range.Minimum) && this.ContainsValue(range.Maximum);
         }
 
+        public void FillRemaining()
+        {
+            Remaining = Maximum;
+        }
+
         private void SetRemaining(T value)
         {
             if (value.CompareTo(Minimum) < 0)
@@ -85,6 +91,13 @@ namespace DungeonsAndDungeons
                 _remaining = value;
             }
         }
+
+        public bool IsMinimum()
+        {
+            return Remaining.CompareTo(Minimum) <= 0;
+        }
+
+        public static implicit operator T(Range<T> r) => r.Remaining;
 
     }
 

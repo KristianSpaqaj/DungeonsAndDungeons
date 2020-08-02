@@ -43,7 +43,7 @@ namespace DungeonsAndDungeons
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
                 TurnCommand = Current.GetAction(currentLevel, ctx);
-                if (TurnCommand is FinishTurnCommand || Current.ActionPoints.Remaining <= Current.ActionPoints.Minimum)
+                if (TurnCommand is FinishTurnCommand || Current.ActionPoints.IsMinimum())
                 {
                     Current.ActionPoints.Remaining = Current.ActionPoints.Maximum;
                     if (CurrentIndex < Entities.Count - 1)
@@ -56,7 +56,7 @@ namespace DungeonsAndDungeons
                     }
                 }
 
-                else if (!(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints.Remaining)
+                else if (!(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints)
                 {
                     TurnCommand.Execute();
                     Current.Update();
@@ -66,19 +66,5 @@ namespace DungeonsAndDungeons
             }
 
         }
-
-        private bool RunEntityTurn(Entity entity, Level level, GameContext ctx)
-        {
-            TurnCommand = entity.GetAction(level, ctx);
-            if (TurnCommand != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
     }
 }
