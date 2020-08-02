@@ -57,7 +57,7 @@
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityState.cs" />
     <Compile Include="Code\Commands\PickUpItemCommand.cs" />
-    <Compile Include="Code\Entities\HealthDownCommand.cs" />
+    <Compile Include="Code\Commands\HealthDownCommand.cs" />
     <Compile Include="Code\Extensions\DictionaryExtension.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\GUI\GUIRenderer.cs" />

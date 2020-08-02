@@ -1,6 +1,7 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Entities;
 
-namespace DungeonsAndDungeons.Entities
+namespace DungeonsAndDungeons.Commands
 {
     internal class HealthDownCommand : Command // NOTE only for test purposes
     {
