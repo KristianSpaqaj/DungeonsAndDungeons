@@ -1,7 +1,6 @@
 ﻿using DungeonsAndDungeons.Code.Commands;
 using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons.Entities
@@ -9,8 +8,8 @@ namespace DungeonsAndDungeons.Entities
     public class Player : Entity
     {
         public int Rotation { get; set; }
-        private EmptyCommand EmptyCommand {get;}
-        
+        private EmptyCommand EmptyCommand { get; }
+
         public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, ActionPoints ap, EntityState state = EntityState.IDLE)
             : base(position, direction, inventory, health, stance, ap, state)
         {
@@ -22,9 +21,9 @@ namespace DungeonsAndDungeons.Entities
         {
             Command cmd = EmptyCommand;
 
-            if(InputState.HasAction("FINISH_TURN"))
+            if (InputState.HasAction("FINISH_TURN"))
             {
-                cmd = new FinishTurnCommand(this,level,ctx);
+                cmd = new FinishTurnCommand(this, level, ctx);
             }
 
             if (InputState.HasAction("MOVE_FORWARD"))
@@ -74,12 +73,12 @@ namespace DungeonsAndDungeons.Entities
                 cmd = new HealthDownCommand(this, level, ctx, 10);
             }
 
-            var matches = InputState.Find(new System.Text.RegularExpressions.Regex(@"^SLOT\d+$"));
+            List<string> matches = InputState.Find(new System.Text.RegularExpressions.Regex(@"^SLOT\d+$"));
 
             if (matches.Count > 0)
             {
                 cmd = new SelectInventorySlotCommand(this, level, ctx);
-                var s = matches[0].Substring(4);
+                string s = matches[0].Substring(4);
                 ((SelectInventorySlotCommand)cmd).Slot = int.Parse(s) - 1;
             }
             return cmd;

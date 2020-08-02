@@ -41,8 +41,8 @@ namespace DungeonsAndDungeons.GUI
 
         private void RenderActionPoints(SpriteBatch batch, ActionPoints actionPoints)
         {
-            batch.DrawString(Font, $"Total Action Points: {actionPoints.Maximum}", new Vector2(Window.ClientBounds.Width*0.9f, Window.ClientBounds.Height*0.2f), Color.White);
-            batch.DrawString(Font, $"Remaining: {actionPoints.Remaining}", new Vector2(Window.ClientBounds.Width*0.9f, Window.ClientBounds.Height*0.25f), Color.White);
+            batch.DrawString(Font, $"Total Action Points: {actionPoints.Maximum}", new Vector2(Window.ClientBounds.Width * 0.9f, Window.ClientBounds.Height * 0.2f), Color.White);
+            batch.DrawString(Font, $"Remaining: {actionPoints.Remaining}", new Vector2(Window.ClientBounds.Width * 0.9f, Window.ClientBounds.Height * 0.25f), Color.White);
         }
 
         private void RenderHealthBar(SpriteBatch batch, Health health)
@@ -70,7 +70,7 @@ namespace DungeonsAndDungeons.GUI
 
                 for (int i = 0; i < inventory.Size; i++)
                 {
-                    if(inventory.SelectedSlot == i)
+                    if (inventory.SelectedSlot == i)
                     {
                         batch.Draw(MakeTexture(Color.White), new Rectangle(128 * i, y, 128, 128), Color.White);
                     }

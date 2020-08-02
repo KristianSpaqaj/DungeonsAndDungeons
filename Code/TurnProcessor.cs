@@ -1,16 +1,11 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Security.Cryptography;
 
 namespace DungeonsAndDungeons
 {
     public class TurnProcessor
     {
-        private enum States { PLAYER_TURN, OTHER_TURN }
-        private States State { get; set; }
         private Command TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
@@ -20,7 +15,6 @@ namespace DungeonsAndDungeons
 
         public TurnProcessor(double timeOutPeriod = 0.25)
         {
-            State = States.PLAYER_TURN;
             TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
             Entities = new List<Entity>();
@@ -45,26 +39,36 @@ namespace DungeonsAndDungeons
                 TurnCommand = Current.GetAction(currentLevel, ctx);
                 if (TurnCommand is FinishTurnCommand || Current.ActionPoints.IsMinimum())
                 {
-                    Current.ActionPoints.Remaining = Current.ActionPoints.Maximum;
-                    if (CurrentIndex < Entities.Count - 1)
-                    {
-                        CurrentIndex++;
-                    }
-                    else
-                    {
-                        CurrentIndex = 0;
-                    }
+                    GoToNextTurn();
                 }
 
                 else if (!(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints)
                 {
-                    TurnCommand.Execute();
-                    Current.Update();
-                    Current.ActionPoints.Remaining -= TurnCommand.ActionCost;
+                    RunAction();
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
 
+        }
+
+        private void RunAction()
+        {
+            TurnCommand.Execute();
+            Current.Update();
+            Current.ActionPoints.Remaining -= TurnCommand.ActionCost;
+        }
+
+        private void GoToNextTurn()
+        {
+            Current.ActionPoints.Remaining = Current.ActionPoints.Maximum;
+            if (CurrentIndex < Entities.Count - 1)
+            {
+                CurrentIndex++;
+            }
+            else
+            {
+                CurrentIndex = 0;
+            }
         }
     }
 }
