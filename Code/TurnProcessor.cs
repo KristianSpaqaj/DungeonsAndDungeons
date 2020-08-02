@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
+using System;
 
 namespace DungeonsAndDungeons
 {
@@ -11,10 +12,10 @@ namespace DungeonsAndDungeons
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
 
-        public TurnProcessor()
+        public TurnProcessor(double timeOutPeriod=0.25)
         {
             State = States.PLAYER_TURN;
-            TimeOutPeriod = 0.25;
+            TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
         }
 
@@ -30,57 +31,35 @@ namespace DungeonsAndDungeons
             {
                 if (State == States.PLAYER_TURN)
                 {
-                    if (RunPlayerTurn(currentLevel, ctx)) // Split into checking and running methods
+
+                    if (RunEntityTurn(currentLevel.Player, currentLevel, ctx))
                     {
-                        currentLevel.Player.Update();
-                        State = States.OTHER_TURN;
                         TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                        State = States.OTHER_TURN;
                     }
                 }
                 else
                 {
-                    RunEntitiesTurn(currentLevel, ctx);
+                    currentLevel.Entities.ForEach(e => RunEntityTurn(e, currentLevel, ctx));
                     State = States.PLAYER_TURN;
-                    TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
         }
 
-        /// <summary>
-        /// Gets action from player and executes it
-        /// </summary>
-        /// <param name="level"></param>
-        /// <param name="ctx"></param>
-        /// <returns>True if player has returned a non-null command, false otherwise</returns>
-        private bool RunPlayerTurn(Level level, GameContext ctx)
+        private bool RunEntityTurn(Entity entity, Level level, GameContext ctx)
         {
-            TurnCommand = level.Player.GetAction(level, ctx); // player should perhaps have a set amount of comands they can build per turn
-            if (TurnCommand == null) // TODO find better way of doing this
+            TurnCommand = entity.GetAction(level, ctx);
+            if (TurnCommand != null)
             {
-                return false;
+                TurnCommand.Execute();
+                entity.Update();
+                return true;
             }
             else
             {
-                TurnCommand.Execute();
-                return true;
+                return false;
             }
         }
 
-        /// <summary>
-        /// Runs through entities in <paramref name="level"/>, getting and executing actione from each
-        /// </summary>
-        /// <param name="level"></param>
-        /// <param name="ctx"></param>
-        private void RunEntitiesTurn(Level level, GameContext ctx)
-        {
-            foreach (Entity entity in level.Entities)
-            {
-                {
-                    TurnCommand = entity.GetAction(level, ctx);
-                    TurnCommand.Execute();
-                    entity.Update();
-                }
-            }
-        }
     }
 }
