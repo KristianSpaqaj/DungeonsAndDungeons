@@ -51,7 +51,7 @@ namespace DungeonsAndDungeons
                     }
                 }
 
-                else if (TurnCommand != null)
+                else if (!(TurnCommand is EmptyCommand))
                 {
                     TurnCommand.Execute();
                     entities[CurrentIndex].Update();

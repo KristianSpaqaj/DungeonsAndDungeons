@@ -9,16 +9,18 @@ namespace DungeonsAndDungeons.Entities
     public class Player : Entity
     {
         public int Rotation { get; set; }
-
+        private EmptyCommand EmptyCommand {get;}
+        
         public Player(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, ActionPoints ap, EntityState state = EntityState.IDLE)
             : base(position, direction, inventory, health, stance, ap, state)
         {
             Rotation = 0;
+            EmptyCommand = new EmptyCommand();
         }
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-            Command cmd = null;
+            Command cmd = EmptyCommand;
 
             if(InputState.HasAction("FINISH_TURN"))
             {
