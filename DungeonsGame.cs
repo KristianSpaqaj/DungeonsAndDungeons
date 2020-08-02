@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -60,6 +61,7 @@ namespace DungeonsAndDungeons
         private InputMapper InputMapper;
         private GameContext GameContext { get; set; }
         private SpriteFont defaultFont;
+        Thread thread;
         private JObject Configuration { get; set; }
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
@@ -116,8 +118,6 @@ namespace DungeonsAndDungeons
             level = new Level(new TexturedMap(tiles, textures), new List<Item>() { }, new List<Entity>() { demon }, player);
 
             camera = new Camera(player.Position, player.Direction, Configuration.Value<float>("fov"));
-
-
 
             if (Configuration.Value<bool>("isFullScreen")) //find way of moving this into constructor
             {

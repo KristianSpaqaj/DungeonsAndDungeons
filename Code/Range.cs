@@ -25,7 +25,11 @@ namespace DungeonsAndDungeons
             {
                 throw new ArgumentException($"Invalid Range. {Minimum} is not greater than {Maximum}");
             }
+        }
 
+        public Range(T minimum, T maximum, T remaining) : this(minimum, maximum)
+        {
+            Remaining = remaining;
         }
 
         /// <summary>Presents the Range in readable format.</summary>
@@ -81,6 +85,7 @@ namespace DungeonsAndDungeons
                 _remaining = value;
             }
         }
+
     }
 
 }

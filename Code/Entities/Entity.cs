@@ -16,7 +16,7 @@ namespace DungeonsAndDungeons.Entities
         public Inventory Inventory { get; }
         public Health Health { get; set; }
         public EntityState State { get; }
-        public ActionPoints ActionPoints { get; }
+        public ActionPoints ActionPoints { get; set; }
 
         public Entity(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, ActionPoints ap, EntityState state = EntityState.IDLE)
         {

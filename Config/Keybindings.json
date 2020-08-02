@@ -7,6 +7,7 @@
   "Q": "DROP_ITEM",
   "F": "TOGGLE_OVERLAY",
   "C": "HEALTHDOWN",
+  "V": "FINISH_TURN",
   "D1": "SLOT1",
   "D2": "SLOT2",
   "D3": "SLOT3",

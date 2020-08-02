@@ -1,6 +1,7 @@
 ﻿using DungeonsAndDungeons.Code.Commands;
 using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons.Entities
@@ -18,6 +19,11 @@ namespace DungeonsAndDungeons.Entities
         public override Command GetAction(Level level, GameContext ctx)
         {
             Command cmd = null;
+
+            if(InputState.HasAction("FINISH_TURN"))
+            {
+                cmd = new FinishTurnCommand(this,level,ctx);
+            }
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
