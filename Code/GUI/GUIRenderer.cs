@@ -57,12 +57,15 @@ namespace DungeonsAndDungeons.GUI
             {
                 int scaleFactor = 2; // TODO find way of scaling (possibly using content rectangle)
 
-
-
                 int y = InventoryRectangle.Y;
 
                 for (int i = 0; i < inventory.Size; i++)
                 {
+                    if(inventory.SelectedSlot == i)
+                    {
+                        batch.Draw(MakeTexture(Color.White), new Rectangle(128 * i, y, 128, 128), Color.White);
+                    }
+
                     if (!inventory.IsSlotEmpty(i))
                     {
                         batch.Draw(inventory[i].Sprite, new Rectangle(128 * i, y, 128, 128), Color.White);
