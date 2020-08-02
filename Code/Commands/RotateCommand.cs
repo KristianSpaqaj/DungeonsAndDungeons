@@ -13,6 +13,7 @@ namespace DungeonsAndDungeons.Commands
         {
             Direction = turnRight ? -1 : 1;
             Rotation = new Vector2(-Creator.Direction.Y, Creator.Direction.X);
+            ActionCost = 0;
         }
 
         public override void Execute()

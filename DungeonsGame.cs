@@ -109,7 +109,7 @@ namespace DungeonsAndDungeons
                                        new Inventory(10),
                                        new Health(100),
                                        new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) },
-                                       new ActionPoints(1));
+                                       new ActionPoints(3));
 
             renderer = new Renderer(640, 480);
 

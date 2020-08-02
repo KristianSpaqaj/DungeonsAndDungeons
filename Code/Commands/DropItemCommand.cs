@@ -9,6 +9,7 @@ namespace DungeonsAndDungeons.Commands
         public DropItemCommand(Entity entity, Level level, GameContext ctx, Item item) : base(entity, level, ctx)
         {
             Item = item;
+            ActionCost = 0;
         }
 
         public override void Execute()

@@ -15,6 +15,7 @@ namespace DungeonsAndDungeons.Code.Commands
         public SelectInventorySlotCommand(Entity entity, Level level, GameContext ctx) : base(entity,level,ctx)
         {
             Slot = 0;
+            ActionCost = 0;
         }
 
         public override void Execute()

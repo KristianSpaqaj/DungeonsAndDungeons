@@ -5,7 +5,6 @@ namespace DungeonsAndDungeons.Commands
 {
     class FinishTurnCommand : Command
     {
-
         public FinishTurnCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx) { }
         public override void Execute()
         {
