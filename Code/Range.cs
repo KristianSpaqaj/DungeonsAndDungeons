@@ -30,7 +30,7 @@ namespace DungeonsAndDungeons
         /// <returns>True if range is valid, else false</returns>
         public bool IsValid()
         {
-            return this.Minimum.CompareTo(this.Maximum) <= 0;
+            return this.Minimum.CompareTo(this.Maximum) < 0;
         }
 
         /// <summary>Determines if the provided value is inside the range.</summary>
