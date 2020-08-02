@@ -22,7 +22,6 @@ namespace DungeonsAndDungeons.Entities
 
             if (!level.Map.IsValid(nextX, nextY))
             {
-                Random rand = new Random();
                 Direction = Direction.RotateDegree(180);
             }
 
