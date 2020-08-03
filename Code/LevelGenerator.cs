@@ -13,6 +13,8 @@ namespace DungeonsAndDungeons
         private int NumberOfEntities { get; set; }
         private int NumberOfItems { get; set; }
         private TexturedMap Map { get; set; }
+        private List<Item> Items { get; set; }
+        private List<Entity> Entities { get; set; }
         private ContentManager Manager { get; }
         private Random RandomGenerator { get; set; }
 
@@ -51,9 +53,10 @@ namespace DungeonsAndDungeons
                                       new ActionPoints(2));
 
             Map = GenerateMap();
+            Items = GenerateItems();
+            Entities = GenerateEntities();
 
-           
-            return new Level(Map, GenerateItems(), GenerateEntities(), player);
+            return new Level(Map, Items, Entities, player);
 
         }
 
@@ -62,8 +65,8 @@ namespace DungeonsAndDungeons
         {
             int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7},
-                { 4,0,0,5,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2},
-                { 4,0,6,0,6,0,0,0,0,0,0,0,0,0,0,0,5,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
                 { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
                 { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3}
             };
@@ -82,16 +85,9 @@ namespace DungeonsAndDungeons
                                 new List<Sprite>() { new Sprite(Manager.Load<Texture2D>("demon")) },
                                 new ActionPoints(2));
 
-
-            float x = 0;
-            float y = 0;
-
             for (int i = 0; i < NumberOfEntities; i++)
             {
-                x = RandomGenerator.Next(0, Map.Width - 1) + 0.5f;
-                y = RandomGenerator.Next(0, Map.Height - 1) + 0.5f;
-
-                entities.Add(new Monster(new Vector2(x, y), prototype.Direction, prototype.Inventory, prototype.Health, prototype.Stances, prototype.ActionPoints));
+                entities.Add(new Monster(GeneratePosition(), prototype.Direction, prototype.Inventory, prototype.Health, prototype.Stances, prototype.ActionPoints));
             }
 
             return entities;
@@ -106,20 +102,25 @@ namespace DungeonsAndDungeons
                 new Sprite(Manager.Load<Texture2D>("knife"))
             };
 
-            int spriteIndex = RandomGenerator.Next(0, sprites.Count + 1);
-
-            float x = 0;
-            float y = 0;
+            int spriteIndex = RandomGenerator.Next(0, sprites.Count);
 
             for (int i = 0; i < NumberOfItems; i++)
             {
-                x = RandomGenerator.Next(0, Map.Width - 1) + 0.5f;
-                y = RandomGenerator.Next(0, Map.Height - 1) + 0.5f;
-
-                items.Add(new Item(sprites[spriteIndex], new Vector2(x, y)));
+                items.Add(new Item(sprites[spriteIndex], GeneratePosition()));
             }
 
             return items;
+        }
+
+        private Vector2 GeneratePosition()
+        {
+            float x = -1;
+            float y = -1;
+
+            x = RandomGenerator.Next(0, Map.Width) + 0.5f;
+            y = RandomGenerator.Next(0, Map.Height) + 0.5f;
+
+            return new Vector2(x, y);
         }
     }
 }
