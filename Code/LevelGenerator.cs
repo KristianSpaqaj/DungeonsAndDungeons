@@ -33,7 +33,7 @@ namespace DungeonsAndDungeons
             if (seed.Length != 6) { throw new ArgumentException(); }
 
             Player player = new Player(new Vector2(17.5f, 3.5f),
-                                      new Vector2(0, 1),
+                                      new Vector2(-1, 0),
                                       new Inventory(10,
                                       new Item[] {}),
                                       new Health(100),
