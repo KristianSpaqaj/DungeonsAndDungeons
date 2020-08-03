@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
@@ -28,27 +29,42 @@ namespace DungeonsAndDungeons
         /// <param name="ctx"></param>
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
-            Entities.Clear();
-            Entities.Add(currentLevel.Player);
-            Entities.AddRange(currentLevel.Entities);
-
-            Current = Entities[CurrentIndex];
+            InitializeTurn(currentLevel);
 
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
                 TurnCommand = Current.GetAction(currentLevel, ctx);
-                if (TurnCommand is FinishTurnCommand || Current.ActionPoints.IsMinimum())
+                if (TurnOver())
                 {
                     GoToNextTurn();
                 }
 
-                else if (!(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints)
+                else if (ValidCommand())
                 {
                     RunAction();
                     TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
                 }
             }
 
+        }
+
+        private void InitializeTurn(Level level)
+        {
+            Entities.Clear();
+            Entities.Add(level.Player);
+            Entities.AddRange(level.Entities);
+
+            Current = Entities[CurrentIndex];
+        }
+
+        private bool TurnOver()
+        {
+            return TurnCommand is FinishTurnCommand || Current.ActionPoints.IsMinimum();
+        }
+
+        private bool ValidCommand()
+        {
+            return !(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints;
         }
 
         private void RunAction()

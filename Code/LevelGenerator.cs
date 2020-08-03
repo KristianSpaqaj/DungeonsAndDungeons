@@ -25,7 +25,7 @@ namespace DungeonsAndDungeons
                 Textures.Add(Manager.Load<Texture2D>(i.ToString()));
             }
         }
-
+            
         public Level Generate(string seed) //Currently only meant to simplify testing, not fully implemented
         {
             //seed format "XXYYZZ" where XX is number of entities, YY items and ZZ the size of the map
