@@ -100,12 +100,12 @@ namespace DungeonsAndDungeons
             List<Sprite> sprites = new List<Sprite>();
             sprites.Add(new Sprite(Manager.Load<Texture2D>("key")));
             sprites.Add(new Sprite(Manager.Load<Texture2D>("knife")));
-            int spriteIndex = RandomGenerator.Next(0, sprites.Count);
+            int spriteIndex = RandomGenerator.Next(0, sprites.Count+1);
 
             float x = 0;
             float y = 0;
 
-            for (int i = 0; i < NumberOfEntities; i++)
+            for (int i = 0; i < NumberOfItems; i++)
             {
                 x = RandomGenerator.Next(0, Map.Width - 1) + 0.5f;
                 y = RandomGenerator.Next(0, Map.Height - 1) + 0.5f;

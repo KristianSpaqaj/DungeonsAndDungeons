@@ -28,7 +28,10 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("MOVE_FORWARD"))
             {
-                cmd = new MoveCommand(this, level, ctx, true);
+                if (level.Map.IsValid((int)(Position.X + Direction.X), (int)(Position.Y + Direction.Y)))
+                {
+                    cmd = new MoveCommand(this, level, ctx, true);
+                }
             }
 
             if (InputState.HasAction("ROTATE_LEFT"))
@@ -45,7 +48,10 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("MOVE_BACKWARD"))
             {
-                cmd = new MoveCommand(this, level, ctx, false);
+                if (level.Map.IsValid((int)(Position.X + Direction.X), (int)(Position.Y + Direction.Y)))
+                {
+                    cmd = new MoveCommand(this, level, ctx, false);
+                }
             }
 
             if (InputState.HasAction("PICKUP_ITEM"))

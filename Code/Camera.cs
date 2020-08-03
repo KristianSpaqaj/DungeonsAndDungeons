@@ -10,8 +10,6 @@ namespace DungeonsAndDungeons
 
         public Vector2 Position { get; set; }
         public Vector2 Direction { get => direction; private set => direction = value; }
-
-
         public Vector2 Plane { get; private set; }
 
         public Camera(Vector2 position, Vector2 direction, float FOV)
@@ -52,15 +50,14 @@ namespace DungeonsAndDungeons
         public void SetDirection(Vector2 newDir)
         {
             double angle = Direction.GetAngleDegrees(newDir);
-
-            Rotate((int)angle);
+            Rotate(angle);
         }
 
         /// <summary>
         /// Rotates the camera's direction and plane vector by <c>degrees</c>
         /// </summary>
         /// <param name="degrees"></param>
-        public void Rotate(int degrees)
+        public void Rotate(double degrees)
         {
             Direction = Direction.RotateDegree(degrees);
             Plane = Plane.RotateDegree(degrees);

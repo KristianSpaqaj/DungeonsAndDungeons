@@ -5,7 +5,7 @@ namespace DungeonsAndDungeons.Extensions
 {
     public static class Vector2Extensions
     {
-        public static Vector2 RotateDegree(this Vector2 vector, int degrees)
+        public static Vector2 RotateDegree(this Vector2 vector, double degrees)
         {
             double radians = degrees * (Math.PI / 180);
             return RotateInRadians(vector, radians);
