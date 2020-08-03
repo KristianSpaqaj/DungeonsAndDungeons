@@ -103,8 +103,7 @@ namespace DungeonsAndDungeons
             TurnProcessor.RunCurrentTurn(level, GameContext);
 
             camera.Position = level.Player.Position;
-            camera.Rotate(level.Player.Rotation);
-            level.Player.Rotation = 0;
+            camera.SetDirection(level.Player.Direction);
 
             base.Update(gameTime);
         }

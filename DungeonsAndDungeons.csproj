@@ -47,6 +47,7 @@
     <Compile Include="Code\ActionPoints.cs" />
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
+    <Compile Include="Code\CommandFactory.cs" />
     <Compile Include="Code\Commands\Command.cs" />
     <Compile Include="Code\Commands\DropItemCommand.cs" />
     <Compile Include="Code\Commands\EmptyCommand.cs" />
