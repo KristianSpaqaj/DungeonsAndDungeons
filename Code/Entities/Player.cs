@@ -48,7 +48,7 @@ namespace DungeonsAndDungeons.Entities
 
             if (InputState.HasAction("MOVE_BACKWARD"))
             {
-                if (level.Map.IsValid((int)(Position.X + Direction.X), (int)(Position.Y + Direction.Y)))
+                if (level.Map.IsValid((int)(Position.X - Direction.X), (int)(Position.Y - Direction.Y)))
                 {
                     cmd = new MoveCommand(this, level, ctx, false);
                 }
