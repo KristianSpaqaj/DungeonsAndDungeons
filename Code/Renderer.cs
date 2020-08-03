@@ -262,6 +262,9 @@ namespace DungeonsAndDungeons
         /// <param name="renderables">List of objects implementing the <c>IRenderable</c> interface</param>
         private void RenderSprites<T>(Camera camera, List<T> renderables) where T : class, IRenderable
         {
+            spriteOrder.Clear();
+            spriteDistance.Clear();
+
             for (int i = 0; i < renderables.Count; i++)
             {
                 spriteOrder.Add(i);

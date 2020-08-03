@@ -70,6 +70,7 @@
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
     <Compile Include="Code\Range.cs" />
+    <Compile Include="Code\SeedGenerator.cs" />
     <Compile Include="Code\TexturedMap.cs" />
     <Compile Include="Code\Entities\Monster.cs" />
     <Compile Include="Code\Entities\Player.cs" />

@@ -33,9 +33,14 @@ namespace DungeonsAndDungeons
         {
             //seed format "XXYYZZ" where XX is number of entities, YY items and ZZ the size of the map
 
-            if (seed.Length != 6) { throw new ArgumentException(); }
+            if (seed.Length != 10) { throw new ArgumentException(); }
 
-            RandomGenerator = new Random(int.Parse(seed));
+            int levelSeed = int.Parse(seed.Substring(0, 4));
+            NumberOfEntities = int.Parse(seed.Substring(4, 2));
+            NumberOfItems = int.Parse(seed.Substring(6, 2));
+
+            RandomGenerator = new Random(levelSeed);
+
 
             Player player = new Player(new Vector2(17.5f, 3.5f),
                                       new Vector2(-1, 0),
@@ -47,9 +52,7 @@ namespace DungeonsAndDungeons
 
             Map = GenerateMap();
 
-            NumberOfEntities = int.Parse(seed.Substring(0, 2));
-            NumberOfItems = int.Parse(seed.Substring(2, 2));
-
+           
             return new Level(Map, GenerateItems(), GenerateEntities(), player);
 
         }

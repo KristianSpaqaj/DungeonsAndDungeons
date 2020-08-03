@@ -65,7 +65,7 @@ namespace DungeonsAndDungeons
 
             LevelGenerator levelGenerator = new LevelGenerator(Content);
 
-            level = levelGenerator.Generate("020800");
+            level = levelGenerator.Generate($"{SeedGenerator.Generate(4)}020300");
 
             camera = new Camera(level.Player.Position, level.Player.Direction, Configuration.Value<float>("fov"));
 
