@@ -23,7 +23,7 @@ namespace DungeonsAndDungeons
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
 
-        public bool IsEmpty(int x, int y) => Tiles[y,x].CompareTo(EmptyTile) <= 0;
+        public bool IsEmpty(int x, int y) => Tiles[y, x].CompareTo(EmptyTile) <= 0;
 
         public bool IsOutOfBounds(int x, int y)
         {

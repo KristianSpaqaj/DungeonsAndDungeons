@@ -1,5 +1,4 @@
-﻿using DungeonsAndDungeons.Entities;
-using DungeonsAndDungeons.GUI;
+﻿using DungeonsAndDungeons.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,7 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -25,7 +23,7 @@ namespace DungeonsAndDungeons
         private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
         private readonly List<Texture2D> textures;
-        
+
 
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;

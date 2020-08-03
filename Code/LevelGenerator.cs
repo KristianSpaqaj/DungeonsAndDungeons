@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons
 {
     public class LevelGenerator
     {
-        private List<Texture2D> Textures;
+        private readonly List<Texture2D> Textures;
         private int NumberOfEntities { get; set; }
         private int NumberOfItems { get; set; }
         private TexturedMap Map { get; set; }
@@ -28,7 +28,7 @@ namespace DungeonsAndDungeons
             }
 
         }
-            
+
         public Level Generate(string seed) //Currently only meant to simplify testing, not fully implemented
         {
             //seed format "XXYYZZ" where XX is number of entities, YY items and ZZ the size of the map
@@ -40,7 +40,7 @@ namespace DungeonsAndDungeons
             Player player = new Player(new Vector2(17.5f, 3.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,
-                                      new Item[] {}),
+                                      new Item[] { }),
                                       new Health(100),
                                       new List<Sprite>() { },
                                       new ActionPoints(2));
@@ -57,7 +57,7 @@ namespace DungeonsAndDungeons
 
         private TexturedMap GenerateMap()
         {
-            var tiles = new int[,] {
+            int[,] tiles = new int[,] {
                 { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7},
                 { 4,0,0,5,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,2},
                 { 4,0,6,0,6,0,0,0,0,0,0,0,0,0,0,0,5,0,0,2},
@@ -85,8 +85,8 @@ namespace DungeonsAndDungeons
 
             for (int i = 0; i < NumberOfEntities; i++)
             {
-                x = RandomGenerator.Next(0, Map.Width-1) + 0.5f;
-                y = RandomGenerator.Next(0, Map.Height-1) + 0.5f;
+                x = RandomGenerator.Next(0, Map.Width - 1) + 0.5f;
+                y = RandomGenerator.Next(0, Map.Height - 1) + 0.5f;
 
                 entities.Add(new Monster(new Vector2(x, y), prototype.Direction, prototype.Inventory, prototype.Health, prototype.Stances, prototype.ActionPoints));
             }
@@ -97,10 +97,13 @@ namespace DungeonsAndDungeons
         private List<Item> GenerateItems()
         {
             List<Item> items = new List<Item>();
-            List<Sprite> sprites = new List<Sprite>();
-            sprites.Add(new Sprite(Manager.Load<Texture2D>("key")));
-            sprites.Add(new Sprite(Manager.Load<Texture2D>("knife")));
-            int spriteIndex = RandomGenerator.Next(0, sprites.Count+1);
+            List<Sprite> sprites = new List<Sprite>
+            {
+                new Sprite(Manager.Load<Texture2D>("key")),
+                new Sprite(Manager.Load<Texture2D>("knife"))
+            };
+
+            int spriteIndex = RandomGenerator.Next(0, sprites.Count + 1);
 
             float x = 0;
             float y = 0;
