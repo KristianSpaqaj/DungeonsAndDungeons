@@ -25,32 +25,7 @@ namespace DungeonsAndDungeons
         private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
         private readonly List<Texture2D> textures;
-        private readonly int[,] tiles = new int[,] {
-                { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                { 4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                { 4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-                { 4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-                { 4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-                { 4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-                { 4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,7},
-                { 4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-                { 4,0,7,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,7},
-                { 4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-                { 4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-                { 6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                { 7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-                { 6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-                { 4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                { 4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-                { 4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-                { 4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-                { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
-            };
+        
 
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
@@ -84,39 +59,17 @@ namespace DungeonsAndDungeons
             string bindingsText = File.ReadAllText($"{ConfigDirectory}/Keybindings.json");
             KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, string>>(bindingsText);
 
-            for (int i = 1; i < 9; i++)
-            {
-                textures.Add(Content.Load<Texture2D>(i.ToString()));
-            }
-
             InputMapper = new InputMapper(KeyBinding);
-
-            Item knife = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(17.5f, 6.5f));
-            Item knife2 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(15.5f, 6.5f));
-            Item knife3 = new Item(new Sprite(Content.Load<Texture2D>("knife")), new Vector2(16.5f, 3.5f));
-
-            Player player = new Player(new Vector2(17.5f, 4.5f),
-                                       new Vector2(-1, 0),
-                                       new Inventory(10,
-                                       new Item[] { knife, knife2, knife3 }),
-                                       new Health(100),
-                                       new List<Sprite>() { },
-                                       new ActionPoints(2));
-
-            Entity demon = new Monster(new Vector2(17.5f, 8.5f),
-                                       new Vector2(0, 1),
-                                       new Inventory(10),
-                                       new Health(100),
-                                       new List<Sprite>() { new Sprite(Content.Load<Texture2D>("demon")) },
-                                       new ActionPoints(3));
 
             renderer = new Renderer(640, 480);
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            level = new Level(new TexturedMap(tiles, textures), new List<Item>() { knife,knife2,knife3 }, new List<Entity>() { demon }, player);
+            LevelGenerator levelGenerator = new LevelGenerator(Content);
 
-            camera = new Camera(player.Position, player.Direction, Configuration.Value<float>("fov"));
+            level = levelGenerator.Generate("000000");
+
+            camera = new Camera(level.Player.Position, level.Player.Direction, Configuration.Value<float>("fov"));
 
             if (Configuration.Value<bool>("isFullScreen")) //find way of moving this into constructor
             {

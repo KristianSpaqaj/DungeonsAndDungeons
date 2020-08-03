@@ -24,7 +24,7 @@ namespace DungeonsAndDungeons
 
         public Color[] GetTileTexture(int x, int y)
         {
-            return Textures[Tiles[x, y]];
+            return Textures[Tiles[y, x]];
         }
 
         private void VerifyTextureSizeConsistency(List<Texture2D> textures)
