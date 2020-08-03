@@ -53,11 +53,14 @@
     <Compile Include="Code\Commands\FinishTurnCommand.cs" />
     <Compile Include="Code\Commands\MoveCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
+    <Compile Include="Code\Commands\RotateLeftCommand.cs" />
     <Compile Include="Code\Commands\SelectInventorySlotCommand.cs" />
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityState.cs" />
     <Compile Include="Code\Commands\PickUpItemCommand.cs" />
-    <Compile Include="Code\Commands\HealthDownCommand.cs" />
+    <Compile Include="Code\Commands\MoveForwardCommand.cs" />
+    <Compile Include="Code\Commands\MoveBackwardCommand.cs" />
+    <Compile Include="Code\Commands\RotateRightCommand.cs" />
     <Compile Include="Code\Extensions\DictionaryExtension.cs" />
     <Compile Include="Code\GameContext.cs" />
     <Compile Include="Code\GUI\GUIRenderer.cs" />

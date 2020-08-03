@@ -24,7 +24,7 @@ namespace DungeonsAndDungeons.Entities
                 Direction = Direction.RotateDegree(180);
             }
 
-            return new MoveCommand(this, level, ctx, true);
+            return new MoveForwardCommand(this, level, ctx);
         }
 
     }

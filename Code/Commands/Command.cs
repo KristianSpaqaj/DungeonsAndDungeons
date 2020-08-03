@@ -7,14 +7,13 @@ namespace DungeonsAndDungeons.Commands
         protected Entity Creator { get; }
         protected Level Level { get; }
         protected GameContext Context { get; }
-        public int ActionCost { get; protected set; }
+        public virtual int ActionCost { get => 1; }
 
-        public Command(Entity entity, Level level, GameContext ctx, int actionCost = 1)
+        public Command(Entity entity, Level level, GameContext ctx)
         {
             Creator = entity;
             Level = level;
             Context = ctx;
-            ActionCost = actionCost;
         }
 
         public abstract void Execute();

@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons.Entities
             : base(position, direction, inventory, health, stance, ap, state)
         {
             Rotation = 0;
-            EmptyCommand = new EmptyCommand();
+            EmptyCommand = new EmptyCommand(null,null,null);
         }
 
         public override Command GetAction(Level level, GameContext ctx)
@@ -30,19 +30,19 @@ namespace DungeonsAndDungeons.Entities
             {
                 if (level.Map.IsValid((int)(Position.X + Direction.X), (int)(Position.Y + Direction.Y)))
                 {
-                    cmd = new MoveCommand(this, level, ctx, true);
+                    cmd = new MoveForwardCommand(this, level, ctx);
                 }
             }
 
             if (InputState.HasAction("ROTATE_LEFT"))
             {
-                cmd = new RotateCommand(this, level, ctx, false);
+                cmd = new RotateLeftCommand(this, level, ctx);
                 Rotation = 90;
             }
 
             if (InputState.HasAction("ROTATE_RIGHT"))
             {
-                cmd = new RotateCommand(this, level, ctx, true);
+                cmd = new RotateRightCommand(this, level, ctx);
                 Rotation = -90;
             }
 
@@ -50,7 +50,7 @@ namespace DungeonsAndDungeons.Entities
             {
                 if (level.Map.IsValid((int)(Position.X - Direction.X), (int)(Position.Y - Direction.Y)))
                 {
-                    cmd = new MoveCommand(this, level, ctx, false);
+                    cmd = new MoveBackwardCommand(this, level, ctx);
                 }
             }
 
@@ -60,7 +60,7 @@ namespace DungeonsAndDungeons.Entities
 
                 if (items.Count > 0)
                 {
-                    cmd = new PickUpItemCommand(this, level, ctx, items[0]); //todo find way of choosing which item
+                    cmd = new PickUpItemCommand(this, level, ctx); //todo find way of choosing which item
                 }
 
             }
@@ -69,14 +69,8 @@ namespace DungeonsAndDungeons.Entities
             {
                 if (Inventory.Selected != null)
                 {
-                    cmd = new DropItemCommand(this, level, ctx, Inventory.Selected);
+                    cmd = new DropItemCommand(this, level, ctx);
                 }
-            }
-
-
-            if (InputState.HasAction("HEALTHDOWN"))
-            {
-                cmd = new HealthDownCommand(this, level, ctx, 10);
             }
 
             List<string> matches = InputState.Find(new System.Text.RegularExpressions.Regex(@"^SLOT\d+$"));
@@ -87,6 +81,7 @@ namespace DungeonsAndDungeons.Entities
                 string s = matches[0].Substring(4);
                 ((SelectInventorySlotCommand)cmd).Slot = int.Parse(s) - 1;
             }
+
             return cmd;
         }
 

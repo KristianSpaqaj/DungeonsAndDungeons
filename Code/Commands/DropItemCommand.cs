@@ -4,19 +4,17 @@ namespace DungeonsAndDungeons.Commands
 {
     class DropItemCommand : Command
     {
-        private Item Item { get; }
+        public override int ActionCost => 1;
 
-        public DropItemCommand(Entity entity, Level level, GameContext ctx, Item item) : base(entity, level, ctx)
+        public DropItemCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx)
         {
-            Item = item;
-            ActionCost = 0;
         }
 
         public override void Execute()
         {
-            Item.Position = Creator.Position;
+            Item item = Creator.Inventory.Selected;
             Creator.Inventory.Remove(Creator.Inventory.SelectedSlot);
-            Level.Items.Add(Item);
+            Level.Items.Add(item);
         }
     }
 }
