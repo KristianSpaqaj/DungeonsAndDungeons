@@ -36,7 +36,14 @@ namespace DungeonsAndDungeons.Entities
                 if (InputState.HasAction(entry.Key))
                 {
                     cmd = CommandFactory.Generate(entry.Value, this, level, ctx);
-                    break;
+                    if (cmd.CanRun())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        cmd = EmptyCommand;
+                    }
                 }
             }
 

@@ -12,5 +12,10 @@ namespace DungeonsAndDungeons.Commands
         {
             Creator.Position += (Creator.Direction * Direction);
         }
+
+        public override bool CanRun()
+        {
+            return base.CanRun() && Level.Map.IsValid(Creator.Position+(Creator.Direction*Direction));
+        }
     }
 }

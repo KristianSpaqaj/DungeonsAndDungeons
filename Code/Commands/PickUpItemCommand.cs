@@ -15,5 +15,10 @@ namespace DungeonsAndDungeons.Commands
             Creator.Inventory.Add(items[0]);
             Level.Items.Remove(items[0]);
         }
+
+        public override bool CanRun()
+        {
+            return Level.ItemsAt((int)Creator.Position.X, (int)Creator.Position.Y).Count > 0;
+        }
     }
 }

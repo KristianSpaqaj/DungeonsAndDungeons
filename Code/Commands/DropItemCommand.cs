@@ -16,5 +16,10 @@ namespace DungeonsAndDungeons.Commands
             Creator.Inventory.Remove(Creator.Inventory.SelectedSlot);
             Level.Items.Add(item);
         }
+
+        public override bool CanRun()
+        {
+            return Creator.Inventory.Selected != null;
+        }
     }
 }

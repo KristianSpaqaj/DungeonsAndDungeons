@@ -63,7 +63,7 @@ namespace DungeonsAndDungeons
 
         private bool ValidCommand()
         {
-            return !(TurnCommand is EmptyCommand) && TurnCommand.ActionCost <= Current.ActionPoints;
+            return !(TurnCommand is EmptyCommand);
         }
 
         private void RunAction()

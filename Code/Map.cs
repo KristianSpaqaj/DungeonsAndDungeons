@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections;
 
 namespace DungeonsAndDungeons
@@ -22,6 +23,10 @@ namespace DungeonsAndDungeons
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
+        public bool IsValid(Vector2 position)
+        {
+            return IsValid((int)Math.Floor(position.X), (int)Math.Floor(position.Y));
+        }
 
         public bool IsEmpty(int x, int y) => Tiles[y, x].CompareTo(EmptyTile) <= 0;
 

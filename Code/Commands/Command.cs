@@ -17,6 +17,6 @@ namespace DungeonsAndDungeons.Commands
         }
 
         public abstract void Execute();
-        public virtual bool CanRun() { return true; }
+        public virtual bool CanRun() { return Creator.ActionPoints >= ActionCost; }
     }
 }
