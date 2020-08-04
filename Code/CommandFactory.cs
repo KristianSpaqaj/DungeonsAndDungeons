@@ -36,6 +36,14 @@ namespace DungeonsAndDungeons
             {
                 return new DropItemCommand(entity, level, ctx);
             }
+            else if (CompareTypes<NextSlotCommand>(type))
+            {
+                return new NextSlotCommand(entity, level, ctx);
+            }
+            else if (CompareTypes<PreviousSlotCommand>(type))
+            {
+                return new PreviousSlotCommand(entity, level, ctx);
+            }
             else
             {
                 throw new ArgumentException();

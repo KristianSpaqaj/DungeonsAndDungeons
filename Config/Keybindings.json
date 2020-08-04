@@ -8,15 +8,8 @@
   "F": "TOGGLE_OVERLAY",
   "C": "HEALTHDOWN",
   "OemPeriod": "FINISH_TURN",
-  "D1": "SLOT1",
-  "D2": "SLOT2",
-  "D3": "SLOT3",
-  "D4": "SLOT4",
-  "D5": "SLOT5",
-  "D6": "SLOT6",
-  "D7": "SLOT7",
-  "D8": "SLOT8",
-  "D9": "SLOT9",
+  "Left": "PREVIOUS_SLOT",
+  "Right": "NEXT_SLOT",
   "Escape": "QUIT",
   "Enter": "TOGGLE_FULLSCREEN"
 }

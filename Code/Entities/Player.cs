@@ -1,5 +1,4 @@
-﻿using DungeonsAndDungeons.Code.Commands;
-using DungeonsAndDungeons.Commands;
+﻿using DungeonsAndDungeons.Commands;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,9 @@ namespace DungeonsAndDungeons.Entities
                 { "ROTATE_RIGHT", typeof(RotateRightCommand) },
                 { "MOVE_BACKWARD", typeof(MoveBackwardCommand) },
                 { "PICKUP_ITEM", typeof(PickUpItemCommand) },
-                { "DROP_ITEM", typeof(DropItemCommand) }
+                { "DROP_ITEM", typeof(DropItemCommand) },
+                { "PREVIOUS_SLOT", typeof(PreviousSlotCommand) },
+                { "NEXT_SLOT", typeof(NextSlotCommand) }
             };
         }
 

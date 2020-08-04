@@ -75,6 +75,7 @@ namespace DungeonsAndDungeons
                 graphics.ApplyChanges();
             }
 
+
             base.Initialize();
         }
 
