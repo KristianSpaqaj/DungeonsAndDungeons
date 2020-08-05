@@ -5,7 +5,7 @@ namespace DungeonsAndDungeons.Commands
 {
     internal class PickUpItemCommand : Command
     {
-
+        public override bool TimesOut => false;
         public PickUpItemCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx) { }
 
         public override void Execute()

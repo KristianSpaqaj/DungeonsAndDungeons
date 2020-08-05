@@ -4,6 +4,7 @@ namespace DungeonsAndDungeons.Commands
 {
     public class PreviousSlotCommand : ChangeInventorySlotCommand
     {
+        public override bool TimesOut => false;
         protected override int Slot => -1;
         public PreviousSlotCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx) { }
 
