@@ -15,7 +15,6 @@ namespace DungeonsAndDungeons.Entities
 
         public override Command GetAction(Level level, GameContext ctx)
         {
-
             int nextX = (int)(Position.X + Direction.X);
             int nextY = (int)(Position.Y + Direction.Y);
 

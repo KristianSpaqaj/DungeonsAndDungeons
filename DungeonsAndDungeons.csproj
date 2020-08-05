@@ -58,6 +58,7 @@
     <Compile Include="Code\Commands\NextSlotCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
     <Compile Include="Code\Commands\RotateLeftCommand.cs" />
+    <Compile Include="Code\Entities\Dude.cs" />
     <Compile Include="Code\Entities\Entity.cs" />
     <Compile Include="Code\Entities\EntityState.cs" />
     <Compile Include="Code\Commands\PickUpItemCommand.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
+    <Compile Include="Code\MouseInfo.cs" />
     <Compile Include="Code\Range.cs" />
     <Compile Include="Code\SeedGenerator.cs" />
     <Compile Include="Code\TexturedMap.cs" />

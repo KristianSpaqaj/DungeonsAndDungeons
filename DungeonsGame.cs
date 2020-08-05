@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -35,6 +36,7 @@ namespace DungeonsAndDungeons
         private GameContext GameContext { get; set; }
         private SpriteFont defaultFont;
         private JObject Configuration { get; set; }
+
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
 
@@ -75,7 +77,6 @@ namespace DungeonsAndDungeons
                 graphics.ApplyChanges();
             }
 
-
             base.Initialize();
         }
 
@@ -99,6 +100,7 @@ namespace DungeonsAndDungeons
         protected override void Update(GameTime gameTime)
         {
             GameContext.GameTime = gameTime;
+
             ProcessInput();
 
             TurnProcessor.RunCurrentTurn(level, GameContext);
@@ -115,7 +117,9 @@ namespace DungeonsAndDungeons
         public void ProcessInput()
         {
 
-            Keys[] pressed = Keyboard.GetState().GetPressedKeys();
+            List<string> pressed = Keyboard.GetState().GetPressedKeys().Select(k => k.ToString()).ToList();
+            MouseInfo.Update(Mouse.GetState());
+            pressed.AddRange(MouseInfo.GetPressed());
             InputState.Actions = InputMapper.Translate(pressed);
 
             if (InputState.HasAction("QUIT"))
