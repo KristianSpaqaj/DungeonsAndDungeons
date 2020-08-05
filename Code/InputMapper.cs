@@ -1,6 +1,4 @@
 ﻿using DungeonsAndDungeons.Extensions;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,13 +7,10 @@ namespace DungeonsAndDungeons
     public class InputMapper
     {
         Dictionary<string, string> Bindings { get; }
-        private List<string> Output { get; set; }
-        private Dictionary<string, string> MouseInfo { get; }
 
         public InputMapper(Dictionary<string, string> bindings)
         {
             Bindings = bindings;
-            Output = new List<string>();
         }
 
         /// <summary>

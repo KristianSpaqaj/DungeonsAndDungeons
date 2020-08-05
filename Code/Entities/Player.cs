@@ -32,7 +32,7 @@ namespace DungeonsAndDungeons.Entities
         {
             Command cmd = EmptyCommand;
 
-            foreach(var entry in Inputs)
+            foreach (KeyValuePair<string, Type> entry in Inputs)
             {
                 if (InputState.HasAction(entry.Key))
                 {

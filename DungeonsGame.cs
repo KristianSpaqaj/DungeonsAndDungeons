@@ -23,8 +23,6 @@ namespace DungeonsAndDungeons
         private Renderer renderer;
         private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
-        private readonly List<Texture2D> textures;
-
 
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
@@ -44,7 +42,6 @@ namespace DungeonsAndDungeons
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            textures = new List<Texture2D>();
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             GameContext = new GameContext(new GameTime());

@@ -15,7 +15,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override bool CanRun()
         {
-            return base.CanRun() && Level.Map.IsValid(Creator.Position+(Creator.Direction*Direction));
+            return base.CanRun() && Level.Map.IsValid(Creator.Position + (Creator.Direction * Direction));
         }
     }
 }
