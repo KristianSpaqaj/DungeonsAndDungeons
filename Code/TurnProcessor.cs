@@ -1,12 +1,13 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Interfaces;
 using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
     public class TurnProcessor
     {
-        private Command TurnCommand { get; set; }
+        private ICommand TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
         private double TimeSinceLastTurn { get; set; }
         private int CurrentIndex { get; set; }

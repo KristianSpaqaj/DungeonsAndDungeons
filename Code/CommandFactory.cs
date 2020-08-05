@@ -1,12 +1,13 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Interfaces;
 using System;
 
 namespace DungeonsAndDungeons
 {
     public static class CommandFactory
     {
-        public static Command Generate(Type type, Entity entity, Level level, GameContext ctx)
+        public static ICommand Generate(Type type, Entity entity, Level level, GameContext ctx)
         {
             if (CompareTypes<FinishTurnCommand>(type))
             {

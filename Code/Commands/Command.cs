@@ -1,12 +1,13 @@
 ﻿using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Interfaces;
 
 namespace DungeonsAndDungeons.Commands
 {
-    public abstract class Command
+    public abstract class Command : ICommand
     {
-        protected Entity Creator { get; }
-        protected Level Level { get; }
-        protected GameContext Context { get; }
+        public Entity Creator { get; }
+        public Level Level { get; }
+        public GameContext Context { get; }
         public virtual int ActionCost => 1;
         public virtual bool TimesOut => true;
 

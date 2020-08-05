@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,9 @@ namespace DungeonsAndDungeons.Entities
             };
         }
 
-        public override Command GetAction(Level level, GameContext ctx)
+        public override ICommand GetAction(Level level, GameContext ctx)
         {
-            Command cmd = EmptyCommand;
+            ICommand cmd = EmptyCommand;
 
             foreach (KeyValuePair<string, Type> entry in Inputs)
             {

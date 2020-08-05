@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace DungeonsAndDungeons.Entities
         {
         }
 
-        public override Command GetAction(Level level, GameContext ctx)
+        public override ICommand GetAction(Level level, GameContext ctx)
         {
             return null;
         }

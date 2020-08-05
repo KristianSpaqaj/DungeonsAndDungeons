@@ -43,6 +43,6 @@ namespace DungeonsAndDungeons.Entities
         /// <param name="level"></param>
         /// <param name="ctx"></param>
         /// <returns>A Command object representing an action</returns>
-        abstract public Command GetAction(Level level, GameContext ctx);
+        abstract public ICommand GetAction(Level level, GameContext ctx);
     }
 }

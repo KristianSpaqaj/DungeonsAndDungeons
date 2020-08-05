@@ -1,5 +1,6 @@
 ﻿using DungeonsAndDungeons.Commands;
 using DungeonsAndDungeons.Extensions;
+using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ namespace DungeonsAndDungeons.Entities
         }
 
 
-        public override Command GetAction(Level level, GameContext ctx)
+        public override ICommand GetAction(Level level, GameContext ctx)
         {
             int nextX = (int)(Position.X + Direction.X);
             int nextY = (int)(Position.Y + Direction.Y);
