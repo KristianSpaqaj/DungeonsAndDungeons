@@ -41,7 +41,10 @@ namespace DungeonsAndDungeons
                 else if (ValidCommand())
                 {
                     RunAction();
-                    TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                    if (TurnCommand.TimesOut)
+                    {
+                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                    }
                 }
             }
 

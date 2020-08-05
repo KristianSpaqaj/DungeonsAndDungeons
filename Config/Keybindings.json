@@ -9,7 +9,7 @@
   "C": "HEALTHDOWN",
   "OemPeriod": "FINISH_TURN",
   "ScrollWheelUp": "NEXT_SLOT",
-  "SCrollWheelDown": "PREVIOUS_SLOT",
+  "ScrollWheelDown": "PREVIOUS_SLOT",
   "RightButtonPressed": "RIGHT_CLICK",
   "Left": "PREVIOUS_SLOT",
   "Right": "NEXT_SLOT",

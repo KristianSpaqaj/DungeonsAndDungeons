@@ -7,7 +7,8 @@ namespace DungeonsAndDungeons.Commands
         protected Entity Creator { get; }
         protected Level Level { get; }
         protected GameContext Context { get; }
-        public virtual int ActionCost { get => 1; }
+        public virtual int ActionCost => 1;
+        public virtual bool TimesOut => true;
 
         public Command(Entity entity, Level level, GameContext ctx)
         {

@@ -5,6 +5,7 @@ namespace DungeonsAndDungeons.Commands
     class DropItemCommand : Command
     {
         public override int ActionCost => 1;
+        public override bool TimesOut => false;
 
         public DropItemCommand(Entity entity, Level level, GameContext ctx) : base(entity, level, ctx)
         {
