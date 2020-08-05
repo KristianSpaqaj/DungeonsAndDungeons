@@ -11,6 +11,7 @@
   "ScrollWheelUp": "NEXT_SLOT",
   "ScrollWheelDown": "PREVIOUS_SLOT",
   "RightButtonPressed": "RIGHT_CLICK",
+  "F5" :  "RELOAD_GAME",
   "Left": "PREVIOUS_SLOT",
   "Right": "NEXT_SLOT",
   "Escape": "QUIT",

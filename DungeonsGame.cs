@@ -24,9 +24,11 @@ namespace DungeonsAndDungeons
         private GUIRenderer GuiRenderer { get; set; }
         private Texture2D screen;
 
+        public LevelGenerator LevelGenerator { get; private set; }
+
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
-        private Level level;
+        private Level Level;
         private TurnProcessor TurnProcessor { get; set; }
         Dictionary<string, string> KeyBinding { get; set; }
         private SoundEffect song;
@@ -34,6 +36,7 @@ namespace DungeonsAndDungeons
         private GameContext GameContext { get; set; }
         private SpriteFont defaultFont;
         private JObject Configuration { get; set; }
+        public double TimePassed { get; private set; }
 
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
@@ -62,11 +65,11 @@ namespace DungeonsAndDungeons
 
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
-            LevelGenerator levelGenerator = new LevelGenerator(Content);
+            LevelGenerator = new LevelGenerator(Content);
 
-            level = levelGenerator.Generate($"{SeedGenerator.Generate(4)}020300");
+            Level = LevelGenerator.Generate($"{SeedGenerator.Generate(4)}020300");
 
-            camera = new Camera(level.Player.Position, level.Player.Direction, Configuration.Value<float>("fov"));
+            camera = new Camera(Level.Player.Position, Level.Player.Direction, Configuration.Value<float>("fov"));
 
             if (Configuration.Value<bool>("isFullScreen")) //find way of moving this into constructor
             {
@@ -99,11 +102,10 @@ namespace DungeonsAndDungeons
             GameContext.GameTime = gameTime;
 
             ProcessInput();
+            TurnProcessor.RunCurrentTurn(Level, GameContext);
 
-            TurnProcessor.RunCurrentTurn(level, GameContext);
-
-            camera.Position = level.Player.Position;
-            camera.SetDirection(level.Player.Direction);
+            camera.Position = Level.Player.Position;
+            camera.SetDirection(Level.Player.Direction);
 
             base.Update(gameTime);
         }
@@ -113,27 +115,39 @@ namespace DungeonsAndDungeons
         /// </summary>
         public void ProcessInput()
         {
-
             List<string> pressed = Keyboard.GetState().GetPressedKeys().Select(k => k.ToString()).ToList();
             MouseInfo.Update(Mouse.GetState());
             pressed.AddRange(MouseInfo.GetPressed());
             InputState.Actions = InputMapper.Translate(pressed);
 
-            if (InputState.HasAction("QUIT"))
+            if (GameContext.GameTime.TotalGameTime.TotalSeconds - TimePassed > 0.25)
             {
-                Exit();
-            }
 
-            //TODO Add timeout period
-            if (InputState.HasAction("TOGGLE_OVERLAY"))
-            {
-                Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
-            }
+                if (InputState.HasAction("RELOAD_GAME"))
+                {
+                    Level = LevelGenerator.Generate(SeedGenerator.Generate(4) + "021400");
+                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+                }
 
-            if (InputState.HasAction("TOGGLE_FULLSCREEN"))
-            {
-                graphics.IsFullScreen = !graphics.IsFullScreen;
-                graphics.ApplyChanges();
+                if (InputState.HasAction("QUIT"))
+                {
+                    Exit();
+                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+                }
+
+                //TODO Add timeout period
+                if (InputState.HasAction("TOGGLE_OVERLAY"))
+                {
+                    Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
+                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+                }
+
+                if (InputState.HasAction("TOGGLE_FULLSCREEN"))
+                {
+                    graphics.IsFullScreen = !graphics.IsFullScreen;
+                    graphics.ApplyChanges();
+                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+                }
             }
         }
 
@@ -141,14 +155,14 @@ namespace DungeonsAndDungeons
         {
             spriteBatch.Begin(SpriteSortMode.BackToFront, null, SamplerState.PointClamp);
 
-            Color[] colors = renderer.Render(camera, level);
+            Color[] colors = renderer.Render(camera, Level);
             screen.SetData<Color>(colors);
             spriteBatch.Draw(screen, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
             spriteBatch.End();
 
             if (Configuration.Value<bool>("enableOverlay"))
             {
-                GuiRenderer.Render(spriteBatch, level);
+                GuiRenderer.Render(spriteBatch, Level);
             }
 
 
