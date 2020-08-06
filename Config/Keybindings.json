@@ -1,15 +1,31 @@
 {
   "W": {
     "Action": "MOVE_FORWARD",
+    "TimeOut": 0.25,
     "IsRepeatable": true
   },
 
-  "A": { "Action": "ROTATE_LEFT" },
-  "S": { "Action": "MOVE_BACKWARD" },
-  "D": { "Action": "ROTATE_RIGHT" },
-  "E": { "Action": "PICKUP_ITEM" },
-  "Q": { "Action": "DROP_ITEM" },
-  "C": { "Action": "HEALTHDOWN" },
+  "A": {
+    "Action": "ROTATE_LEFT",
+    "TimeOut": 0.25
+  },
+  "S": {
+    "Action": "MOVE_BACKWARD",
+    "TimeOut": 0.25
+  },
+  "D": {
+    "Action": "ROTATE_RIGHT",
+    "TimeOut": 0.25
+  },
+  "E": {
+    "Action": "PICKUP_ITEM",
+    "TimeOut": 0.1
+  },
+  "Q": {
+    "Action": "DROP_ITEM",
+    "TimeOut": 0.1
+  },
+
   "OemPeriod": { "Action": "FINISH_TURN" },
   "ScrollWheelUp": { "Action": "NEXT_SLOT" },
   "ScrollWheelDown": { "Action": "PREVIOUS_SLOT" },

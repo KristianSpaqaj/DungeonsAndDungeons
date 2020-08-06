@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons
         private List<Entity> Entities { get; set; }
         private Entity Current { get; set; }
 
-        public TurnProcessor(double timeOutPeriod = 0.25)
+        public TurnProcessor(double timeOutPeriod = 0.2)
         {
             TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
