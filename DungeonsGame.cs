@@ -30,7 +30,7 @@ namespace DungeonsAndDungeons
         private const int ScreenHeight = 1080;
         private Level Level;
         private TurnProcessor TurnProcessor { get; set; }
-        Dictionary<string, string> KeyBinding { get; set; }
+        Dictionary<string, InputAction> KeyBinding { get; set; }
         private SoundEffect song;
         private InputMapper InputMapper;
         private GameContext GameContext { get; set; }
@@ -57,7 +57,7 @@ namespace DungeonsAndDungeons
             Configuration = JObject.Parse(text);
 
             string bindingsText = File.ReadAllText($"{ConfigDirectory}/Keybindings.json");
-            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, string>>(bindingsText);
+            KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, InputAction>>(bindingsText);
 
             InputMapper = new InputMapper(KeyBinding);
 

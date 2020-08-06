@@ -7,21 +7,25 @@ namespace DungeonsAndDungeons
 {
     public class InputMapper
     {
-        Dictionary<string, string> Bindings { get; }
+        Dictionary<string, InputAction> Bindings { get; }
 
-        public InputMapper(Dictionary<string, string> bindings)
+        public InputMapper(Dictionary<string, InputAction> bindings)
         {
             Bindings = bindings;
         }
 
-        /// <summary>
-        /// Translates the raw keyboard buttone to actions by looking them up in it's keybindings
-        /// </summary>
-        /// <param name="keys"></param>
-        /// <returns>A list of translated actions, with "UNDEFINED" represnting a keystroke not in the keybindings</returns>
-        public List<string> Translate(List<string> inputs)
+        public List<InputAction> Translate(List<string> inputs)
         {
-            return inputs.Select(k => Bindings.GetOrDefault(k.ToString(), "UNDEFINED")).ToList(); //TODO should) maybe throw exception instead
+            List<InputAction> output = new List<InputAction>();
+            foreach(string input in inputs)
+            {
+                if (Bindings.ContainsKey(input))
+                {
+                    output.Add(Bindings[input]);
+                }
+            }
+
+            return output;
         }
     }
 }

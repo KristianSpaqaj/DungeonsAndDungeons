@@ -9,11 +9,11 @@ namespace DungeonsAndDungeons
     /// </summary>
     public static class InputState
     {
-        public static List<string> Actions { get; set; }
+        public static List<InputAction> Actions { get; set; }
 
         static InputState()
         {
-            Actions = new List<string>();
+            Actions = new List<InputAction>();
         }
 
         /// <summary>
@@ -23,12 +23,7 @@ namespace DungeonsAndDungeons
         /// <returns>True if action happened this frame, false otherwise</returns>
         public static bool HasAction(string action)
         {
-            return Actions.Contains(action);
-        }
-
-        public static List<string> Find(Regex regex)
-        {
-            return Actions.Where(a => regex.IsMatch(a)).ToList();
+            return Actions.Any(a => a.Action == action);
         }
 
     }

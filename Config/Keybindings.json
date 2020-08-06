@@ -1,19 +1,24 @@
 {
-  "W": "MOVE_FORWARD",
-  "A": "ROTATE_LEFT",
-  "S": "MOVE_BACKWARD",
-  "D": "ROTATE_RIGHT",
-  "E": "PICKUP_ITEM",
-  "Q": "DROP_ITEM",
-  "F": "TOGGLE_OVERLAY",
-  "C": "HEALTHDOWN",
-  "OemPeriod": "FINISH_TURN",
-  "ScrollWheelUp": "NEXT_SLOT",
-  "ScrollWheelDown": "PREVIOUS_SLOT",
-  "RightButtonPressed": "RIGHT_CLICK",
-  "F5" :  "RELOAD_GAME",
-  "Left": "PREVIOUS_SLOT",
-  "Right": "NEXT_SLOT",
-  "Escape": "QUIT",
-  "Enter": "TOGGLE_FULLSCREEN"
+  "W": {
+    "Action": "MOVE_FORWARD",
+    "TimeOut": 0.25,
+    "IsRepeatable": true
+  },
+
+  "A": { "Action": "ROTATE_LEFT" },
+  "S": { "Action": "MOVE_BACKWARD" },
+  "D": { "Action": "ROTATE_RIGHT" },
+  "E": { "Action": "PICKUP_ITEM" },
+  "Q": { "Action": "DROP_ITEM" },
+  "F": { "Action": "TOGGLE_OVERLAY" },
+  "C": { "Action": "HEALTHDOWN" },
+  "OemPeriod": { "Action": "FINISH_TURN" },
+  "ScrollWheelUp": { "Action": "NEXT_SLOT" },
+  "ScrollWheelDown": { "Action": "PREVIOUS_SLOT" },
+  "RightButtonPressed": { "Action": "RIGHT_CLICK" },
+  "F5": { "Action": "RELOAD_GAME" },
+  "Left": { "Action": "PREVIOUS_SLOT" },
+  "Right": { "Action": "NEXT_SLOT" },
+  "Escape": { "Action": "QUIT" },
+  "Enter": { "Action": "TOGGLE_FULLSCREEN" }
 }
