@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons.Commands
         public Level Level { get; }
         public GameContext Context { get; }
         public virtual int ActionCost => 1;
-        public virtual bool TimesOut => false;
+        public virtual bool TimesOut => true;
 
         public Command(Entity entity, Level level, GameContext ctx)
         {

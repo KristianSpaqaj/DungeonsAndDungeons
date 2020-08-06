@@ -30,16 +30,23 @@ namespace DungeonsAndDungeons
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
             InitializeTurn(currentLevel);
-
-            TurnCommand = Current.GetAction(currentLevel, ctx);
-            if (TurnOver())
+            if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
-                GoToNextTurn();
-            }
 
-            else if (ValidCommand())
-            {
-                RunAction();
+                TurnCommand = Current.GetAction(currentLevel, ctx);
+                if (TurnOver())
+                {
+                    GoToNextTurn();
+                }
+
+                else if (ValidCommand())
+                {
+                    RunAction();
+                    if (TurnCommand.TimesOut)
+                    {
+                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                    }
+                }
             }
         }
 

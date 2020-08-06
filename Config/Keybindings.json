@@ -1,7 +1,6 @@
 {
   "W": {
     "Action": "MOVE_FORWARD",
-    "TimeOut": 0.25,
     "IsRepeatable": true
   },
 
