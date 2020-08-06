@@ -31,24 +31,16 @@ namespace DungeonsAndDungeons
         {
             InitializeTurn(currentLevel);
 
-            if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
+            TurnCommand = Current.GetAction(currentLevel, ctx);
+            if (TurnOver())
             {
-                TurnCommand = Current.GetAction(currentLevel, ctx);
-                if (TurnOver())
-                {
-                    GoToNextTurn();
-                }
-
-                else if (ValidCommand())
-                {
-                    RunAction();
-                    if (TurnCommand.TimesOut)
-                    {
-                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
-                    }
-                }
+                GoToNextTurn();
             }
 
+            else if (ValidCommand())
+            {
+                RunAction();
+            }
         }
 
         private void InitializeTurn(Level level)

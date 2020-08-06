@@ -48,6 +48,7 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferWidth = ScreenWidth;
             graphics.PreferredBackBufferHeight = ScreenHeight;
             GameContext = new GameContext(new GameTime());
+            TimeTracker.Initialize(new GameTime());
             TurnProcessor = new TurnProcessor();
         }
 
@@ -60,6 +61,7 @@ namespace DungeonsAndDungeons
             KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, InputAction>>(bindingsText);
 
             InputMapper = new InputMapper(KeyBinding);
+            InputState.Initalize();
 
             renderer = new Renderer(640, 480);
 
@@ -100,7 +102,7 @@ namespace DungeonsAndDungeons
         protected override void Update(GameTime gameTime)
         {
             GameContext.GameTime = gameTime;
-
+            TimeTracker.GameTime = gameTime;
             ProcessInput();
             TurnProcessor.RunCurrentTurn(Level, GameContext);
 
