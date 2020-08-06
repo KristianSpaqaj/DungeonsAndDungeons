@@ -122,34 +122,30 @@ namespace DungeonsAndDungeons
             pressed.AddRange(MouseInfo.GetPressed());
             InputState.Actions = InputMapper.Translate(pressed);
 
-            if (GameContext.GameTime.TotalGameTime.TotalSeconds - TimePassed > 0.25)
+            if (InputState.HasAction("RELOAD_GAME"))
             {
+                Level = LevelGenerator.Generate(SeedGenerator.Generate(4) + "021400");
+                TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+            }
 
-                if (InputState.HasAction("RELOAD_GAME"))
-                {
-                    Level = LevelGenerator.Generate(SeedGenerator.Generate(4) + "021400");
-                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
-                }
+            if (InputState.HasAction("QUIT"))
+            {
+                Exit();
+                TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+            }
 
-                if (InputState.HasAction("QUIT"))
-                {
-                    Exit();
-                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
-                }
+            //TODO Add timeout period
+            if (InputState.HasAction("TOGGLE_OVERLAY"))
+            {
+                Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
+                TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
+            }
 
-                //TODO Add timeout period
-                if (InputState.HasAction("TOGGLE_OVERLAY"))
-                {
-                    Configuration["enableOverlay"] = !Configuration.Value<bool>("enableOverlay");
-                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
-                }
-
-                if (InputState.HasAction("TOGGLE_FULLSCREEN"))
-                {
-                    graphics.IsFullScreen = !graphics.IsFullScreen;
-                    graphics.ApplyChanges();
-                    TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
-                }
+            if (InputState.HasAction("TOGGLE_FULLSCREEN"))
+            {
+                graphics.IsFullScreen = !graphics.IsFullScreen;
+                graphics.ApplyChanges();
+                TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
             }
         }
 
