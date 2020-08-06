@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.GUI;
+using DungeonsAndDungeons.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;

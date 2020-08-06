@@ -1,9 +1,6 @@
-﻿using DungeonsAndDungeons.Extensions;
-using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Input
 {
     public class InputMapper
     {
@@ -17,7 +14,7 @@ namespace DungeonsAndDungeons
         public List<InputAction> Translate(List<string> inputs)
         {
             List<InputAction> output = new List<InputAction>();
-            foreach(string input in inputs)
+            foreach (string input in inputs)
             {
                 if (Bindings.ContainsKey(input))
                 {

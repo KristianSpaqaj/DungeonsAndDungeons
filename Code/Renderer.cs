@@ -23,7 +23,7 @@ namespace DungeonsAndDungeons
         private readonly double[] zBuffer;
         private readonly List<int> spriteOrder;
         private readonly List<double> spriteDistance;
-        List<IRenderable> Renderables;
+        readonly List<IRenderable> Renderables;
 
 
         public Renderer(int h, int w)
@@ -302,7 +302,7 @@ namespace DungeonsAndDungeons
 
             //calculate height of the sprite on screen
             int spriteHeight = (int)(Math.Abs(Math.Floor(ScreenHeight / transformY))); //using 'transformY' instead of the real distance prevents fisheye
-                                                                                     //calculate lowest and highest pixel to fill in current stripe
+                                                                                       //calculate lowest and highest pixel to fill in current stripe
             int drawStartY = -spriteHeight / 2 + ScreenHeight / 2;
             if (drawStartY < 0) drawStartY = 0;
             int drawEndY = spriteHeight / 2 + ScreenHeight / 2;

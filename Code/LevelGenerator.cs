@@ -43,7 +43,6 @@ namespace DungeonsAndDungeons
 
             RandomGenerator = new Random(levelSeed);
 
-
             Player player = new Player(new Vector2(17.5f, 3.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,

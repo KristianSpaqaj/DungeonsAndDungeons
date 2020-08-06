@@ -1,10 +1,7 @@
-﻿using Microsoft.Xna.Framework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Input
 {
     /// <summary>
     /// Holds the translated actions of a single frame

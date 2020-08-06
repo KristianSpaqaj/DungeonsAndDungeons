@@ -1,4 +1,4 @@
-﻿namespace DungeonsAndDungeons
+﻿namespace DungeonsAndDungeons.Input
 {
     public class InputAction
     {

@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Commands;
+using DungeonsAndDungeons.Input;
 using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System;
