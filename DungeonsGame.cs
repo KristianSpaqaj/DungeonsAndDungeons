@@ -3,13 +3,11 @@ using DungeonsAndDungeons.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace DungeonsAndDungeons
@@ -32,8 +30,9 @@ namespace DungeonsAndDungeons
         private Level Level;
         private TurnProcessor TurnProcessor { get; set; }
         Dictionary<string, InputAction> KeyBinding { get; set; }
+        public InputProcessor InputProcessor { get; private set; }
+
         private SoundEffect song;
-        private InputMapper InputMapper;
         private GameContext GameContext { get; set; }
         private SpriteFont defaultFont;
         private JObject Configuration { get; set; }
@@ -61,7 +60,7 @@ namespace DungeonsAndDungeons
             string bindingsText = File.ReadAllText($"{ConfigDirectory}/Keybindings.json");
             KeyBinding = JsonConvert.DeserializeObject<Dictionary<string, InputAction>>(bindingsText);
 
-            InputMapper = new InputMapper(KeyBinding);
+            InputProcessor = new InputProcessor(new InputMapper(KeyBinding));
             InputState.Initalize();
 
             renderer = new Renderer(640, 480);
@@ -104,24 +103,9 @@ namespace DungeonsAndDungeons
         {
             GameContext.GameTime = gameTime;
             TimeTracker.GameTime = gameTime;
-            ProcessInput();
+            InputProcessor.ProcessInput();
             TurnProcessor.RunCurrentTurn(Level, GameContext);
 
-            camera.Position = Level.Player.Position;
-            camera.SetDirection(Level.Player.Direction);
-
-            base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// Reads keyboard input from current frame and translates it to action descriptions
-        /// </summary>
-        public void ProcessInput()
-        {
-            List<string> pressed = Keyboard.GetState().GetPressedKeys().Select(k => k.ToString()).ToList();
-            MouseInfo.Update(Mouse.GetState());
-            pressed.AddRange(MouseInfo.GetPressed());
-            InputState.Actions = InputMapper.Translate(pressed);
 
             if (InputState.HasAction("RELOAD_GAME"))
             {
@@ -148,7 +132,17 @@ namespace DungeonsAndDungeons
                 graphics.ApplyChanges();
                 TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
             }
+
+            camera.Position = Level.Player.Position;
+            camera.SetDirection(Level.Player.Direction);
+
+            base.Update(gameTime);
         }
+
+        /// <summary>
+        /// Reads keyboard input from current frame and translates it to action descriptions
+        /// </summary>
+
 
         protected override void Draw(GameTime gameTime)
         {
@@ -168,6 +162,8 @@ namespace DungeonsAndDungeons
             base.Draw(gameTime);
 
         }
+
+
 
     }
 

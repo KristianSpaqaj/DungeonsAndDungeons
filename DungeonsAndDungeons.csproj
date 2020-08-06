@@ -70,6 +70,7 @@
     <Compile Include="Code\GUI\GUIRenderer.cs" />
     <Compile Include="Code\Health.cs" />
     <Compile Include="Code\Input\InputAction.cs" />
+    <Compile Include="Code\Input\InputProcessor.cs" />
     <Compile Include="Code\Input\InputState.cs" />
     <Compile Include="Code\Interfaces\ICommand.cs" />
     <Compile Include="Code\Interfaces\IRenderable.cs" />
