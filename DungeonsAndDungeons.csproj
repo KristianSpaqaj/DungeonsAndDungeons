@@ -89,8 +89,9 @@
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\Extensions\Texture2DExtension.cs" />
     <Compile Include="Code\TimeTracker.cs" />
-    <Compile Include="Code\TurnProcessor.cs" />
+    <Compile Include="Code\IdleTurnProcessor.cs" />
     <Compile Include="Code\Extensions\Vector2Extensions.cs" />
+    <Compile Include="Code\TurnProcessor.cs" />
     <Compile Include="Code\Weapon.cs" />
     <Compile Include="DungeonsGame.cs" />
     <Compile Include="Code\Input\InputMapper.cs" />

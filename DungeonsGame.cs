@@ -28,7 +28,7 @@ namespace DungeonsAndDungeons
         private const int ScreenWidth = 1920;
         private const int ScreenHeight = 1080;
         private Level Level;
-        private TurnProcessor TurnProcessor { get; set; }
+        private IdleTurnProcessor IdleTurnProcessor { get; set; }
         Dictionary<string, InputAction> KeyBinding { get; set; }
         public InputProcessor InputProcessor { get; private set; }
 
@@ -49,7 +49,7 @@ namespace DungeonsAndDungeons
             graphics.PreferredBackBufferHeight = ScreenHeight;
             GameContext = new GameContext(new GameTime());
             TimeTracker.Initialize(new GameTime());
-            TurnProcessor = new TurnProcessor();
+            IdleTurnProcessor = new IdleTurnProcessor();
         }
 
         protected override void Initialize()
@@ -104,7 +104,7 @@ namespace DungeonsAndDungeons
             GameContext.GameTime = gameTime;
             TimeTracker.GameTime = gameTime;
             InputProcessor.ProcessInput();
-            TurnProcessor.RunCurrentTurn(Level, GameContext);
+            IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
 
 
             if (InputState.HasAction("RELOAD_GAME"))
