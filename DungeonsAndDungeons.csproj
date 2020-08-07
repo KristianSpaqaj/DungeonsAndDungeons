@@ -79,6 +79,7 @@
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
+    <Compile Include="Code\MapGenerator.cs" />
     <Compile Include="Code\MouseInfo.cs" />
     <Compile Include="Code\Range.cs" />
     <Compile Include="Code\SeedGenerator.cs" />

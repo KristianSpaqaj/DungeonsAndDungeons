@@ -30,7 +30,28 @@ namespace DungeonsAndDungeons.GUI
             batch.Begin();
             RenderDebugInfo(batch);
             RenderPlayerInfo(batch, level.Player);
+            RenderMiniMap(batch, level);
             batch.End();
+        }
+
+        private void RenderMiniMap(SpriteBatch batch, Level level)
+        {
+            for (int i = 0; i < level.Map.Width; i++)
+            {
+                for (int j = 0; j < level.Map.Height; j++)
+                {
+                    if(level.Map.Tiles[j,i] == 0)
+                    {
+                        batch.Draw(MakeTexture(Color.Black), new Rectangle(i*8, j*8, 8, 8), Color.White);
+                    }
+                    else
+                    {
+                        batch.Draw(MakeTexture(Color.White), new Rectangle(i*8, j*8, 8, 8), Color.White);
+                    }
+                }
+            }
+
+            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.X*8, (int)level.Player.Position.Y*8, 8, 8), Color.White);
         }
 
         private void RenderPlayerInfo(SpriteBatch batch, Player player)

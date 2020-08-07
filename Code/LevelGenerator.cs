@@ -62,13 +62,8 @@ namespace DungeonsAndDungeons
 
         private TexturedMap GenerateMap()
         {
-            int[,] tiles = new int[,] {
-                { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-                { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3}
-            };
+            MapGenerator mg = new MapGenerator(25, 25);
+            var tiles = mg.LeafsToTiles();
 
             return new TexturedMap(tiles, Textures);
         }
