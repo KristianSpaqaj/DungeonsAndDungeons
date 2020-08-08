@@ -43,12 +43,12 @@ namespace DungeonsAndDungeons
 
             RandomGenerator = new Random(levelSeed);
 
-            
+
 
             Map = GenerateMap();
             Items = GenerateItems();
             Entities = GenerateEntities();
-            
+
             Player player = new Player(new Vector2(17.5f, 3.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,
@@ -117,11 +117,8 @@ namespace DungeonsAndDungeons
 
         private Vector2 GeneratePosition()
         {
-            float x = -1;
-            float y = -1;
-
-            x = RandomGenerator.Next(0, Map.Width) + 0.5f;
-            y = RandomGenerator.Next(0, Map.Height) + 0.5f;
+            int x = RandomGenerator.Next(0, Map.Width) + 0.5f;
+            int y = RandomGenerator.Next(0, Map.Height) + 0.5f;
 
             return new Vector2(x, y);
         }

@@ -44,7 +44,8 @@ namespace DungeonsAndDungeons
             else if (CompareTypes<PreviousSlotCommand>(type))
             {
                 return new PreviousSlotCommand(entity, level, ctx);
-            }else if (CompareTypes<OpenDoorCommand>(type))
+            }
+            else if (CompareTypes<OpenDoorCommand>(type))
             {
                 return new OpenDoorCommand(entity, level, ctx);
             }

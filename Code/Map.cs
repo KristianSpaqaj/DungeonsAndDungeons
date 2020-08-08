@@ -27,7 +27,7 @@ namespace DungeonsAndDungeons
         {
             return IsValid((int)Math.Floor(position.X), (int)Math.Floor(position.Y));
         }
-        
+
         public bool IsEmpty(Vector2 pos) => Tiles[(int)pos.X, (int)pos.Y].CompareTo(EmptyTile) <= 0;
         public bool IsEmpty(int x, int y) => Tiles[y, x].CompareTo(EmptyTile) <= 0;
 
@@ -54,8 +54,8 @@ namespace DungeonsAndDungeons
 
         public T this[int i, int j]
         {
-            get => Tiles[j,i];
-            set => Tiles[j,i] = value;
+            get => Tiles[j, i];
+            set => Tiles[j, i] = value;
         }
     }
 }

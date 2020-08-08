@@ -1,5 +1,4 @@
-﻿using DungeonsAndDungeons.Commands;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -43,7 +42,7 @@ namespace DungeonsAndDungeons
             return tiles;
         }
 
-        public void Generate(int depth=3)
+        public void Generate(int depth = 3)
         {
             Leaf root = new Leaf(0, 0, MapWidth, MapHeight);
             Leafs.Add(root);

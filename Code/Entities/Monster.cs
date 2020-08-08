@@ -16,7 +16,7 @@ namespace DungeonsAndDungeons.Entities
 
         public override ICommand GetAction(Level level, GameContext ctx)
         {
-            if (!level.Map.IsValid(Position+Direction))
+            if (!level.Map.IsValid(Position + Direction))
             {
                 Direction = Direction.RotateDegree(180);
             }
