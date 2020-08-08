@@ -21,10 +21,13 @@
     "Action": "PICKUP_ITEM",
     "TimeOut": 0.1
   },
+
   "Q": {
     "Action": "DROP_ITEM",
     "TimeOut": 0.1
   },
+
+  "Space": { "Action": "OPEN_DOOR" },
 
   "OemPeriod": { "Action": "FINISH_TURN" },
   "ScrollWheelUp": { "Action": "NEXT_SLOT" },

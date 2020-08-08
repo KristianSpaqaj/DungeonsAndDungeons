@@ -26,7 +26,8 @@ namespace DungeonsAndDungeons.Entities
                 { "PICKUP_ITEM", typeof(PickUpItemCommand) },
                 { "DROP_ITEM", typeof(DropItemCommand) },
                 { "PREVIOUS_SLOT", typeof(PreviousSlotCommand) },
-                { "NEXT_SLOT", typeof(NextSlotCommand) }
+                { "NEXT_SLOT", typeof(NextSlotCommand) },
+                { "OPEN_DOOR", typeof(OpenDoorCommand) }
             };
         }
 

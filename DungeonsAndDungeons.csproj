@@ -54,6 +54,7 @@
     <Compile Include="Code\Commands\EmptyCommand.cs" />
     <Compile Include="Code\Commands\FinishTurnCommand.cs" />
     <Compile Include="Code\Commands\MoveCommand.cs" />
+    <Compile Include="Code\Commands\OpenDoorCommand.cs" />
     <Compile Include="Code\Commands\PreviousSlotCommand.cs" />
     <Compile Include="Code\Commands\NextSlotCommand.cs" />
     <Compile Include="Code\Commands\RotateCommand.cs" />
