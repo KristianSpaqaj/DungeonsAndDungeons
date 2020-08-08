@@ -74,6 +74,18 @@
 /processorParam:TextureFormat=Color
 /build:demon.png
 
+#begin door.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:door.png;8.png
+
 #begin dude.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -175,16 +187,4 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:redbrick.png;7.png
-
-#begin wood.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:wood.png;8.png
 

@@ -21,7 +21,6 @@ namespace DungeonsAndDungeons
             Random = new Random();
             MapHeight = height;
             MapWidth = width;
-            Generate(5);
         }
 
         public int[,] LeafsToTiles()
