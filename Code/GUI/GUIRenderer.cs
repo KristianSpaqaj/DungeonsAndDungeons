@@ -40,18 +40,18 @@ namespace DungeonsAndDungeons.GUI
             {
                 for (int j = 0; j < level.Map.Height; j++)
                 {
-                    if(level.Map.Tiles[j,i] == 0)
+                    if (level.Map.Tiles[j, i] == 0)
                     {
-                        batch.Draw(MakeTexture(Color.Black), new Rectangle(i*8, j*8, 8, 8), Color.White);
+                        batch.Draw(MakeTexture(Color.Black), new Rectangle(i * 8, j * 8, 8, 8), Color.White);
                     }
                     else
                     {
-                        batch.Draw(MakeTexture(Color.White), new Rectangle(i*8, j*8, 8, 8), Color.White);
+                        batch.Draw(MakeTexture(Color.White), new Rectangle(i * 8, j * 8, 8, 8), Color.White);
                     }
                 }
             }
 
-            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.X*8, (int)level.Player.Position.Y*8, 8, 8), Color.White);
+            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.X * 8, (int)level.Player.Position.Y * 8, 8, 8), Color.White);
         }
 
         private void RenderPlayerInfo(SpriteBatch batch, Player player)

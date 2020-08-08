@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Commands;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace DungeonsAndDungeons
     public class MapGenerator
     {
         const int MAX_LEAF_SIZE = 8;
+        const int MIN_LEAF_SIZE = 4;
         private List<Leaf> Leafs { get; set; }
         private Leaf Leaf { get; set; }
         private Random Random { get; }
@@ -19,23 +21,19 @@ namespace DungeonsAndDungeons
             Random = new Random();
             MapHeight = height;
             MapWidth = width;
-
-            Generate();
+            Generate(5);
         }
 
         public int[,] LeafsToTiles()
         {
-            int[,] tiles = new int[MapHeight,MapWidth];
-            foreach(Leaf leaf in Leafs)
+            int[,] tiles = new int[MapHeight, MapWidth];
+            foreach (Leaf leaf in Leafs)
             {
-                for(int i = leaf.X; i < leaf.Width; i++)
+                for (int i = leaf.Y; i < leaf.Height; i++)
                 {
-                    for(int j = leaf.Y; j < leaf.Height; j++)
+                    for (int j = leaf.X; j < leaf.Width; j++)
                     {
-                        if(i == 0 || i == leaf.Width-1)
-                        {
-                            tiles[i, j] = 1;
-                        }else if(j == 0 || j == leaf.Height-1)
+                        if (i == leaf.Y || i == leaf.Y + leaf.Height - 1 || j == leaf.X || j == leaf.X + leaf.Width - 1)
                         {
                             tiles[i, j] = 1;
                         }
@@ -46,31 +44,21 @@ namespace DungeonsAndDungeons
             return tiles;
         }
 
-        public void Generate()
+        public void Generate(int depth=3)
         {
             Leaf root = new Leaf(0, 0, MapWidth, MapHeight);
             Leafs.Add(root);
-            bool didSplit = true;
 
-            while (didSplit)
+            for (int i = 0; i < depth; i++)
             {
-                didSplit = false;
-                for(int i = 0; i < Leafs.Count; i++)
+                Leaf l = Leafs[i];
+                if (l.LeftChild == null && l.RightChild == null) // if this Leaf is not already split...
                 {
-                    Leaf l = Leafs[i];
-                    if (l.LeftChild == null && l.RightChild == null) // if this Leaf is not already split...
+                    if (l.Split()) // split the Leaf!
                     {
-                        // if this Leaf is too big, or 75% chance...
-                        if (l.Width > MAX_LEAF_SIZE || l.Height > MAX_LEAF_SIZE || Random.Next(0,100) > 25)
-                        {
-                            if (l.Split()) // split the Leaf!
-                            {
-                                // if we did split, push the child leafs to the Vector so we can loop into them next
-                                Leafs.Add(l.LeftChild);
-                                Leafs.Add(l.RightChild);
-                                didSplit = true;
-                            }
-                        }
+                        // if we did split, push the child leafs to the Vector so we can loop into them next
+                        Leafs.Add(l.LeftChild);
+                        Leafs.Add(l.RightChild);
                     }
                 }
             }
@@ -79,7 +67,7 @@ namespace DungeonsAndDungeons
 
     public class Leaf
     {
-        private const int MIN_LEAF_SIZE = 6;
+        private const int MIN_LEAF_SIZE = 5;
         public int Y { get; set; }
         public int X { get; set; }
         public int Width { get; set; }
@@ -88,7 +76,7 @@ namespace DungeonsAndDungeons
         public Leaf RightChild { get; set; }
         public Rectangle Room { get; set; }
         private Random Random { get; }
-        public Leaf(int y, int x, int width, int height)
+        public Leaf(int x, int y, int width, int height)
         {
             Y = y;
             X = x;
@@ -99,44 +87,40 @@ namespace DungeonsAndDungeons
 
         public bool Split()
         {
-            if (LeftChild != null || RightChild != null) // if leaf already split
+            bool done = false;
+            while (!done)
             {
-                return false;
+                bool vertical = Random.Next(0, 2) == 0;
+                if (vertical && Width >= MIN_LEAF_SIZE)
+                {
+                    //Vertical
+                    LeftChild = new Leaf(X, Y, Random.Next(MIN_LEAF_SIZE, Width), Height);
+                    RightChild = new Leaf(X + LeftChild.Width, Y, Width - LeftChild.Width, LeftChild.Height);
+                    if (LeftChild.Width / LeftChild.Height < 0.25 || RightChild.Width / RightChild.Height < 0.25)
+                    {
+                        return false;
+                    }
+                }
+                else if (!vertical && Height >= MIN_LEAF_SIZE)
+                {
+                    //Horizontal
+
+                    LeftChild = new Leaf(X, Y, Width, Random.Next(MIN_LEAF_SIZE, Height));
+                    RightChild = new Leaf(X, Y + LeftChild.Height, Width, Height - LeftChild.Height);
+                    if (LeftChild.Height / LeftChild.Width < 0.25 || RightChild.Height / RightChild.Width < 0.25)
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+
+                done = true;
             }
 
-            // determine direction of split
-            // if the width is >25% larger than height, we split vertically
-            // if the height is >25% larger than the width, we split horizontally
-            // otherwise we split randomly
-
-            bool splitHorizontal = Random.Next(0, 100) > 50;
-
-            if (Width > Height && Width / Height >= 1.25)
-                splitHorizontal = false;
-            else if (Height > Width && Height / Width >= 1.25)
-                splitHorizontal = true;
-
-            int max = (splitHorizontal ? Height : Width);
-
-            if (max <= MIN_LEAF_SIZE)
-            {
-                return false; // area indivisible
-            }
-
-            int split = Random.Next(MIN_LEAF_SIZE, max);
-
-            if (splitHorizontal)
-            {
-                LeftChild = new Leaf(X, Y, Width, split);
-                RightChild = new Leaf(X, Y + split, Width, Height - split);
-            }
-            else
-            {
-                LeftChild = new Leaf(X, Y, split, Height);
-                RightChild = new Leaf(X + split, Y, Width - split, Height);
-            }
-            return true; // split successful!
+            return true;
         }
-
     }
 }

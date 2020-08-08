@@ -43,6 +43,12 @@ namespace DungeonsAndDungeons
 
             RandomGenerator = new Random(levelSeed);
 
+            
+
+            Map = GenerateMap();
+            Items = GenerateItems();
+            Entities = GenerateEntities();
+            
             Player player = new Player(new Vector2(17.5f, 3.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,
@@ -50,11 +56,6 @@ namespace DungeonsAndDungeons
                                       new Health(100),
                                       new List<Sprite>() { },
                                       new ActionPoints(2));
-
-            Map = GenerateMap();
-            Items = GenerateItems();
-            Entities = GenerateEntities();
-
             return new Level(Map, Items, Entities, player);
 
         }
@@ -62,7 +63,7 @@ namespace DungeonsAndDungeons
 
         private TexturedMap GenerateMap()
         {
-            MapGenerator mg = new MapGenerator(25, 25);
+            MapGenerator mg = new MapGenerator(20,20);
             var tiles = mg.LeafsToTiles();
 
             return new TexturedMap(tiles, Textures);
