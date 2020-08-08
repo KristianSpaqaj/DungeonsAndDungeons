@@ -10,7 +10,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-            List<Item> items = Level.ItemsAt((int)Creator.Position.X, (int)Creator.Position.Y);
+            List<Item> items = Level.ItemsAt(Creator.Position);
 
             Creator.Inventory.Add(items[0]);
             Level.Items.Remove(items[0]);
@@ -18,7 +18,7 @@ namespace DungeonsAndDungeons.Commands
 
         public override bool CanRun()
         {
-            return Level.ItemsAt((int)Creator.Position.X, (int)Creator.Position.Y).Count > 0;
+            return Level.ItemsAt(Creator.Position).Count > 0;
         }
     }
 }

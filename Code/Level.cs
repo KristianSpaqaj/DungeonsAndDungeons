@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,6 +24,11 @@ namespace DungeonsAndDungeons
         public List<Item> ItemsAt(int x, int y)
         { // TODO generate item map with bools
             return Items.Where((i) => (int)i.Position.X == x && (int)i.Position.Y == y).ToList();
+        }
+
+        public List<Item> ItemsAt(Vector2 position)
+        {
+            return ItemsAt((int)position.X, (int)position.Y);
         }
     }
 }

@@ -10,19 +10,12 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-            int nextX = (int)(Creator.Position.X + Creator.Direction.X);
-            int nextY = (int)(Creator.Position.Y + Creator.Direction.Y);
-
-
-            Level.Map[nextX,nextY] = 0;
+            Level.Map[Creator.Position + Creator.Direction] = 0;
         }
 
         public override bool CanRun()
         {
-            int nextX = (int)(Creator.Position.X + Creator.Direction.X);
-            int nextY = (int)(Creator.Position.Y + Creator.Direction.Y);
-
-            return Level.Map[nextX,nextY] == 7;
+            return Level.Map[Creator.Position + Creator.Direction] == 7;
         }
     }
 }
