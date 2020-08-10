@@ -68,7 +68,7 @@ namespace DungeonsAndDungeons
         {
             for (int y = 0; y < ScreenHeight; y++)
             {
-                // rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
+                // ray.Direction for leftmost ray (x = 0) and rightmost ray (x = w)
                 float rayDirX0 = camera.Direction.X - camera.Plane.X;
                 float rayDirY0 = camera.Direction.Y - camera.Plane.Y;
                 float rayDirX1 = camera.Direction.X + camera.Plane.X;
@@ -127,67 +127,52 @@ namespace DungeonsAndDungeons
         {
             for (int x = 0; x < ScreenWidth; x++)
             {
-                double cameraX = 2 * (x) / (double)ScreenWidth - 1;
-                double rayDirX = camera.Direction.X + camera.Plane.X * cameraX;
-                double rayDirY = camera.Direction.Y + camera.Plane.Y * cameraX;
+                Ray ray = new Ray();
+
+                double cameraX = (2 * x / (double)ScreenWidth) - 1;
+                ray.DirectionX = camera.Direction.X + camera.Plane.X * cameraX;
+                ray.DirectionY = camera.Direction.Y + camera.Plane.Y * cameraX;
 
                 // which map tile the ray is currently in
                 int mapX = (int)camera.Position.X;
                 int mapY = (int)camera.Position.Y;
 
-                double sideDistX; // length to next x side
-                double sideDistY; // length to next y side
-
-                double deltaDistX = (rayDirY == 0) ? 0 : ((rayDirX == 0) ? 1 : Math.Abs(1 / rayDirX));
-                double deltaDistY = (rayDirX == 0) ? 0 : ((rayDirY == 0) ? 1 : Math.Abs(1 / rayDirY));
                 double perpWallDist;
-
-                // which direction to step in  x or y direction (either -1 or +1)
-                int stepX;
-                int stepY;
 
                 int hit = 0; // 1 if wall has been hit, 0 otherwise
 
-                int side = 1; // NS or EW wall hit?
-
-                //calculate step and initial sideDist
-
-                if (rayDirX < 0)
+                if (ray.DirectionX < 0)
                 {
-                    stepX = -1;
-                    sideDistX = (camera.Position.X - mapX) * deltaDistX;
+                    ray.SideDistX = (camera.Position.X - mapX) * ray.DeltaDistX;
                 }
                 else
                 {
-                    stepX = 1;
-                    sideDistX = (mapX + 1.0 - camera.Position.X) * deltaDistX;
+                    ray.SideDistX = (mapX + 1.0 - camera.Position.X) * ray.DeltaDistX;
                 }
 
-                if (rayDirY < 0)
+                if (ray.DirectionY < 0)
                 {
-                    stepY = -1;
-                    sideDistY = (camera.Position.Y - mapY) * deltaDistY;
+                    ray.SideDistY = (camera.Position.Y - mapY) * ray.DeltaDistY;
                 }
                 else
                 {
-                    stepY = 1;
-                    sideDistY = (mapY + 1.0 - camera.Position.Y) * deltaDistY;
+                    ray.SideDistY = (mapY + 1.0 - camera.Position.Y) * ray.DeltaDistY;
                 }
 
                 while (hit == 0)
                 {
                     //jump to next map square 
-                    if (sideDistX < sideDistY)
+                    if (ray.SideDistX < ray.SideDistY)
                     {
-                        sideDistX += deltaDistX;
-                        mapX += stepX;
-                        side = 0;
+                        ray.SideDistX += ray.DeltaDistX;
+                        mapX += ray.StepX;
+                        ray.Side = 0;
                     }
                     else
                     {
-                        sideDistY += deltaDistY;
-                        mapY += stepY;
-                        side = 1;
+                        ray.SideDistY += ray.DeltaDistY;
+                        mapY += ray.StepY;
+                        ray.Side = 1;
                     }
 
                     if (!level.Map.IsEmpty(mapX, mapY))
@@ -197,13 +182,13 @@ namespace DungeonsAndDungeons
                 }
 
                 //caluclate distance to wall
-                if (side == 0)
+                if (ray.Side == 0)
                 {
-                    perpWallDist = (mapX - camera.Position.X + (1 - stepX) / 2) / rayDirX;
+                    perpWallDist = (mapX - camera.Position.X + (1 - ray.StepX) / 2) / ray.DirectionX;
                 }
                 else
                 {
-                    perpWallDist = (mapY - camera.Position.Y + (1 - stepY) / 2) / rayDirY;
+                    perpWallDist = (mapY - camera.Position.Y + (1 - ray.StepY) / 2) / ray.DirectionY;
                 }
 
                 //calculate height of wall strip
@@ -218,23 +203,23 @@ namespace DungeonsAndDungeons
 
                 double wallX;
 
-                if (side == 0)
+                if (ray.Side == 0)
                 {
-                    wallX = camera.Position.Y + perpWallDist * rayDirY;
+                    wallX = camera.Position.Y + perpWallDist * ray.DirectionY;
                 }
                 else
                 {
-                    wallX = camera.Position.X + perpWallDist * rayDirX;
+                    wallX = camera.Position.X + perpWallDist * ray.DirectionX;
                 }
 
                 wallX -= Math.Floor(wallX);
 
                 int texX = (int)(wallX * TexWidth);
-                if (side == 0 && rayDirX > 0)
+                if (ray.Side == 0 && ray.DirectionX > 0)
                 {
                     texX = TexWidth - texX - 1;
                 }
-                else if (side == 1 && rayDirY < 0)
+                else if (ray.Side == 1 && ray.DirectionY < 0)
                 {
                     texX = TexWidth - texX - 1;
                 }
@@ -249,7 +234,7 @@ namespace DungeonsAndDungeons
 
                     wallColor = GetPixel(level.Map.GetTileTexture(mapX, mapY), texX, texY);
 
-                    if (side == 1)
+                    if (ray.Side == 1)
                     {
                         wallColor = ChangeBrightness(wallColor, 0.7f);
                     }

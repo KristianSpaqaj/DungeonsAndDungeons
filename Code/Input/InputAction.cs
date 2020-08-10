@@ -1,4 +1,6 @@
-﻿namespace DungeonsAndDungeons.Input
+﻿using Newtonsoft.Json;
+
+namespace DungeonsAndDungeons.Input
 {
     public class InputAction
     {
@@ -11,6 +13,11 @@
             Action = action;
             TimeOut = timeOut;
             IsRepeatable = isRepeatable;
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

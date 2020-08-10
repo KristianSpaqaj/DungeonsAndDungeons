@@ -3,6 +3,7 @@ using DungeonsAndDungeons.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Linq;
 
 namespace DungeonsAndDungeons.GUI
 {
@@ -52,6 +53,8 @@ namespace DungeonsAndDungeons.GUI
             }
 
             batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.X * 8, (int)level.Player.Position.Y * 8, 8, 8), Color.White);
+            Vector2 next = level.Player.Position + level.Player.Direction;
+            batch.Draw(MakeTexture(Color.Purple), new Rectangle((int)next.X * 8, (int)next.Y * 8, 8, 8), Color.White);
         }
 
         private void RenderPlayerInfo(SpriteBatch batch, Player player)
