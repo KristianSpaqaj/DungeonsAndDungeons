@@ -127,55 +127,25 @@ namespace DungeonsAndDungeons
         {
             for (int x = 0; x < ScreenWidth; x++)
             {
-                Ray ray = new Ray();
-
                 double cameraX = (2 * x / (double)ScreenWidth) - 1;
-                ray.DirectionX = camera.Direction.X + camera.Plane.X * cameraX;
-                ray.DirectionY = camera.Direction.Y + camera.Plane.Y * cameraX;
 
-                // which map tile the ray is currently in
-                int mapX = (int)camera.Position.X;
-                int mapY = (int)camera.Position.Y;
+                Ray ray = new Ray(camera.Direction.X + camera.Plane.X * cameraX,
+                    camera.Direction.Y + camera.Plane.Y * cameraX,
+                    camera.Position.X, camera.Position.Y);
+
+                // which ray.Map tile the ray is currently in
 
                 double perpWallDist;
 
                 int hit = 0; // 1 if wall has been hit, 0 otherwise
 
-                if (ray.DirectionX < 0)
-                {
-                    ray.SideDistX = (camera.Position.X - mapX) * ray.DeltaDistX;
-                }
-                else
-                {
-                    ray.SideDistX = (mapX + 1.0 - camera.Position.X) * ray.DeltaDistX;
-                }
-
-                if (ray.DirectionY < 0)
-                {
-                    ray.SideDistY = (camera.Position.Y - mapY) * ray.DeltaDistY;
-                }
-                else
-                {
-                    ray.SideDistY = (mapY + 1.0 - camera.Position.Y) * ray.DeltaDistY;
-                }
 
                 while (hit == 0)
                 {
-                    //jump to next map square 
-                    if (ray.SideDistX < ray.SideDistY)
-                    {
-                        ray.SideDistX += ray.DeltaDistX;
-                        mapX += ray.StepX;
-                        ray.Side = 0;
-                    }
-                    else
-                    {
-                        ray.SideDistY += ray.DeltaDistY;
-                        mapY += ray.StepY;
-                        ray.Side = 1;
-                    }
+                    //jump to next ray.Map square 
+                    ray.GoToNextSquare();
 
-                    if (!level.Map.IsEmpty(mapX, mapY))
+                    if (!level.Map.IsEmpty(ray.MapX, ray.MapY))
                     {
                         hit = 1;
                     }
@@ -184,11 +154,11 @@ namespace DungeonsAndDungeons
                 //caluclate distance to wall
                 if (ray.Side == 0)
                 {
-                    perpWallDist = (mapX - camera.Position.X + (1 - ray.StepX) / 2) / ray.DirectionX;
+                    perpWallDist = (ray.MapX - camera.Position.X + (1 - ray.StepX) / 2) / ray.DirectionX;
                 }
                 else
                 {
-                    perpWallDist = (mapY - camera.Position.Y + (1 - ray.StepY) / 2) / ray.DirectionY;
+                    perpWallDist = (ray.MapY - camera.Position.Y + (1 - ray.StepY) / 2) / ray.DirectionY;
                 }
 
                 //calculate height of wall strip
@@ -232,7 +202,7 @@ namespace DungeonsAndDungeons
                     int texY = (int)texPos & (TexHeight - 1);
                     texPos += step;
 
-                    wallColor = GetPixel(level.Map.GetTileTexture(mapX, mapY), texX, texY);
+                    wallColor = GetPixel(level.Map.GetTileTexture(ray.MapX, ray.MapY), texX, texY);
 
                     if (ray.Side == 1)
                     {

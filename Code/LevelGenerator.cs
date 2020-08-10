@@ -117,8 +117,8 @@ namespace DungeonsAndDungeons
 
         private Vector2 GeneratePosition()
         {
-            int x = (int)(RandomGenerator.Next(0, Map.Width) + 0.5f);
-            int y = (int)(RandomGenerator.Next(0, Map.Height) + 0.5f);
+            float x = RandomGenerator.Next(0, Map.Width) + 0.5f;
+            float y = RandomGenerator.Next(0, Map.Height) + 0.5f;
 
             return new Vector2(x, y);
         }
