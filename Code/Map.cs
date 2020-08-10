@@ -8,6 +8,7 @@ namespace DungeonsAndDungeons
     {
         public T[,] Tiles { get; set; }
         public T EmptyTile { get; }
+        public T DoorTile { get; }
         public int Height => Tiles.GetLength(0);
         public int Width => Tiles.GetLength(1);
         public int Count => Tiles.Length;
@@ -16,10 +17,11 @@ namespace DungeonsAndDungeons
 
         public bool IsSynchronized => Tiles.IsSynchronized;
 
-        public Map(T[,] tiles, T empty)
+        public Map(T[,] tiles, T empty, T doorTile)
         {
             Tiles = tiles;
             EmptyTile = empty;
+            DoorTile = doorTile;
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);

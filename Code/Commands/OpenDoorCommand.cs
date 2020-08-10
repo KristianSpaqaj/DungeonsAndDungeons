@@ -10,12 +10,12 @@ namespace DungeonsAndDungeons.Commands
 
         public override void Execute()
         {
-            Level.Map[Creator.Position + Creator.Direction] = 0;
+            Level.Map[Creator.Position + Creator.Direction] = Level.Map.EmptyTile;
         }
 
         public override bool CanRun()
         {
-            return Level.Map[Creator.Position + Creator.Direction] == 7;
+            return Level.Map[Creator.Position + Creator.Direction] == Level.Map.DoorTile;
         }
     }
 }

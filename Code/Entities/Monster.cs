@@ -3,6 +3,7 @@ using DungeonsAndDungeons.Extensions;
 using DungeonsAndDungeons.Interfaces;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 
 namespace DungeonsAndDungeons.Entities
 {
@@ -16,7 +17,10 @@ namespace DungeonsAndDungeons.Entities
 
         public override ICommand GetAction(Level level, GameContext ctx)
         {
-            if (!level.Map.IsValid(Position + Direction))
+            int nextX = (int)(Position.X + Direction.X);
+            int nextY = (int)(Position.Y + Direction.Y);
+
+            if (!level.Map.IsValid(nextX,nextY))
             {
                 Direction = Direction.RotateDegree(180);
             }
