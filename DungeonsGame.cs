@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Color = Microsoft.Xna.Framework.Color;
@@ -29,6 +30,7 @@ namespace DungeonsAndDungeons
         private const int ScreenHeight = 1080;
         private Level Level;
         private IdleTurnProcessor IdleTurnProcessor { get; set; }
+        private CombatTurnProcessor CombatTurnProcessor { get; set; }
         Dictionary<string, InputAction> KeyBinding { get; set; }
         public InputProcessor InputProcessor { get; private set; }
 
@@ -50,6 +52,7 @@ namespace DungeonsAndDungeons
             GameContext = new GameContext(new GameTime());
             TimeTracker.Initialize(new GameTime());
             IdleTurnProcessor = new IdleTurnProcessor();
+            CombatTurnProcessor = new CombatTurnProcessor();
         }
 
         protected override void Initialize()
@@ -104,8 +107,7 @@ namespace DungeonsAndDungeons
             GameContext.GameTime = gameTime;
             TimeTracker.GameTime = gameTime;
             InputProcessor.ProcessInput();
-            IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
-
+            
 
             if (InputState.HasAction("RELOAD_GAME"))
             {
@@ -132,6 +134,18 @@ namespace DungeonsAndDungeons
                 graphics.ApplyChanges();
                 TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
             }
+
+            float distance = Vector2.Distance(Level.Player.Position, Level.Entities[0].Position);
+
+            if(distance < 4)
+            {
+                CombatTurnProcessor.RunCurrentTurn(Level, GameContext);
+            }
+            else
+            {
+                IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
+            }
+
 
             camera.Position = Level.Player.Position;
             camera.SetDirection(Level.Player.Direction);

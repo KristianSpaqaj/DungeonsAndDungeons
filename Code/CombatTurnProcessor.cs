@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DungeonsAndDungeons
 {
-    public class IdleTurnProcessor : TurnProcessor
+    class CombatTurnProcessor : TurnProcessor
     {
         private ICommand TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons
         private List<Entity> Entities { get; set; }
         private Entity Current { get; set; }
 
-        public IdleTurnProcessor(double timeOutPeriod = 0.2)
+        public CombatTurnProcessor(double timeOutPeriod = 0.2)
         {
             TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
@@ -30,7 +30,9 @@ namespace DungeonsAndDungeons
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
             InitializeTurn(currentLevel);
+            if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
+
                 TurnCommand = Current.GetAction(currentLevel, ctx);
                 if (TurnOver())
                 {
@@ -40,6 +42,10 @@ namespace DungeonsAndDungeons
                 else if (ValidCommand())
                 {
                     RunAction();
+                    if (TurnCommand.TimesOut)
+                    {
+                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                    }
                 }
             }
         }
@@ -60,7 +66,7 @@ namespace DungeonsAndDungeons
 
         private bool ValidCommand()
         {
-            return !(TurnCommand is EmptyCommand);
+            return !(TurnCommand is EmptyCommand || TurnCommand is OpenDoorCommand);
         }
 
         private void RunAction()
