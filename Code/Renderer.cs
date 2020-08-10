@@ -128,12 +128,10 @@ namespace DungeonsAndDungeons
             for (int x = 0; x < ScreenWidth; x++)
             {
                 double cameraX = (2 * x / (double)ScreenWidth) - 1;
-
-                Ray ray = new Ray(camera.Direction.X + camera.Plane.X * cameraX,
-                    camera.Direction.Y + camera.Plane.Y * cameraX,
-                    camera.Position.X, camera.Position.Y);
-
-                // which ray.Map tile the ray is currently in
+                Vector2 rayDirection = new Vector2((float)(camera.Direction.X + camera.Plane.X * cameraX),
+                                                   (float)(camera.Direction.Y + camera.Plane.Y * cameraX));
+                
+                Ray ray = new Ray(camera.Position, rayDirection);
 
                 double perpWallDist;
 

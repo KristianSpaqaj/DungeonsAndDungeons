@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons
 {
@@ -25,13 +20,12 @@ namespace DungeonsAndDungeons
         public double SideDistX { get; set; }
         public double SideDistY { get; set; }
 
-        public Ray(double directionX, double directionY, double originX, double originY)
+        public Ray(float originX, float originY, float directionX, float directionY)
         {
-            DirectionX = directionX;
-            DirectionY = directionY;
             OriginX = originX;
             OriginY = originY;
-
+            DirectionX = directionX;
+            DirectionY = directionY;
             MapX = (int)OriginX;
             MapY = (int)OriginY;
 
@@ -53,8 +47,9 @@ namespace DungeonsAndDungeons
                 SideDistY = (MapY + 1.0 - OriginY) * DeltaDistY;
             }
 
-
         }
+
+        public Ray(Vector2 OriginPosition, Vector2 Direction) : this(OriginPosition.X,OriginPosition.Y,Direction.X,Direction.Y){}
 
         public void GoToNextSquare()
         {
