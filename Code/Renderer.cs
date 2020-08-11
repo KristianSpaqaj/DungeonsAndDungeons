@@ -146,15 +146,7 @@ namespace DungeonsAndDungeons
                     }
                 }
 
-                //caluclate distance to wall
-                if (ray.Side == 0)
-                {
-                    perpWallDist = (ray.MapX - camera.Position.X + (1 - ray.StepX) / 2) / ray.DirectionX;
-                }
-                else
-                {
-                    perpWallDist = (ray.MapY - camera.Position.Y + (1 - ray.StepY) / 2) / ray.DirectionY;
-                }
+                perpWallDist = ray.GetDistance();
 
                 //calculate height of wall strip
                 int lineHeight = (int)(ScreenHeight / perpWallDist);

@@ -29,27 +29,12 @@ namespace DungeonsAndDungeons
             MapX = (int)OriginX;
             MapY = (int)OriginY;
 
-            if (DirectionX < 0)
-            {
-                SideDistX = (OriginX - MapX) * DeltaDistX;
-            }
-            else
-            {
-                SideDistX = (MapX + 1.0 - OriginX) * DeltaDistX;
-            }
-
-            if (DirectionY < 0)
-            {
-                SideDistY = (OriginY - MapY) * DeltaDistY;
-            }
-            else
-            {
-                SideDistY = (MapY + 1.0 - OriginY) * DeltaDistY;
-            }
+            SideDistX = (DirectionX < 0) ? (OriginX - MapX) * DeltaDistX : (MapX + 1.0 - OriginX) * DeltaDistX;
+            SideDistY = (DirectionY < 0) ? (OriginY - MapY) * DeltaDistY : (MapY + 1.0 - OriginY) * DeltaDistY;
 
         }
 
-        public Ray(Vector2 OriginPosition, Vector2 Direction) : this(OriginPosition.X,OriginPosition.Y,Direction.X,Direction.Y){}
+        public Ray(Vector2 OriginPosition, Vector2 Direction) : this(OriginPosition.X, OriginPosition.Y, Direction.X, Direction.Y) { }
 
         public void GoToNextSquare()
         {
@@ -64,6 +49,18 @@ namespace DungeonsAndDungeons
                 SideDistY += DeltaDistY;
                 MapY += StepY;
                 Side = 1;
+            }
+        }
+
+        public double GetDistance()
+        {
+            if(Side == 0)
+            {
+                return (MapX - OriginX + (1 - StepX) / 2) / DirectionX;
+            }
+            else
+            {
+                return (MapY - OriginY + (1 - StepY) / 2) / DirectionY;
             }
         }
 
