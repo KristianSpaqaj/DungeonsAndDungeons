@@ -68,11 +68,8 @@ namespace DungeonsAndDungeons
         {
             for (int y = 0; y < ScreenHeight; y++)
             {
-                // ray.Direction for leftmost ray (x = 0) and rightmost ray (x = w)
-                float rayDirX0 = camera.Direction.X - camera.Plane.X;
-                float rayDirY0 = camera.Direction.Y - camera.Plane.Y;
-                float rayDirX1 = camera.Direction.X + camera.Plane.X;
-                float rayDirY1 = camera.Direction.Y + camera.Plane.Y;
+                Ray leftRay = new Ray(camera.Position, new Vector2(camera.Direction.X - camera.Plane.X, camera.Direction.Y - camera.Plane.Y));
+                Ray rightRay = new Ray(camera.Position, new Vector2(camera.Direction.X + camera.Plane.X, camera.Direction.Y + camera.Plane.Y));
 
                 // Current y position compared to the center of the screen (the horizon)
                 int p = y - ScreenHeight / 2;
@@ -86,11 +83,11 @@ namespace DungeonsAndDungeons
 
                 // calculate the real world step vector we have to add for each x (parallel to camera plane)
                 // adding step by step avoids multiplications with a weight in the inner loop
-                float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / ScreenWidth;
-                float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / ScreenWidth;
+                float floorStepX = (float)(rowDistance * (rightRay.DirectionX - leftRay.DirectionX) / ScreenWidth);
+                float floorStepY = (float)(rowDistance * (rightRay.DirectionY - leftRay.DirectionY) / ScreenWidth);
 
-                float floorX = (camera.Position.X + rowDistance * rayDirX0);
-                float floorY = (camera.Position.Y + rowDistance * rayDirY0);
+                float floorX = ((float)(leftRay.OriginX + rowDistance * leftRay.DirectionX));
+                float floorY = ((float)(leftRay.OriginY + rowDistance * leftRay.DirectionY));
 
                 for (int x = 0; x < ScreenWidth; ++x)
                 {
