@@ -10,12 +10,12 @@ namespace DungeonsAndDungeons
         public double OriginX { get; }
         public double OriginY { get; }
         // which direction to step in  x or y direction (either -1 or +1)
-        public int StepX => DirectionX < 0 ? -1 : 1;
-        public int StepY => DirectionY < 0 ? -1 : 1;
-        public double DeltaDistX => (DirectionX == 0) ? 0 : ((DirectionX == 0) ? 1 : Math.Abs(1 / DirectionX));
-        public double DeltaDistY => (DirectionY == 0) ? 0 : ((DirectionY == 0) ? 1 : Math.Abs(1 / DirectionY));
-        public int MapX { get; private set; }
-        public int MapY { get; private set; }
+        public int StepX { get; }
+        public int StepY { get; } 
+        public double DeltaDistX { get; }
+        public double DeltaDistY { get; } 
+        public int CurrentX { get; private set; }
+        public int CurrentY { get; private set; }
         public int Side { get; set; } // NS or EW wall hit?
         public double SideDistX { get; set; }
         public double SideDistY { get; set; }
@@ -26,11 +26,16 @@ namespace DungeonsAndDungeons
             OriginY = originY;
             DirectionX = directionX;
             DirectionY = directionY;
-            MapX = (int)OriginX;
-            MapY = (int)OriginY;
+            CurrentX = (int)OriginX;
+            CurrentY = (int)OriginY;
 
-            SideDistX = (DirectionX < 0) ? (OriginX - MapX) * DeltaDistX : (MapX + 1.0 - OriginX) * DeltaDistX;
-            SideDistY = (DirectionY < 0) ? (OriginY - MapY) * DeltaDistY : (MapY + 1.0 - OriginY) * DeltaDistY;
+            StepX = DirectionX < 0 ? -1 : 1;
+            StepY = DirectionY < 0 ? -1 : 1;
+            DeltaDistX = (DirectionX == 0) ? 0 : ((DirectionX == 0) ? 1 : Math.Abs(1 / DirectionX));
+            DeltaDistY = (DirectionY == 0) ? 0 : ((DirectionY == 0) ? 1 : Math.Abs(1 / DirectionY));
+            SideDistX = (DirectionX < 0) ? (OriginX - CurrentX) * DeltaDistX : (CurrentX + 1.0 - OriginX) * DeltaDistX;
+            SideDistY = (DirectionY < 0) ? (OriginY - CurrentY) * DeltaDistY : (CurrentY + 1.0 - OriginY) * DeltaDistY;
+
 
         }
 
@@ -41,26 +46,26 @@ namespace DungeonsAndDungeons
             if (SideDistX < SideDistY)
             {
                 SideDistX += DeltaDistX;
-                MapX += StepX;
+                CurrentX += StepX;
                 Side = 0;
             }
             else
             {
                 SideDistY += DeltaDistY;
-                MapY += StepY;
+                CurrentY += StepY;
                 Side = 1;
             }
         }
 
-        public double GetDistance()
+        public double GetDistanceTraveled()
         {
             if(Side == 0)
             {
-                return (MapX - OriginX + (1 - StepX) / 2) / DirectionX;
+                return (CurrentX - OriginX + (1 - StepX) / 2) / DirectionX;
             }
             else
             {
-                return (MapY - OriginY + (1 - StepY) / 2) / DirectionY;
+                return (CurrentY - OriginY + (1 - StepY) / 2) / DirectionY;
             }
         }
 

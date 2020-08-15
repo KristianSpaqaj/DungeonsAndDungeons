@@ -137,16 +137,16 @@ namespace DungeonsAndDungeons
 
                 while (hit == 0)
                 {
-                    //jump to next ray.Map square 
+                    //jump to next map square 
                     ray.GoToNextSquare();
 
-                    if (!level.Map.IsEmpty(ray.MapX, ray.MapY))
+                    if (!level.Map.IsEmpty(ray.CurrentX, ray.CurrentY))
                     {
                         hit = 1;
                     }
                 }
 
-                perpWallDist = ray.GetDistance();
+                perpWallDist = ray.GetDistanceTraveled();
 
                 //calculate height of wall strip
                 int lineHeight = (int)(ScreenHeight / perpWallDist);
@@ -189,7 +189,7 @@ namespace DungeonsAndDungeons
                     int texY = (int)texPos & (TexHeight - 1);
                     texPos += step;
 
-                    wallColor = GetPixel(level.Map.GetTileTexture(ray.MapX, ray.MapY), texX, texY);
+                    wallColor = GetPixel(level.Map.GetTileTexture(ray.CurrentX, ray.CurrentY), texX, texY);
 
                     if (ray.Side == 1)
                     {
