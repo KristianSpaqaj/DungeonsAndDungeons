@@ -37,24 +37,32 @@ namespace DungeonsAndDungeons.GUI
 
         private void RenderMiniMap(SpriteBatch batch, Level level)
         {
-            for (int i = 0; i < level.Map.Width; i++)
+            Color squareColor;
+
+            for (int i = 0; i < level.Map.Height; i++)
             {
-                for (int j = 0; j < level.Map.Height; j++)
+                for (int j = 0; j < level.Map.Width; j++)
                 {
-                    if (level.Map.Tiles[j, i] == 0)
+                    if (level.Map.Tiles[i,j] == 0)
                     {
-                        batch.Draw(MakeTexture(Color.Black), new Rectangle(i * 8, j * 8, 8, 8), Color.White);
+                        squareColor = Color.Black;
                     }
-                    else
+                    else if(level.Map.Tiles[i,j] == level.Map.DoorTile)
                     {
-                        batch.Draw(MakeTexture(Color.White), new Rectangle(i * 8, j * 8, 8, 8), Color.White);
+                        squareColor = Color.Red;
+                    }else
+                    {
+                        squareColor = Color.White;
                     }
+
+                    batch.Draw(MakeTexture(squareColor), new Rectangle(i * 8, j * 8, 8, 8), Color.White);
+
                 }
             }
 
-            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.X * 8, (int)level.Player.Position.Y * 8, 8, 8), Color.White);
+            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.Y * 8, (int)level.Player.Position.X * 8, 8, 8), Color.White);
             Vector2 next = level.Player.Position + level.Player.Direction;
-            batch.Draw(MakeTexture(Color.Purple), new Rectangle((int)next.X * 8, (int)next.Y * 8, 8, 8), Color.White);
+            batch.Draw(MakeTexture(Color.Purple), new Rectangle((int)next.Y * 8, (int)next.X * 8, 8, 8), Color.White);
         }
 
         private void RenderPlayerInfo(SpriteBatch batch, Player player)

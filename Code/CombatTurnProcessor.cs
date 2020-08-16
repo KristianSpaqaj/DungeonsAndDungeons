@@ -29,6 +29,8 @@ namespace DungeonsAndDungeons
         /// <param name="ctx"></param>
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
+            currentLevel.Map.CloseDoors();
+
             InitializeTurn(currentLevel);
             if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
