@@ -10,7 +10,7 @@ namespace DungeonsAndDungeons
         public T[,] Tiles { get; set; }
         public T EmptyTile { get; }
         public T DoorTile { get; }
-        public List<Vector2> DoorPositions { get; }
+        public List<Room> Rooms { get; }
         public int Height => Tiles.GetLength(0);
         public int Width => Tiles.GetLength(1);
         public int Count => Tiles.Length;
@@ -24,25 +24,7 @@ namespace DungeonsAndDungeons
             Tiles = tiles;
             EmptyTile = empty;
             DoorTile = doorTile;
-            DoorPositions = new List<Vector2>();
-            for (int i = 0; i < Height; i++)
-            {
-                for (int j = 0; j < Width; j++)
-                {
-                    if (Tiles[i, j].CompareTo(DoorTile) == 0)
-                    {
-                        DoorPositions.Add(new Vector2(j, i));
-                    }
-                }
-            }
-        }
-
-        public void CloseDoors()
-        {
-            foreach(Vector2 position in DoorPositions)
-            {
-                this[position] = DoorTile;
-            }
+  
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);

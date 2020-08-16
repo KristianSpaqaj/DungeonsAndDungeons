@@ -85,6 +85,7 @@
     <Compile Include="Code\MouseInfo.cs" />
     <Compile Include="Code\Range.cs" />
     <Compile Include="Code\Ray.cs" />
+    <Compile Include="Code\Room.cs" />
     <Compile Include="Code\SeedGenerator.cs" />
     <Compile Include="Code\TexturedMap.cs" />
     <Compile Include="Code\Entities\Monster.cs" />
