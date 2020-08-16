@@ -71,6 +71,9 @@ namespace DungeonsAndDungeons
                 { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
                 { 4,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,2},
                 { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,4,4,4,4,4,7,4,4,4,4,2},
+                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
                 { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3}
             };
 
@@ -117,10 +120,16 @@ namespace DungeonsAndDungeons
 
         private Vector2 GeneratePosition()
         {
-            float x = RandomGenerator.Next(0, Map.Width) + 0.5f;
-            float y = RandomGenerator.Next(0, Map.Height) + 0.5f;
+            int x = RandomGenerator.Next(0, Map.Width-1);
+            int y = RandomGenerator.Next(0, Map.Height-1);
 
-            return new Vector2(x, y);
+            while (Map.IsOutOfBounds(x, y))
+            {
+                x = RandomGenerator.Next(0, Map.Width);
+                y = RandomGenerator.Next(0, Map.Height);
+            }
+
+            return new Vector2(x+0.5f, y+0.5f);
         }
     }
 }
