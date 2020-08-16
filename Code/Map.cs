@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 
 namespace DungeonsAndDungeons
 {
@@ -14,7 +16,6 @@ namespace DungeonsAndDungeons
         public int Height => Tiles.GetLength(0);
         public int Width => Tiles.GetLength(1);
         public int Count => Tiles.Length;
-
         public object SyncRoot => Tiles.SyncRoot;
 
         public bool IsSynchronized => Tiles.IsSynchronized;
@@ -24,7 +25,18 @@ namespace DungeonsAndDungeons
             Tiles = tiles;
             EmptyTile = empty;
             DoorTile = doorTile;
-  
+            ParseRooms();
+        }
+
+        public bool AreInSameRoom(Entity entity, params Entity[] entities)
+        {
+            return true;
+        }
+
+        private void ParseRooms()
+        {
+            int x, y, height, width;
+            bool parsingInProgress = true;
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);

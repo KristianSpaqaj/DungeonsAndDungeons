@@ -1,4 +1,5 @@
-﻿using DungeonsAndDungeons.GUI;
+﻿using DungeonsAndDungeons.Generation;
+using DungeonsAndDungeons.GUI;
 using DungeonsAndDungeons.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -135,9 +136,7 @@ namespace DungeonsAndDungeons
                 TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
             }
 
-            float distance = Vector2.Distance(Level.Player.Position, Level.Entities[0].Position);
-
-            if(distance < 4)
+            if (Level.Map.AreInSameRoom(Level.Player, Level.Entities.ToArray()))
             {
                 CombatTurnProcessor.RunCurrentTurn(Level, GameContext);
             }

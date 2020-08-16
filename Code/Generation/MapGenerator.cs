@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Generation
 {
     public class MapGenerator
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Generation
 {
     static class SeedGenerator
     {

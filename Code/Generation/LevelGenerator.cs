@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.Generation
 {
     public class LevelGenerator
     {
@@ -72,8 +72,8 @@ namespace DungeonsAndDungeons
                 { 4,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,2},
                 { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
                 { 4,0,0,0,0,0,0,0,0,4,4,4,4,4,7,4,4,4,4,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
+                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
                 { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3}
             };
 
