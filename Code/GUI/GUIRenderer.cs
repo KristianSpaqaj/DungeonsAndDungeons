@@ -60,9 +60,19 @@ namespace DungeonsAndDungeons.GUI
                 }
             }
 
-            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.Y * 8, (int)level.Player.Position.X * 8, 8, 8), Color.White);
+            batch.Draw(MakeTexture(Color.Red), new Rectangle((int)level.Player.Position.Y * 8, (int)level.Player.Position.X * 8,8, 8), Color.White);
             Vector2 next = level.Player.Position + level.Player.Direction;
             batch.Draw(MakeTexture(Color.Purple), new Rectangle((int)next.Y * 8, (int)next.X * 8, 8, 8), Color.White);
+
+            foreach(Entity entity in level.Entities)
+            {
+                batch.Draw(MakeTexture(Color.Green), new Rectangle((int)entity.Position.Y * 8, (int)entity.Position.X*8, 8, 8), Color.White);
+            }
+
+            foreach (Item item in level.Items)
+            {
+                batch.Draw(MakeTexture(Color.Green), new Rectangle(((int)item.Position.Y * 8)+2, ((int)item.Position.X * 8)+2, 4, 4), Color.White);
+            }
         }
 
         private void RenderPlayerInfo(SpriteBatch batch, Player player)
