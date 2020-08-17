@@ -26,7 +26,7 @@ namespace DungeonsAndDungeons.TurnProcessors
 
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
-            if (ctx.GameTime.ElapsedGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
+            if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
                 InitializeTurn(currentLevel);
                 TurnCommand = Current.GetAction(currentLevel, ctx);
@@ -38,6 +38,10 @@ namespace DungeonsAndDungeons.TurnProcessors
                 else if (ValidCommand())
                 {
                     RunTurnCommand();
+                    if (TurnCommand.TimesOut)
+                    {
+                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
+                    }
                 }
             }
         }
