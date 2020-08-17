@@ -1,4 +1,4 @@
-﻿namespace DungeonsAndDungeons
+﻿namespace DungeonsAndDungeons.TurnProcessors
 {
     public abstract class TurnProcessor
     {

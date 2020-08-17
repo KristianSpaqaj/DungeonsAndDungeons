@@ -3,9 +3,9 @@ using DungeonsAndDungeons.Entities;
 using DungeonsAndDungeons.Interfaces;
 using System.Collections.Generic;
 
-namespace DungeonsAndDungeons
+namespace DungeonsAndDungeons.TurnProcessors
 {
-    class CombatTurnProcessor : TurnProcessor
+    public class IdleTurnProcessor : TurnProcessor
     {
         private ICommand TurnCommand { get; set; }
         private double TimeOutPeriod { get; set; }
@@ -14,7 +14,7 @@ namespace DungeonsAndDungeons
         private List<Entity> Entities { get; set; }
         private Entity Current { get; set; }
 
-        public CombatTurnProcessor(double timeOutPeriod = 0.2)
+        public IdleTurnProcessor(double timeOutPeriod = 0.2)
         {
             TimeOutPeriod = timeOutPeriod;
             TimeSinceLastTurn = 0;
@@ -29,11 +29,8 @@ namespace DungeonsAndDungeons
         /// <param name="ctx"></param>
         public void RunCurrentTurn(Level currentLevel, GameContext ctx)
         {
-
             InitializeTurn(currentLevel);
-            if (ctx.GameTime.TotalGameTime.TotalSeconds - TimeSinceLastTurn > TimeOutPeriod)
             {
-
                 TurnCommand = Current.GetAction(currentLevel, ctx);
                 if (TurnOver())
                 {
@@ -43,10 +40,6 @@ namespace DungeonsAndDungeons
                 else if (ValidCommand())
                 {
                     RunAction();
-                    if (TurnCommand.TimesOut)
-                    {
-                        TimeSinceLastTurn = ctx.GameTime.TotalGameTime.TotalSeconds;
-                    }
                 }
             }
         }
@@ -67,7 +60,7 @@ namespace DungeonsAndDungeons
 
         private bool ValidCommand()
         {
-            return !(TurnCommand is EmptyCommand || TurnCommand is OpenDoorCommand);
+            return !(TurnCommand is EmptyCommand);
         }
 
         private void RunAction()

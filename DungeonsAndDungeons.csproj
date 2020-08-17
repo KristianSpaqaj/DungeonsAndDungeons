@@ -47,7 +47,7 @@
     <Compile Include="Code\ActionPoints.cs" />
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
-    <Compile Include="Code\CombatTurnProcessor.cs" />
+    <Compile Include="Code\TurnProcessors\CombatTurnProcessor.cs" />
     <Compile Include="Code\CommandFactory.cs" />
     <Compile Include="Code\Commands\ChangeInventorySlotCommand.cs" />
     <Compile Include="Code\Commands\Command.cs" />
@@ -94,9 +94,9 @@
     <Compile Include="Code\Sprite.cs" />
     <Compile Include="Code\Extensions\Texture2DExtension.cs" />
     <Compile Include="Code\TimeTracker.cs" />
-    <Compile Include="Code\IdleTurnProcessor.cs" />
+    <Compile Include="Code\TurnProcessors\IdleTurnProcessor.cs" />
     <Compile Include="Code\Extensions\Vector2Extensions.cs" />
-    <Compile Include="Code\TurnProcessor.cs" />
+    <Compile Include="Code\TurnProcessors\TurnProcessor.cs" />
     <Compile Include="Code\Weapon.cs" />
     <Compile Include="DungeonsGame.cs" />
     <Compile Include="Code\Input\InputMapper.cs" />

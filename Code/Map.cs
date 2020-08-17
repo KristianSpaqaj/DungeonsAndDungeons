@@ -35,8 +35,21 @@ namespace DungeonsAndDungeons
 
         private void ParseRooms()
         {
-            int x, y, height, width;
+            int x = 0;
+            int y = 0;
+            int height = 0;
+            int width = 0;
             bool parsingInProgress = true;
+
+            for(int i = y+1; i < Height; i++)
+            {
+                for (int j = x + 1; j < Width; j++)
+                {
+
+                }
+
+            }
+
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
