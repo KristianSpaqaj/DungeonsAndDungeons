@@ -109,7 +109,6 @@ namespace DungeonsAndDungeons
             GameContext.GameTime = gameTime;
             TimeTracker.GameTime = gameTime;
             InputProcessor.ProcessInput();
-            
 
             if (InputState.HasAction("RELOAD_GAME"))
             {
