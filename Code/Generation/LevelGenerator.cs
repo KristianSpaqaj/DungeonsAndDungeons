@@ -123,7 +123,7 @@ namespace DungeonsAndDungeons.Generation
             int x = RandomGenerator.Next(0, Map.Width-1);
             int y = RandomGenerator.Next(0, Map.Height-1);
 
-            while (Map.IsOutOfBounds(x, y))
+            while (!Map.IsValid(x, y))
             {
                 x = RandomGenerator.Next(0, Map.Width);
                 y = RandomGenerator.Next(0, Map.Height);
