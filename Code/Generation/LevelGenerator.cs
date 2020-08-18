@@ -43,13 +43,14 @@ namespace DungeonsAndDungeons.Generation
 
             RandomGenerator = new Random(levelSeed);
 
-
-
-            Map = GenerateMap();
+            MapGenerator mg = new MapGenerator(5,7);
+            Map = new TexturedMap(mg.DungeonGenerator.ToTiles(),Textures);
             Items = GenerateItems();
             Entities = GenerateEntities();
 
-            Player player = new Player(new Vector2(17.5f, 3.5f),
+            var StartingPoint = mg.DungeonGenerator.PathPoints[0];
+
+            Player player = new Player(new Vector2(StartingPoint.x+0.5f, StartingPoint.y+0.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,
                                       new Item[] { }),
@@ -58,26 +59,6 @@ namespace DungeonsAndDungeons.Generation
                                       new ActionPoints(2));
             return new Level(Map, Items, Entities, player);
 
-        }
-
-
-        private TexturedMap GenerateMap()
-        {
-            //MapGenerator mg = new MapGenerator(20,20);
-            //var tiles = mg.LeafsToTiles();
-
-            int[,] tiles = new int[,] {
-                { 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6},
-                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,4,4,4,4,7,4,4,4,4,2},
-                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
-                { 4,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,0,0,2},
-                { 4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3}
-            };
-
-            return new TexturedMap(tiles, Textures);
         }
 
 

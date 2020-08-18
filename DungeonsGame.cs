@@ -73,7 +73,6 @@ namespace DungeonsAndDungeons
             screen = new Texture2D(graphics.GraphicsDevice, renderer.ScreenWidth, renderer.ScreenHeight);
 
             LevelGenerator = new LevelGenerator(Content);
-            MapGenerator MapGenerator = new MapGenerator(20, 20);
             Level = LevelGenerator.Generate($"{SeedGenerator.Generate(4)}020300");
 
             camera = new Camera(Level.Player.Position, Level.Player.Direction, Configuration.Value<float>("fov"));
