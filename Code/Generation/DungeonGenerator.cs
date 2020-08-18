@@ -54,7 +54,10 @@ namespace DungeonsAndDungeons.Generation
                         {
                             if (i == Rooms[n].Position.y && Tiles[i, j] == 0)
                             {
-                                Tiles[i, j] = Rooms[n].Type;
+                                if (Tiles[Math.Max(0, i - 1), j] == 0)
+                                {
+                                    Tiles[i, j] = Rooms[n].Type;
+                                }
                             }
                             if (i == Rooms[n].Position.y + Rooms[n].Size.y - 1)
                             {
@@ -62,7 +65,10 @@ namespace DungeonsAndDungeons.Generation
                             }
                             if (j == Rooms[n].Position.x && Tiles[i, j] == 0)
                             {
-                                Tiles[i, j] = Rooms[n].Type;
+                                if (Tiles[i, Math.Max(0,j-1)] == 0)
+                                {
+                                    Tiles[i, j] = Rooms[n].Type;
+                                }
                             }
                             if (j == Rooms[n].Position.x + Rooms[n].Size.x - 1)
                             {
@@ -80,7 +86,10 @@ namespace DungeonsAndDungeons.Generation
                 var end = PathPoints[i + 1];
 
                 (int x, int y) direction = (end.x - start.x, end.y - start.y);
-                if (direction.x == 0 && direction.y == 0) { throw new InvalidDataException("Points cannot be identical"); }
+                if (direction.x == 0 && direction.y == 0)
+                {
+                    throw new InvalidDataException("Points cannot be identical");
+                }
 
                 if (direction.y == 0) //horizontal
                 {
