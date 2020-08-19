@@ -8,6 +8,6 @@ namespace DungeonsAndDungeons.Generation
 {
     public interface IGenerator<T>
     {
-        T Generate(Room room);
+        List<T> Generate(Room room, int count);
     }
 }

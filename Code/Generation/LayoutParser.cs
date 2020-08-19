@@ -24,6 +24,10 @@ namespace DungeonsAndDungeons.Generation
             Rooms = new List<Room>();
             Tiles = GenUtils.CreateEmptyMap(Layout.MapHeight * RoomHeight, Layout.MapWidth * RoomWidth);
             PathPoints = new List<(int y, int x)>();
+
+            ParseRooms();
+            ParseTiles();
+
         }
 
         private void ParseRooms()
@@ -148,24 +152,5 @@ namespace DungeonsAndDungeons.Generation
             return Tiles;
 
         }
-
-        public override string ToString()
-        {
-            string s = "";
-            int[,] Tiles = ToTiles();
-
-            for (int i = 0; i < Tiles.GetLength(0); i++)
-            {
-                for (int j = 0; j < Tiles.GetLength(1); j++)
-                {
-                    s += Tiles[i, j].ToString().PadRight(4);
-                }
-
-                s += "\n";
-            }
-
-            return s;
-        }
-
     }
 }

@@ -10,24 +10,29 @@ namespace DungeonsAndDungeons.Generation
 {
     class ItemGenerator : IGenerator<Item>
     {
-        public Item Generate(Room room)
+        public List<Sprite> Sprites { get; }
+        public ItemGenerator()
         {
-            List<Item> items = new List<Item>();
-            List<Sprite> sprites = new List<Sprite>
+            Sprites = new List<Sprite>
             {
                 new Sprite(ContentContainer.Manager.Load<Texture2D>("key")),
                 new Sprite(ContentContainer.Manager.Load<Texture2D>("knife"))
             };
+        }
 
-            int spriteIndex = new Random().Next(0, sprites.Count);
+        public List<Item> Generate(Room room, int count)
+        {
+            List<Item> items = new List<Item>();
 
-            for (int i = 0; i < 1; i++)
+            int spriteIndex = new Random().Next(0, Sprites.Count);
+
+            for (int i = 0; i < count; i++)
             {
                 Point position = room.RandomPosition();
-                items.Add(new Item(sprites[spriteIndex], new Vector2(position.X+0.5f,position.Y+0.5f)));
+                items.Add(new Item(Sprites[spriteIndex], new Vector2(position.X+0.5f,position.Y+0.5f)));
             }
 
-            return items[0];
+            return items;
         }
     }
 }

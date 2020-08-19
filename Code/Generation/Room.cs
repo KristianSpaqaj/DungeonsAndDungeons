@@ -15,6 +15,7 @@ namespace DungeonsAndDungeons.Generation
         public int Top { get; }
         public int Bottom { get; }
         public (int x, int y) Center { get; }
+        private ItemGenerator ItemGenerator { get; }
 
         public Room(int x, int y, int height, int width, int type)
         {
@@ -24,6 +25,8 @@ namespace DungeonsAndDungeons.Generation
             Bottom = y + height;
             Center = (Left + width / 2, Top + height / 2);
             Type = type;
+
+            ItemGenerator = new ItemGenerator();
         }
 
         public bool Contains(int x, int y)
@@ -38,6 +41,11 @@ namespace DungeonsAndDungeons.Generation
             int randY = r.Next(Top, Bottom-1);
 
             return new Point(randX, randY);
+        }
+
+        public List<Item> SpawnItems(int count)
+        {
+            return ItemGenerator.Generate(this, count);
         }
 
     }

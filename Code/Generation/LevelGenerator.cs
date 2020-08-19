@@ -49,13 +49,17 @@ namespace DungeonsAndDungeons.Generation
             MapGenerator mg = new MapGenerator(5, 7);
             Map = new TexturedMap(mg.LayoutParser.Tiles, mg.LayoutParser.Rooms, Textures);
             ItemGenerator ig = new ItemGenerator();
-            Items = new List<Item>() {
-                ig.Generate(Map.Rooms[RandomGenerator.Next(0, Map.Rooms.Count)]) };
+            Items = new List<Item>();
             Entities = new List<Entity>();
+
+            foreach(Room room in Map.Rooms)
+            {
+                Items.AddRange(room.SpawnItems(3));
+            }
 
             var StartingPoint = mg.LayoutParser.PathPoints[0];
 
-            Player player = new Player(new Vector2(StartingPoint.x+0.5f, StartingPoint.y+0.5f),
+            Player player = new Player(new Vector2(StartingPoint.x + 0.5f, StartingPoint.y + 0.5f),
                                       new Vector2(-1, 0),
                                       new Inventory(10,
                                       new Item[] { }),
