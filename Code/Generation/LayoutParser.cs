@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DungeonsAndDungeons.Generation
 {
-    public class DungeonGenerator
+    public class LayoutParser
     {
         private RoomLayout Layout { get; set; }
         private int RoomHeight { get; }
@@ -13,18 +13,22 @@ namespace DungeonsAndDungeons.Generation
         private int MapHeight => RoomHeight * Layout.NumberOfRooms;
         private int MapWidth => RoomWidth * Layout.NumberOfRooms;
         private List<Room> Rooms { get; set; }
+        public int[,] Tiles { get;}
         public List<(int y, int x)> PathPoints { get; }
 
-        public DungeonGenerator(RoomLayout layout, int roomHeight, int roomWidth)
+        public LayoutParser(RoomLayout layout, int roomHeight, int roomWidth)
         {
             Layout = layout;
             RoomHeight = roomHeight;
             RoomWidth = roomWidth;
             Rooms = new List<Room>();
             PathPoints = new List<(int y, int x)>();
+
+            Generate();
+            Tiles = ToTiles();
         }
 
-        public void Generate()
+        private void Generate()
         {
             for (int i = 0; i < Layout.MapHeight; i++)
             {

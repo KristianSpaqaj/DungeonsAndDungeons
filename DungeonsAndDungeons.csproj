@@ -47,7 +47,7 @@
     <Compile Include="Code\ActionPoints.cs" />
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
-    <Compile Include="Code\Generation\DungeonGenerator.cs" />
+    <Compile Include="Code\Generation\LayoutParser.cs" />
     <Compile Include="Code\Generation\GenericRoom.cs" />
     <Compile Include="Code\Generation\GenUtils.cs" />
     <Compile Include="Code\Generation\IGenerator.cs" />

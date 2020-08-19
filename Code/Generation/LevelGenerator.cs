@@ -44,11 +44,11 @@ namespace DungeonsAndDungeons.Generation
             RandomGenerator = new Random(levelSeed);
 
             MapGenerator mg = new MapGenerator(4,7);
-            Map = new TexturedMap(mg.DungeonGenerator.ToTiles(),Textures);
+            Map = new TexturedMap(mg.LayoutParser.Tiles,Textures);
             Items = GenerateItems();
             Entities = GenerateEntities();
 
-            var StartingPoint = mg.DungeonGenerator.PathPoints[0];
+            var StartingPoint = mg.LayoutParser.PathPoints[0];
 
             Player player = new Player(new Vector2(StartingPoint.x+0.5f, StartingPoint.y+0.5f),
                                       new Vector2(-1, 0),
