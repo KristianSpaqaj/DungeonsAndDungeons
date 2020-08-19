@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using DungeonsAndDungeons.Generation;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace DungeonsAndDungeons
     {
         public List<Sprite> Textures { get; }
 
-        public TexturedMap(int[,] tiles, List<Texture2D> textures) : base(tiles, 0,7)
+        public TexturedMap(int[,] tiles, List<Room> rooms, List<Texture2D> textures) : base(tiles, rooms, 0, 7)
         {
             Textures = new List<Sprite>();
 

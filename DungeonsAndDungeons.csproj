@@ -47,6 +47,8 @@
     <Compile Include="Code\ActionPoints.cs" />
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
+    <Compile Include="Code\ContentContainer.cs" />
+    <Compile Include="Code\Generation\ItemGenerator.cs" />
     <Compile Include="Code\Generation\LayoutParser.cs" />
     <Compile Include="Code\Generation\GenericRoom.cs" />
     <Compile Include="Code\Generation\GenUtils.cs" />
@@ -92,7 +94,6 @@
     <Compile Include="Code\MouseInfo.cs" />
     <Compile Include="Code\Range.cs" />
     <Compile Include="Code\Ray.cs" />
-    <Compile Include="Code\Room.cs" />
     <Compile Include="Code\Generation\SeedGenerator.cs" />
     <Compile Include="Code\TexturedMap.cs" />
     <Compile Include="Code\Entities\Monster.cs" />

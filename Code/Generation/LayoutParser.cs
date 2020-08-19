@@ -12,7 +12,7 @@ namespace DungeonsAndDungeons.Generation
         private int RoomWidth { get; }
         private int MapHeight => RoomHeight * Layout.NumberOfRooms;
         private int MapWidth => RoomWidth * Layout.NumberOfRooms;
-        private List<Room> Rooms { get; set; }
+        public List<Room> Rooms { get; private set; }
         public int[,] Tiles { get;}
         public List<(int y, int x)> PathPoints { get; }
 
@@ -22,13 +22,11 @@ namespace DungeonsAndDungeons.Generation
             RoomHeight = roomHeight;
             RoomWidth = roomWidth;
             Rooms = new List<Room>();
+            Tiles = GenUtils.CreateEmptyMap(Layout.MapHeight * RoomHeight, Layout.MapWidth * RoomWidth);
             PathPoints = new List<(int y, int x)>();
-
-            Generate();
-            Tiles = ToTiles();
         }
 
-        private void Generate()
+        private void ParseRooms()
         {
             for (int i = 0; i < Layout.MapHeight; i++)
             {
@@ -43,40 +41,38 @@ namespace DungeonsAndDungeons.Generation
             }
         }
 
-        public int[,] ToTiles()
+        private int[,] ParseTiles()
         {
-            int[,] Tiles = GenUtils.CreateEmptyMap(Layout.MapHeight * RoomHeight, Layout.MapWidth * RoomWidth);
-            for (int n = 0; n < Rooms.Count; n++)
+            foreach(Room room in Rooms)
             {
-                if (Rooms[n].Type != 0)
+                if (room.Type != 0)
                 {
-                    int pad = 0;
-                    PathPoints.Add(Rooms[n].Center);
-                    for (int i = Rooms[n].Top; i < Rooms[n].Bottom; i++)
+                    PathPoints.Add(room.Center);
+                    for (int i = room.Top; i < room.Bottom; i++)
                     {
-                        for (int j = Rooms[n].Left; j < Rooms[n].Right; j++)
+                        for (int j = room.Left; j < room.Right; j++)
                         {
-                            if (i == Rooms[n].Top && Tiles[i, j] == 0)
+                            if (i == room.Top && Tiles[i, j] == 0)
                             {
                                 if (Tiles[Math.Max(0, i - 1), j] == 0)
                                 {
-                                    Tiles[i, j] = Rooms[n].Type;
+                                    Tiles[i, j] = room.Type;
                                 }
                             }
-                            if (i == Rooms[n].Bottom - 1)
+                            if (i == room.Bottom - 1)
                             {
-                                Tiles[i, j] = Rooms[n].Type;
+                                Tiles[i, j] = room.Type;
                             }
-                            if (j == Rooms[n].Left && Tiles[i, j] == 0)
+                            if (j == room.Left && Tiles[i, j] == 0)
                             {
                                 if (Tiles[i, Math.Max(0,j-1)] == 0)
                                 {
-                                    Tiles[i, j] = Rooms[n].Type;
+                                    Tiles[i, j] = room.Type;
                                 }
                             }
-                            if (j == Rooms[n].Right - 1)
+                            if (j == room.Right - 1)
                             {
-                                Tiles[i, j] = Rooms[n].Type;
+                                Tiles[i, j] = room.Type;
                             }
                         }
                     }

@@ -41,7 +41,7 @@ namespace DungeonsAndDungeons
         private SpriteFont defaultFont;
         private JObject Configuration { get; set; }
         public double TimePassed { get; private set; }
-
+        
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
 
@@ -55,6 +55,7 @@ namespace DungeonsAndDungeons
             TimeTracker.Initialize(new GameTime());
             IdleTurnProcessor = new IdleTurnProcessor();
             CombatTurnProcessor = new CombatTurnProcessor();
+            ContentContainer.Initialize(Content);
         }
 
         protected override void Initialize()

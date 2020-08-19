@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons.Generation
 {
-    interface IGenerator<T>
+    public interface IGenerator<T>
     {
-        T Generate();
+        T Generate(Room room);
     }
 }

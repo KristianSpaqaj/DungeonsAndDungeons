@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Entities;
+using DungeonsAndDungeons.Generation;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections;
@@ -20,36 +21,17 @@ namespace DungeonsAndDungeons
 
         public bool IsSynchronized => Tiles.IsSynchronized;
 
-        public Map(T[,] tiles, T empty, T doorTile)
+        public Map(T[,] tiles, List<Room> rooms, T empty, T doorTile)
         {
             Tiles = tiles;
+            Rooms = rooms;
             EmptyTile = empty;
             DoorTile = doorTile;
-            ParseRooms();
         }
 
         public bool AreInSameRoom(Entity entity, params Entity[] entities)
         {
             return true;
-        }
-
-        private void ParseRooms()
-        {
-            int x = 0;
-            int y = 0;
-            int height = 0;
-            int width = 0;
-            bool parsingInProgress = true;
-
-            for(int i = y+1; i < Height; i++)
-            {
-                for (int j = x + 1; j < Width; j++)
-                {
-
-                }
-
-            }
-
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
@@ -84,8 +66,8 @@ namespace DungeonsAndDungeons
 
         public T this[int x, int y]
         {
-            get => Tiles[y,x];
-            set => Tiles[y,x] = value;
+            get => Tiles[y, x];
+            set => Tiles[y, x] = value;
         }
     }
 }

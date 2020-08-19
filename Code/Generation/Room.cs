@@ -1,7 +1,7 @@
 ﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Reflection.Emit;
 using System.Text;
 
@@ -25,5 +25,20 @@ namespace DungeonsAndDungeons.Generation
             Center = (Left + width / 2, Top + height / 2);
             Type = type;
         }
+
+        public bool Contains(int x, int y)
+        {
+            return x >= Left && x <= Right && y >= Top && y <= Bottom;
+        }
+
+        public Point RandomPosition()
+        {
+            Random r = new Random();
+            int randX = r.Next(Left, Right-1);
+            int randY = r.Next(Top, Bottom-1);
+
+            return new Point(randX, randY);
+        }
+
     }
 }
