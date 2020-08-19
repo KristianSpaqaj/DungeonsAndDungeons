@@ -32,7 +32,7 @@ namespace DungeonsAndDungeons.Generation
                 {
                     if (Layout.Tiles[i, j] != 0)
                     {
-                        Room room = new Room((i * RoomHeight, j * RoomWidth), (RoomHeight, RoomWidth), Layout.Tiles[i, j]);
+                        Room room = new Room(j * RoomHeight, i * RoomWidth, RoomHeight, RoomWidth, Layout.Tiles[i, j]);
                         Rooms.Add(room);
                     }
                 }
@@ -47,30 +47,30 @@ namespace DungeonsAndDungeons.Generation
                 if (Rooms[n].Type != 0)
                 {
                     int pad = 0;
-                    PathPoints.Add((Rooms[n].Position.y + Rooms[n].Size.y / 2, Rooms[n].Position.x + Rooms[n].Size.x / 2));
-                    for (int i = Rooms[n].Position.y; i < Rooms[n].Position.y + Rooms[n].Size.y; i++)
+                    PathPoints.Add(Rooms[n].Center);
+                    for (int i = Rooms[n].Top; i < Rooms[n].Bottom; i++)
                     {
-                        for (int j = Rooms[n].Position.x; j < Rooms[n].Position.x + Rooms[n].Size.x; j++)
+                        for (int j = Rooms[n].Left; j < Rooms[n].Right; j++)
                         {
-                            if (i == Rooms[n].Position.y && Tiles[i, j] == 0)
+                            if (i == Rooms[n].Top && Tiles[i, j] == 0)
                             {
                                 if (Tiles[Math.Max(0, i - 1), j] == 0)
                                 {
                                     Tiles[i, j] = Rooms[n].Type;
                                 }
                             }
-                            if (i == Rooms[n].Position.y + Rooms[n].Size.y - 1)
+                            if (i == Rooms[n].Bottom - 1)
                             {
                                 Tiles[i, j] = Rooms[n].Type;
                             }
-                            if (j == Rooms[n].Position.x && Tiles[i, j] == 0)
+                            if (j == Rooms[n].Left && Tiles[i, j] == 0)
                             {
                                 if (Tiles[i, Math.Max(0,j-1)] == 0)
                                 {
                                     Tiles[i, j] = Rooms[n].Type;
                                 }
                             }
-                            if (j == Rooms[n].Position.x + Rooms[n].Size.x - 1)
+                            if (j == Rooms[n].Right - 1)
                             {
                                 Tiles[i, j] = Rooms[n].Type;
                             }

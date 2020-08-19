@@ -7,14 +7,20 @@ namespace DungeonsAndDungeons.Generation
 {
     class Room
     {
-        public (int y,int x) Position { get; set; }
-        public (int y, int x) Size { get; set; }
         public int Type { get; }
+        public int Left { get; }
+        public int Right { get; }
+        public int Top { get; }
+        public int Bottom { get; }
+        public (int x, int y) Center { get; }
 
-        public Room((int y, int x) position, (int y, int x) size, int type)
+        public Room(int x, int y, int height, int width, int type)
         {
-            Position = position;
-            Size = size;
+            Left = x;
+            Right = x + width;
+            Top = y;
+            Bottom = y + height;
+            Center = (Left + width / 2, Top + height / 2);
             Type = type;
         }
     }
