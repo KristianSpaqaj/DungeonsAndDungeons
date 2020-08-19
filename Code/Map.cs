@@ -9,7 +9,7 @@ namespace DungeonsAndDungeons
 {
     public class Map<T> : ICollection where T : IComparable
     {
-        public T[,] Tiles { get; set; }
+        protected T[,] Tiles { get; set; }
         public T EmptyTile { get; }
         public T DoorTile { get; }
         public List<Room> Rooms { get; }
@@ -82,10 +82,10 @@ namespace DungeonsAndDungeons
             set => this[(int)pos.Y, (int)pos.X] = value;
         }
 
-        public T this[int i, int j]
+        public T this[int x, int y]
         {
-            get => Tiles[i,j];
-            set => Tiles[i,j] = value;
+            get => Tiles[y,x];
+            set => Tiles[y,x] = value;
         }
     }
 }

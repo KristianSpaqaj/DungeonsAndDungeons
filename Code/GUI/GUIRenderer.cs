@@ -43,11 +43,11 @@ namespace DungeonsAndDungeons.GUI
             {
                 for (int j = 0; j < level.Map.Width; j++)
                 {
-                    if (level.Map.Tiles[i,j] == 0)
+                    if (level.Map[j,i] == 0)
                     {
                         squareColor = Color.Black;
                     }
-                    else if(level.Map.Tiles[i,j] == level.Map.DoorTile)
+                    else if(level.Map[j,i] == level.Map.DoorTile)
                     {
                         squareColor = Color.Red;
                     }else

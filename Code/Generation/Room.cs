@@ -1,11 +1,13 @@
-﻿using System;
+﻿using DungeonsAndDungeons.Entities;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace DungeonsAndDungeons.Generation
 {
-    class Room
+    public abstract class Room
     {
         public int Type { get; }
         public int Left { get; }

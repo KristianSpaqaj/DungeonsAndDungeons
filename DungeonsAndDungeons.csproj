@@ -48,7 +48,9 @@
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
     <Compile Include="Code\Generation\DungeonGenerator.cs" />
+    <Compile Include="Code\Generation\GenericRoom.cs" />
     <Compile Include="Code\Generation\GenUtils.cs" />
+    <Compile Include="Code\Generation\IGenerator.cs" />
     <Compile Include="Code\Generation\Room.cs" />
     <Compile Include="Code\Generation\RoomLayout.cs" />
     <Compile Include="Code\Generation\RoomLayoutGenerator.cs" />

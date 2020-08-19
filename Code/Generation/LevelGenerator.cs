@@ -43,7 +43,7 @@ namespace DungeonsAndDungeons.Generation
 
             RandomGenerator = new Random(levelSeed);
 
-            MapGenerator mg = new MapGenerator(5,7);
+            MapGenerator mg = new MapGenerator(4,7);
             Map = new TexturedMap(mg.DungeonGenerator.ToTiles(),Textures);
             Items = GenerateItems();
             Entities = GenerateEntities();

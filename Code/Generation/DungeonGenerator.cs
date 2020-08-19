@@ -32,7 +32,7 @@ namespace DungeonsAndDungeons.Generation
                 {
                     if (Layout.Tiles[i, j] != 0)
                     {
-                        Room room = new Room(j * RoomHeight, i * RoomWidth, RoomHeight, RoomWidth, Layout.Tiles[i, j]);
+                        Room room = new GenericRoom(j * RoomHeight, i * RoomWidth, RoomHeight, RoomWidth, Layout.Tiles[i, j]);
                         Rooms.Add(room);
                     }
                 }
