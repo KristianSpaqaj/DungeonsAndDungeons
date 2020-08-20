@@ -50,7 +50,7 @@ namespace DungeonsAndDungeons.Generation
                 CreateRoom();
             }
 
-            return new RoomLayout(Map, NumberOfRooms);
+            return new RoomLayout(Map);
         }
 
 

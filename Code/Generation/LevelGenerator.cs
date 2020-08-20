@@ -46,8 +46,15 @@ namespace DungeonsAndDungeons.Generation
 
             RandomGenerator = new Random(levelSeed);
 
-            MapGenerator mg = new MapGenerator(5, 7);
-            Map = new TexturedMap(mg.LayoutParser.Tiles, mg.LayoutParser.Rooms, Textures);
+            //MapGenerator mg = new MapGenerator(5, 7);
+            RoomLayout layout = new RoomLayout(new int[,]{
+                { 1,2,2 },
+                { 2,3,2 },
+                { 2,2,4 }
+            });
+
+            LayoutParser parser = new LayoutParser(layout, 5, 5);
+            Map = new TexturedMap(parser.Tiles,parser.Rooms, Textures);
             ItemGenerator ig = new ItemGenerator();
             Items = new List<Item>();
             Entities = new List<Entity>();
@@ -65,8 +72,6 @@ namespace DungeonsAndDungeons.Generation
                     Entities.AddRange(room.SpawnEntities());
                 }
             }
-
-            var StartingPoint = mg.LayoutParser.PathPoints[0];
 
             return new Level(Map, Items, Entities, player);
 

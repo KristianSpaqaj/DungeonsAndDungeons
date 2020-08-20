@@ -12,10 +12,9 @@ namespace DungeonsAndDungeons.Generation
         public int MapHeight { get; set; }
         public int MapWidth { get; set; }
 
-        public RoomLayout(int[,] map, int numberOfRooms)
+        public RoomLayout(int[,] map)
         {
             Map = map;
-            NumberOfRooms = numberOfRooms;
             MapHeight = Map.GetLength(0);
             MapWidth = Map.GetLength(1);
             Tiles = map;
