@@ -17,7 +17,7 @@ namespace DungeonsAndDungeons.Generation
 
         public override List<Entity> SpawnEntities()
         {
-            throw new NotImplementedException();
+            return EntityGenerator.Generate(this, 1);
         }
 
         public override List<Item> SpawnItems()

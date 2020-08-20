@@ -48,6 +48,7 @@
     <Compile Include="Code\Adventure.cs" />
     <Compile Include="Code\Camera.cs" />
     <Compile Include="Code\ContentContainer.cs" />
+    <Compile Include="Code\Generation\EntityGenerator.cs" />
     <Compile Include="Code\Generation\ItemGenerator.cs" />
     <Compile Include="Code\Generation\LayoutParser.cs" />
     <Compile Include="Code\Generation\GenericRoom.cs" />

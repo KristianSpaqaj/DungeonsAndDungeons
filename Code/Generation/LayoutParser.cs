@@ -10,8 +10,6 @@ namespace DungeonsAndDungeons.Generation
         private RoomLayout Layout { get; set; }
         private int RoomHeight { get; }
         private int RoomWidth { get; }
-        private int MapHeight => RoomHeight * Layout.NumberOfRooms;
-        private int MapWidth => RoomWidth * Layout.NumberOfRooms;
         public List<Room> Rooms { get; private set; }
         public int[,] Tiles { get;}
         public List<(int y, int x)> PathPoints { get; }

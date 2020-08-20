@@ -1,4 +1,5 @@
 ﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
@@ -15,7 +16,15 @@ namespace DungeonsAndDungeons.Generation
 
         public override List<Entity> SpawnEntities()
         {
-            throw new NotImplementedException();
+            Player player = new Player(new Vector2(Center.x + 0.5f, Center.y + 0.5f),
+                                      new Vector2(-1, 0),
+                                      new Inventory(10,
+                                      new Item[] { }),
+                                      new Health(100),
+                                      new List<Sprite>() { },
+                                      new ActionPoints(2));
+
+            return new List<Entity>() { player };
         }
 
         public override List<Item> SpawnItems()

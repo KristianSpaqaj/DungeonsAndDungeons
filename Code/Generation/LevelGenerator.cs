@@ -51,42 +51,27 @@ namespace DungeonsAndDungeons.Generation
             ItemGenerator ig = new ItemGenerator();
             Items = new List<Item>();
             Entities = new List<Entity>();
+            Player player = null;
 
-            foreach(Room room in Map.Rooms)
+            foreach (Room room in Map.Rooms)
             {
                 Items.AddRange(room.SpawnItems());
+                if(room is StartRoom)
+                {
+                    player = (Player)room.SpawnEntities()[0];
+                }
+                else
+                {
+                    Entities.AddRange(room.SpawnEntities());
+                }
             }
 
             var StartingPoint = mg.LayoutParser.PathPoints[0];
 
-            Player player = new Player(new Vector2(StartingPoint.x + 0.5f, StartingPoint.y + 0.5f),
-                                      new Vector2(-1, 0),
-                                      new Inventory(10,
-                                      new Item[] { }),
-                                      new Health(100),
-                                      new List<Sprite>() { },
-                                      new ActionPoints(2));
             return new Level(Map, Items, Entities, player);
 
         }
 
-
-        //private List<Entity> GenerateEntities()
-        //{
-        //    List<Entity> entities = new List<Entity>();
-        //    Monster prototype = new Monster(new Vector2(8.5f, 2.5f),
-        //                        new Vector2(-1, 0),
-        //                        new Inventory(10),
-        //                        new Health(100),
-        //                        new List<Sprite>() { new Sprite(Manager.Load<Texture2D>("demon")) },
-        //                        new ActionPoints(2));
-
-        //    for (int i = 0; i < NumberOfEntities; i++)
-        //    {
-        //        entities.Add(new Monster(GeneratePosition(), prototype.Direction, prototype.Inventory, prototype.Health, prototype.Stances, prototype.ActionPoints));
-        //    }
-
-        //    return entities;
-        //}
     }
+
 }

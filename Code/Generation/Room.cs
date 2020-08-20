@@ -16,6 +16,7 @@ namespace DungeonsAndDungeons.Generation
         public int Bottom { get; }
         public (int x, int y) Center { get; }
         protected ItemGenerator ItemGenerator { get; }
+        protected EntityGenerator EntityGenerator { get; }
 
         public Room(int x, int y, int height, int width)
         {
@@ -26,6 +27,7 @@ namespace DungeonsAndDungeons.Generation
             Center = (Left + width / 2, Top + height / 2);
 
             ItemGenerator = new ItemGenerator();
+            EntityGenerator = new EntityGenerator();
         }
 
         public bool Contains(int x, int y)
