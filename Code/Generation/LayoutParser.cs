@@ -38,7 +38,7 @@ namespace DungeonsAndDungeons.Generation
                 {
                     if (Layout.Tiles[i, j] != 0)
                     {
-                        Room room = new GenericRoom(j * RoomHeight, i * RoomWidth, RoomHeight, RoomWidth, Layout.Tiles[i, j]);
+                        Room room = RoomFactory.Generate(Layout.Tiles[i,j], j * RoomHeight, i * RoomWidth, RoomHeight, RoomWidth);
                         Rooms.Add(room);
                     }
                 }
@@ -60,23 +60,23 @@ namespace DungeonsAndDungeons.Generation
                             {
                                 if (Tiles[Math.Max(0, i - 1), j] == 0)
                                 {
-                                    Tiles[i, j] = room.Type;
+                                    Tiles[i, j] = (int)room.Type;
                                 }
                             }
                             if (i == room.Bottom - 1)
                             {
-                                Tiles[i, j] = room.Type;
+                                Tiles[i, j] = (int)room.Type;
                             }
                             if (j == room.Left && Tiles[i, j] == 0)
                             {
                                 if (Tiles[i, Math.Max(0,j-1)] == 0)
                                 {
-                                    Tiles[i, j] = room.Type;
+                                    Tiles[i, j] = (int)room.Type;
                                 }
                             }
                             if (j == room.Right - 1)
                             {
-                                Tiles[i, j] = room.Type;
+                                Tiles[i, j] = (int)room.Type;
                             }
                         }
                     }

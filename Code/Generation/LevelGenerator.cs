@@ -54,7 +54,7 @@ namespace DungeonsAndDungeons.Generation
 
             foreach(Room room in Map.Rooms)
             {
-                Items.AddRange(room.SpawnItems(3));
+                Items.AddRange(room.SpawnItems());
             }
 
             var StartingPoint = mg.LayoutParser.PathPoints[0];

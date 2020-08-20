@@ -9,6 +9,21 @@ namespace DungeonsAndDungeons.Generation
 {
     public class GenericRoom : Room
     {
-        public GenericRoom(int x, int y, int height, int width, int type) : base(x, y, height, width, type){}
+        public GenericRoom(int x, int y, int height, int width) : base(x, y, height, width)
+        {
+        }
+
+        public override RoomType Type => RoomType.GENERIC_ROOM;
+
+        public override List<Entity> SpawnEntities()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override List<Item> SpawnItems()
+        {
+            Random random = new Random();
+            return ItemGenerator.Generate(this,random.Next(0,2));
+        }
     }
 }

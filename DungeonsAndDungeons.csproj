@@ -54,8 +54,11 @@
     <Compile Include="Code\Generation\GenUtils.cs" />
     <Compile Include="Code\Generation\IGenerator.cs" />
     <Compile Include="Code\Generation\Room.cs" />
+    <Compile Include="Code\Generation\RoomFactory.cs" />
     <Compile Include="Code\Generation\RoomLayout.cs" />
     <Compile Include="Code\Generation\RoomLayoutGenerator.cs" />
+    <Compile Include="Code\Generation\RoomType.cs" />
+    <Compile Include="Code\Generation\StartRoom.cs" />
     <Compile Include="Code\TurnProcessors\CombatTurnProcessor.cs" />
     <Compile Include="Code\CommandFactory.cs" />
     <Compile Include="Code\Commands\ChangeInventorySlotCommand.cs" />

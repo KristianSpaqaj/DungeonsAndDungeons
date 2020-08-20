@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace DungeonsAndDungeons.Generation
 {
-    class ItemGenerator : IGenerator<Item>
+    public class ItemGenerator : IGenerator<Item>
     {
-        public List<Sprite> Sprites { get; }
+        private List<Sprite> Sprites { get; }
         public ItemGenerator()
         {
             Sprites = new List<Sprite>
