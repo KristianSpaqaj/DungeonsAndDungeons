@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
+using System.Linq;
 
 namespace DungeonsAndDungeons
 {
@@ -31,7 +32,39 @@ namespace DungeonsAndDungeons
 
         public bool AreInSameRoom(Entity entity, params Entity[] entities)
         {
-            return true;
+            int x = (int)entity.Position.X;
+            int y = (int)entity.Position.Y;
+            Room room = GetRoomAtPosition(x, y);
+            if(room == null)
+            {
+                return false;
+            }
+            else
+            {
+                foreach(Entity ent in entities)
+                {
+                    if (room.Contains((int)ent.Position.X, (int)ent.Position.Y))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
+        public Room GetRoomAtPosition(int x, int y)
+        {
+            foreach(Room room in Rooms)
+            {
+                if (room.Contains(x, y))
+                {
+                    return room;
+                }
+            }
+
+            return null;
         }
 
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
@@ -60,8 +93,8 @@ namespace DungeonsAndDungeons
 
         public T this[Vector2 pos]
         {
-            get => this[(int)pos.Y, (int)pos.X];
-            set => this[(int)pos.Y, (int)pos.X] = value;
+            get => this[(int)Math.Floor(pos.X), (int)Math.Floor(pos.Y)];
+            set => this[(int)Math.Floor(pos.X), (int)Math.Floor(pos.Y)] = value;
         }
 
         public T this[int x, int y]

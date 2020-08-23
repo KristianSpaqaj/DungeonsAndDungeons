@@ -8,7 +8,7 @@ namespace DungeonsAndDungeons.TurnProcessors
 {
     class CombatTurnProcessor : TurnProcessor
     {
-        public CombatTurnProcessor() : base()
+        public CombatTurnProcessor() : base(0.25)
         {
             //InvalidCommands.Add(typeof(OpenDoorCommand));
         }

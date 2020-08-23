@@ -7,7 +7,7 @@ namespace DungeonsAndDungeons.TurnProcessors
 {
     public class IdleTurnProcessor : TurnProcessor
     {
-        public IdleTurnProcessor() : base(0.25)
+        public IdleTurnProcessor() : base(0)
         {
         }
     }

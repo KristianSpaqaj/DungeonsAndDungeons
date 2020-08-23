@@ -1,4 +1,7 @@
 ﻿using DungeonsAndDungeons.Entities;
+using Microsoft.Xna.Framework;
+using System;
+using System.Dynamic;
 
 namespace DungeonsAndDungeons.Commands
 {
@@ -15,7 +18,8 @@ namespace DungeonsAndDungeons.Commands
 
         public override bool CanRun()
         {
-            return Level.Map[Creator.Position + Creator.Direction] == Level.Map.DoorTile;
+            int tile = Level.Map[Creator.Position+Creator.Direction];
+            return tile == Level.Map.DoorTile;
         }
     }
 }
