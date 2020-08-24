@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace DungeonsAndDungeons.Generation
 {
@@ -46,24 +47,19 @@ namespace DungeonsAndDungeons.Generation
 
             RandomGenerator = new Random(levelSeed);
 
-            //MapGenerator mg = new MapGenerator(5, 7);
-            RoomLayout layout = new RoomLayout(new int[,]{
-                { 1,2,2 },
-                { 2,3,2 },
-                { 2,2,4 }
-            });
 
-            LayoutParser parser = new LayoutParser(layout, 5, 5);
-            Map = new TexturedMap(parser.Tiles,parser.Rooms, Textures);
+            Mapbuilder builder = new Mapbuilder(25,25, 4, new Size(3,3), new Size(6,6), new Range<int>(1,2), 7, 2, 2, 3);
+            builder.BuildStartRoom();
+            Map = new TexturedMap(builder.map,builder.Rooms, Textures);
             ItemGenerator ig = new ItemGenerator();
             Items = new List<Item>();
             Entities = new List<Entity>();
-            Player player = null;
+            Player player = (Player)builder.StartRoom.SpawnEntities()[0];
 
             foreach (Room room in Map.Rooms)
             {
                 Items.AddRange(room.SpawnItems());
-                if(room is StartRoom)
+                if (room is StartRoom)
                 {
                     player = (Player)room.SpawnEntities()[0];
                 }

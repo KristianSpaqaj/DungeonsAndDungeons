@@ -41,7 +41,7 @@ namespace DungeonsAndDungeons
         private SpriteFont defaultFont;
         private JObject Configuration { get; set; }
         public double TimePassed { get; private set; }
-        
+
         private Camera camera;
         const string ConfigDirectory = "../../../../Config"; //todo find way of autoamically determining this
 
@@ -136,14 +136,7 @@ namespace DungeonsAndDungeons
                 TimePassed = GameContext.GameTime.TotalGameTime.TotalSeconds;
             }
 
-            if (Level.Map.AreInSameRoom(Level.Player, Level.Entities.ToArray()))
-            {
-                CombatTurnProcessor.RunCurrentTurn(Level, GameContext);
-            }
-            else
-            {
-                IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
-            }
+            IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
 
 
             camera.Position = Level.Player.Position;

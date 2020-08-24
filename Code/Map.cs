@@ -30,43 +30,6 @@ namespace DungeonsAndDungeons
             DoorTile = doorTile;
         }
 
-        public bool AreInSameRoom(Entity entity, params Entity[] entities)
-        {
-            int x = (int)entity.Position.X;
-            int y = (int)entity.Position.Y;
-            Room room = GetRoomAtPosition(x, y);
-            if(room == null)
-            {
-                return false;
-            }
-            else
-            {
-                foreach(Entity ent in entities)
-                {
-                    if (room.Contains((int)ent.Position.X, (int)ent.Position.Y))
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-
-        public Room GetRoomAtPosition(int x, int y)
-        {
-            foreach(Room room in Rooms)
-            {
-                if (room.Contains(x, y))
-                {
-                    return room;
-                }
-            }
-
-            return null;
-        }
-
         public bool IsValid(int x, int y) => !IsOutOfBounds(x, y) && IsEmpty(x, y);
         public bool IsValid(Vector2 position)
         {

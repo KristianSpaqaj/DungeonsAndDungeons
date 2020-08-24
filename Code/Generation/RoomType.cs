@@ -2,8 +2,8 @@
 {
     public enum RoomType
     {
-        START_ROOM = 1,
-        GENERIC_ROOM = 2,
-        END_ROOM = 3
-    }
+        START_ROOM = 0,
+        GENERIC_ROOM = 1,
+        END_ROOM = 2
+    };
 }

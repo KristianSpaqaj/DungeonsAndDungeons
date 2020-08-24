@@ -50,14 +50,12 @@
     <Compile Include="Code\ContentContainer.cs" />
     <Compile Include="Code\Generation\EntityGenerator.cs" />
     <Compile Include="Code\Generation\ItemGenerator.cs" />
-    <Compile Include="Code\Generation\LayoutParser.cs" />
     <Compile Include="Code\Generation\GenericRoom.cs" />
     <Compile Include="Code\Generation\GenUtils.cs" />
     <Compile Include="Code\Generation\IGenerator.cs" />
+    <Compile Include="Code\Generation\Mapbuilder.cs" />
     <Compile Include="Code\Generation\Room.cs" />
     <Compile Include="Code\Generation\RoomFactory.cs" />
-    <Compile Include="Code\Generation\RoomLayout.cs" />
-    <Compile Include="Code\Generation\RoomLayoutGenerator.cs" />
     <Compile Include="Code\Generation\RoomType.cs" />
     <Compile Include="Code\Generation\StartRoom.cs" />
     <Compile Include="Code\TurnProcessors\CombatTurnProcessor.cs" />
@@ -94,7 +92,6 @@
     <Compile Include="Code\Level.cs" />
     <Compile Include="Code\Generation\LevelGenerator.cs" />
     <Compile Include="Code\Map.cs" />
-    <Compile Include="Code\Generation\MapGenerator.cs" />
     <Compile Include="Code\MouseInfo.cs" />
     <Compile Include="Code\Range.cs" />
     <Compile Include="Code\Ray.cs" />
