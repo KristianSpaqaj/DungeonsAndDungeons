@@ -138,9 +138,9 @@ namespace DungeonsAndDungeons
 
             IdleTurnProcessor.RunCurrentTurn(Level, GameContext);
 
-
             camera.Position = Level.Player.Position;
-            camera.SetDirection(Level.Player.Direction);
+            camera.Rotate(Level.Player.Angle);
+            Level.Player.Angle = 0;
 
             base.Update(gameTime);
         }

@@ -16,6 +16,7 @@ namespace DungeonsAndDungeons.Entities
         public Health Health { get; set; }
         public EntityState State { get; }
         public ActionPoints ActionPoints { get; set; }
+        public double Angle { get; set; }
 
         public Entity(Vector2 position, Vector2 direction, Inventory inventory, Health health, List<Sprite> stance, ActionPoints ap, EntityState state = EntityState.IDLE)
         {
@@ -27,6 +28,7 @@ namespace DungeonsAndDungeons.Entities
             StanceIndex = 0;
             State = state;
             ActionPoints = ap;
+            Angle = 0;
         }
 
         /// <summary>

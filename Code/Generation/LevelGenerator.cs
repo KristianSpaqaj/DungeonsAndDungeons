@@ -47,8 +47,7 @@ namespace DungeonsAndDungeons.Generation
 
             RandomGenerator = new Random(levelSeed);
 
-
-            Mapbuilder builder = new Mapbuilder(25,25, 4, new Size(3,3), new Size(6,6), new Range<int>(1,2), 7, 2, 2, 3);
+            Mapbuilder builder = new Mapbuilder(20,20, 4, new Size(3,3), new Size(5,5), new Range<int>(1,2), 7, 2, 2, 3);
             builder.BuildStartRoom();
             Map = new TexturedMap(builder.map,builder.Rooms, Textures);
             ItemGenerator ig = new ItemGenerator();

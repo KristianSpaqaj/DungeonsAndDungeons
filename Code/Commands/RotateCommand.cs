@@ -17,6 +17,7 @@ namespace DungeonsAndDungeons.Commands
         public override void Execute()
         {
             Creator.Direction = Rotation * Direction;
+            Creator.Angle = 90 * Direction;
         }
     }
 }

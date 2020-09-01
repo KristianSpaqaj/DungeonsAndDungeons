@@ -7,11 +7,11 @@
 
   "A": {
     "Action": "ROTATE_LEFT",
-    "TimeOut": 0.25
+    "TimeOut": 0.50
   },
   "S": {
     "Action": "MOVE_BACKWARD",
-    "TimeOut": 0.25
+    "TimeOut": 0.50
   },
   "D": {
     "Action": "ROTATE_RIGHT",
